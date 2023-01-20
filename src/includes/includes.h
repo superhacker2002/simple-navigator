@@ -6,7 +6,7 @@
 // note: incase if we wount need anything more
 // then matrix - change struct to using
 namespace s21 {
-  struct graph_data {
+  struct GraphData {
     Matrix<int> matrix;
     // smth else if needed
   };

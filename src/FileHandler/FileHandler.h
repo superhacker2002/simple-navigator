@@ -14,16 +14,17 @@ namespace s21 {
       FileHandler() {}
       ~FileHandler() {}
 
-      GraphData ParseFile(const std::string& filepath);
+      GraphData parseFile(const std::string& filepath);
+      void writeToFile(const std::string& filepath, const s21::GraphData& data);
       
     private:
       GraphData m_grph_data_;
       std::ifstream m_file_;
 
-      size_t GetGraphMatrixSize_();
-      void ParseLine_(const std::string& line, size_t j);
-      void MoveIter_(std::string::const_iterator& it);
-      bool IsNumber_(const char sym);
+      size_t getGraphMatrixSize_();
+      void parseLine_(const std::string& line, size_t j);
+      void moveIter_(std::string::const_iterator& it);
+      bool isNumber_(const char sym);
   };
   
 }

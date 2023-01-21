@@ -2,7 +2,7 @@
 #define SRC_GRAPH_H_
 
 #include <string>
-#include "../includes/includes.h"
+#include "../Includes/Includes.h"
 
 namespace s21 {
   class Graph {

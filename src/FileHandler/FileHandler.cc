@@ -1,7 +1,32 @@
 #include "FileHandler.h"
 
-void s21::FileHandler::writeToFile(const std::string& filepath, const s21::GraphData& data) {
+s21::FileHandler::FileHandler() {}
 
+s21::FileHandler::~FileHandler() {}
+
+void s21::FileHandler::writeToFile(const std::string& filepath, s21::GraphData& data) {
+  std::ofstream file(filepath);
+  if (file.is_open()) {
+    writeHeader_(file);
+    std::string 
+    for (size_t i = 0; i < data.matrix.GetRows(); ++i) {
+      for (size_t j = 0; j < data.matrix.GetCols(); ++j) {
+
+      }
+    }
+    writeFooter_(file);
+  } else {
+    throw std::invalid_argument(std::strerror(errno)\
+      + std::string("Write error. Can't open file for writing."));
+  }
+}
+
+void s21::FileHandler::writeHeader_(std::ofstream& file) {
+  file << "graph s21_graph_name {";
+}
+
+void s21::FileHandler::writeFooter_(std::ofstream& file) {
+  file << "}";
 }
 
 // should be called in a try-catch block
@@ -10,7 +35,6 @@ s21::GraphData s21::FileHandler::parseFile(const std::string& filepath) {
   std::string buffer;
   if (m_file_.is_open()) {
     if (!m_file_.eof()) {
-      // this func call may throw an exception!!!!
       size_t size = getGraphMatrixSize_();
       m_grph_data_.matrix = Matrix<int>(size, size);
     }

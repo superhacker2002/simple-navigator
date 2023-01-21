@@ -1,14 +1,20 @@
 #ifndef SRC_GRAPH_H_
 #define SRC_GRAPH_H_
 
-#include <string>
 #include "../Includes/Includes.h"
+#include "../FileHandler/FileHandler.h"
 
 namespace s21 {
   class Graph {
     public:
+      Graph();
+      ~Graph();
       GraphData loadGraphFromFile(const std::string& filename);
       void exportGraphToDot(const std::string& filename);
+
+    private:
+      FileHandler m_file_hndlr_;
+      GraphData m_data_;
 
   };
 }

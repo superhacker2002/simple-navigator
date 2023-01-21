@@ -11,12 +11,12 @@
 namespace s21 {
   class FileHandler {
     public:
-      FileHandler() {}
-      ~FileHandler() {}
+      FileHandler();
+      ~FileHandler();
 
       GraphData parseFile(const std::string& filepath);
-      void writeToFile(const std::string& filepath, const s21::GraphData& data);
-      
+      void writeToFile(const std::string& filepath, s21::GraphData& data);
+
     private:
       GraphData m_grph_data_;
       std::ifstream m_file_;
@@ -25,6 +25,8 @@ namespace s21 {
       void parseLine_(const std::string& line, size_t j);
       void moveIter_(std::string::const_iterator& it);
       bool isNumber_(const char sym);
+      void writeHeader_(std::ofstream& file);
+      void writeFooter_(std::ofstream& file);
   };
   
 }

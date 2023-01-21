@@ -23,6 +23,7 @@ namespace s21 {
       size_t GetGraphMatrixSize_();
       void ParseLine_(const std::string& line, size_t j);
       void MoveIter_(std::string::const_iterator& it);
+      bool IsNumber_(const char sym);
   };
   
 }

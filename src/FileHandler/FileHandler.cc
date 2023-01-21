@@ -15,7 +15,7 @@ s21::GraphData s21::FileHandler::ParseFile(const std::string& filepath) {
       getline(m_file_, buffer);
       ParseLine_(buffer, i);
     }
-    if (i != m_grph_data_.matrix.GetCols() - 1) {
+    if (i != m_grph_data_.matrix.GetCols()) {
       throw std::invalid_argument("Parse error : Incorrect file.");
     }
   } else {
@@ -36,7 +36,7 @@ void s21::FileHandler::ParseLine_(const std::string& line, size_t i) {
         + std::string(". Parse error : Can't parse line from file."));
     }
   }
-  if (j != m_grph_data_.matrix.GetRows() - 1) {
+  if (j != m_grph_data_.matrix.GetRows()) {
     throw std::invalid_argument("Parse error : Incorrect file.");
   }
 }
@@ -53,5 +53,10 @@ size_t s21::FileHandler::GetGraphMatrixSize_() {
 }
 
 void s21::FileHandler::MoveIter_(std::string::const_iterator& it) {
-  while (isnumber(*it)) { ++it; }
+  while (IsNumber_(*it)) ++it;
+  while (*it == ' ') ++it;
+}
+
+bool s21::FileHandler::IsNumber_(const char sym) {
+  return sym >= '0' && sym <= '9';
 }

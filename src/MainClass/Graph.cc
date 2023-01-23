@@ -10,8 +10,13 @@ s21::GraphData s21::Graph::loadGraphFromFile(const std::string& filepath) {
   } catch (const std::exception& exc) {
     std::cout << exc.what() << std::endl;
   }
+  return m_data_;
 }
 
 void s21::Graph::exportGraphToDot(const std::string& filepath) {
-  m_file_hndlr_.writeToFile(filepath, m_data_);
+  try {
+    m_file_hndlr_.writeToFile(filepath, m_data_);
+  } catch (const std::exception& exc) {
+    std:: cout << exc.what() << std::endl;
+  }
 }

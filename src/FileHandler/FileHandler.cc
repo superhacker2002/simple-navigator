@@ -8,10 +8,15 @@ void s21::FileHandler::writeToFile(const std::string& filepath, s21::GraphData& 
   std::ofstream file(filepath);
   if (file.is_open()) {
     writeHeader_(file);
-    std::string 
-    for (size_t i = 0; i < data.matrix.GetRows(); ++i) {
-      for (size_t j = 0; j < data.matrix.GetCols(); ++j) {
-
+    for (int i = 0; i < data.matrix.GetRows(); ++i) {
+      for (int j = 0; j < data.matrix.GetCols(); ++j) {
+        if (data.matrix.at(i, j) != 0) {
+          file << char('A' + (i > 25 ? i % 26 : i)) + std::to_string(i / 26) << \
+            " -- " << \
+            char('A' + (j > 25 ? j % 26 : j))  + std::to_string(j / 26) << \
+             std::string("[ label = \"") + std::to_string(data.matrix.at(i, j)) << \
+             "\"];\n";
+        }
       }
     }
     writeFooter_(file);
@@ -22,11 +27,11 @@ void s21::FileHandler::writeToFile(const std::string& filepath, s21::GraphData& 
 }
 
 void s21::FileHandler::writeHeader_(std::ofstream& file) {
-  file << "graph s21_graph_name {";
+  file << "graph s21_graph_name {\n";
 }
 
 void s21::FileHandler::writeFooter_(std::ofstream& file) {
-  file << "}";
+  file << "}\n";
 }
 
 // should be called in a try-catch block
@@ -38,7 +43,7 @@ s21::GraphData s21::FileHandler::parseFile(const std::string& filepath) {
       size_t size = getGraphMatrixSize_();
       m_grph_data_.matrix = Matrix<int>(size, size);
     }
-    size_t i = 0;
+    int i = 0;
     for (; i < m_grph_data_.matrix.GetCols() && !m_file_.eof(); ++i) {
       getline(m_file_, buffer);
       parseLine_(buffer, i);
@@ -54,7 +59,7 @@ s21::GraphData s21::FileHandler::parseFile(const std::string& filepath) {
 }
 
 void s21::FileHandler::parseLine_(const std::string& line, size_t i) {
-  size_t j = 0;
+  int j = 0;
   for (auto it = line.begin(); j < m_grph_data_.matrix.GetRows(); ++j) {
     try {
       m_grph_data_.matrix(i, j) = std::stoi(it.base());

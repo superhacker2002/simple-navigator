@@ -27,6 +27,8 @@ namespace s21 {
       bool isNumber_(const char sym);
       void writeHeader_(std::ofstream& file);
       void writeFooter_(std::ofstream& file);
+      const std::string getVertexName_(const int it);
+      const std::string getLabel_(const int value);
   };
   
 }

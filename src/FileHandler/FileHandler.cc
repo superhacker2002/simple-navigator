@@ -11,11 +11,10 @@ void s21::FileHandler::writeToFile(const std::string& filepath, s21::GraphData& 
     for (int i = 0; i < data.matrix.GetRows(); ++i) {
       for (int j = 0; j < data.matrix.GetCols(); ++j) {
         if (data.matrix.at(i, j) != 0) {
-          file << char('A' + (i > 25 ? i % 26 : i)) + std::to_string(i / 26) << \
-            " -- " << \
-            char('A' + (j > 25 ? j % 26 : j))  + std::to_string(j / 26) << \
-             std::string("[ label = \"") + std::to_string(data.matrix.at(i, j)) << \
-             "\"];\n";
+          file << getVertexName_(i)
+              << " -- "
+              << getVertexName_(j)
+              << getLabel_(data.matrix.at(i, j));
         }
       }
     }
@@ -24,6 +23,14 @@ void s21::FileHandler::writeToFile(const std::string& filepath, s21::GraphData& 
     throw std::invalid_argument(std::strerror(errno)\
       + std::string("Write error. Can't open file for writing."));
   }
+}
+
+const std::string s21::FileHandler::getVertexName_(const int it) {
+  return char('A' + (it > 25 ? it % 26 : it)) + std::to_string(it / 26);
+}
+
+const std::string s21::FileHandler::getLabel_(const int value) {
+  return std::string("[ label = \"") + std::to_string(value) + std::string("\"];\n");
 }
 
 void s21::FileHandler::writeHeader_(std::ofstream& file) {

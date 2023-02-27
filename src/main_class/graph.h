@@ -4,8 +4,6 @@
 #include "../helpers/includes.h"
 #include "file_handler/file_handler.h"
 
-
-
 namespace s21 {
   class Graph {
     public:

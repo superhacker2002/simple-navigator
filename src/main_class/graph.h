@@ -4,6 +4,8 @@
 #include "../helpers/includes.h"
 #include "file_handler/file_handler.h"
 
+
+
 namespace s21 {
   class Graph {
     public:
@@ -11,6 +13,7 @@ namespace s21 {
       ~Graph();
       GraphData loadGraphFromFile(const std::string& filename);
       void exportGraphToDot(const std::string& filename);
+    friend class GraphAlgorithms;
 
     private:
       FileHandler m_file_hndlr_;

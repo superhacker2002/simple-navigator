@@ -1,4 +1,4 @@
-#include "helpers/s21_list.h"
+#include "s21_list.h"
 
 namespace s21 {
 template <typename T, class Container = s21::List<T>>

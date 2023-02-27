@@ -1,7 +1,7 @@
 #ifndef SRC_GRAPH_H_
 #define SRC_GRAPH_H_
 
-#include "../hepers/includes.h"
+#include "../helpers/includes.h"
 #include "file_handler/file_handler.h"
 
 namespace s21 {

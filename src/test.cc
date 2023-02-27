@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include "main_class/graph.h"
+#include "algorithms_class/graph_algorithms.h"
 
 int main() {
   // for (int i = 0; i < 12; ++i) {
@@ -8,5 +9,8 @@ int main() {
   // }
   s21::Graph graph;
   graph.loadGraphFromFile("../datasets/sample2.txt");
+  for (auto it : s21::GraphAlgorithms::breadthFirstSearch(graph, 3)) {
+    std::cout << it << " ";
+  }
   graph.exportGraphToDot("graph.dot");
 }

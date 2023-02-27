@@ -7,6 +7,6 @@ int main() {
   //   std::cout << char('A' + (i > 25 ? i % 26 : i)) + std::to_string(i/26) << " ";
   // }
   s21::Graph graph;
-  graph.loadGraphFromFile("testdata/sample1.txt");
+  graph.loadGraphFromFile("../datasets/sample2.txt");
   graph.exportGraphToDot("graph.dot");
 }

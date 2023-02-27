@@ -17,6 +17,6 @@ void s21::Graph::exportGraphToDot(const std::string& filepath) {
   try {
     m_file_hndlr_.writeToFile(filepath, m_data_);
   } catch (const std::exception& exc) {
-    std:: cout << exc.what() << std::endl;
+    std::cout << exc.what() << std::endl;
   }
 }

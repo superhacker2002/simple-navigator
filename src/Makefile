@@ -6,14 +6,11 @@ SRC = file_handler/file_handler.cc \
 clean:
 	rm -rf a.out *.dot
 
-
 build:
 	$(CC) $(FLAGS) $(SRC)
 
-
 test: clean build
 	./a.out
-
 
 debug: clean
 	$(CC) $(FLAGS) -g $(SRC)

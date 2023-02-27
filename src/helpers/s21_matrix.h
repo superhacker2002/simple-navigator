@@ -38,9 +38,8 @@ class Matrix {
   void OutputMatrix() {
     for (int i = 0; i < rows_; ++i) {
       for (int j = 0; j < columns_; ++j) {
-        printf((matrix_[i][j] == true) ? "\033[41m  " : "\033[46m  ");
+        printf("%d", matrix_[i][j]);
       }
-      printf("\033[0m\n");
     }
   }
 

@@ -1,8 +1,8 @@
 #ifndef SRC_GRAPH_H_
 #define SRC_GRAPH_H_
 
-#include "../Includes/Includes.h"
-#include "../FileHandler/FileHandler.h"
+#include "../includes/includes.h"
+#include "../file_handler/file_handler.h"
 
 namespace s21 {
   class Graph {

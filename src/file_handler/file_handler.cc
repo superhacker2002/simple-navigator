@@ -1,4 +1,4 @@
-#include "FileHandler.h"
+#include "file_handler.h"
 
 s21::FileHandler::FileHandler() {}
 

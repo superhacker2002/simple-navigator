@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include "MainClass/Graph.h"
+#include "main_class/graph.h"
 
 int main() {
   // for (int i = 0; i < 12; ++i) {

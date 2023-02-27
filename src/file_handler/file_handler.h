@@ -1,7 +1,7 @@
 #ifndef SRC_PARSER_PARSER_H_
 #define SRC_PARSER_PARSER_H_
 
-#include "../Includes/Includes.h"
+#include "../includes/includes.h"
 #include <fstream>
 #include <stdexcept>
 

@@ -1,9 +1,10 @@
-CC=g++
-FLAGS=-Wall -Werror -Wextra
-SRC=FileHandler/FileHandler.cc MainClass/Graph.cc test.cc
+CC = gcc
+FLAGS = -Wall -Werror -Wextra -lstdc++ -std=c++17
+SRC = file_handler/file_handler.cc \
+ 	main_class/graph.cc test.cc
 
 clean:
-	rm -rf a.out
+	rm -rf a.out *.dot
 
 
 build:

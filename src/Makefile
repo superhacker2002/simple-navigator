@@ -1,6 +1,6 @@
 CC = gcc
 FLAGS = -Wall -Werror -Wextra -lstdc++ -std=c++17
-SRC = file_handler/file_handler.cc \
+SRC = main_class/file_handler/file_handler.cc \
  	main_class/graph.cc test.cc
 
 clean:

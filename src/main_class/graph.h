@@ -2,7 +2,7 @@
 #define SRC_GRAPH_H_
 
 #include "../hepers/includes.h"
-#include "../file_handler/file_handler.h"
+#include "file_handler/file_handler.h"
 
 namespace s21 {
   class Graph {

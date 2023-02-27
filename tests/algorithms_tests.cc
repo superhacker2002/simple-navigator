@@ -6,7 +6,7 @@ const std::vector<int> dfs_answer = {1, 2, 3, 5, 4};
 
 TEST(search_tests, DFS) {
   s21::Graph graph;
-  graph.loadGraphFromFile("datasets/sample2.txt");
+  graph.loadGraphFromFile("datasets/sample4.txt");
   s21::GraphAlgorithms algorithm;
   std::vector<int> result = algorithm.depthFirstSearch(graph);
   auto start = dfs_answer.begin();

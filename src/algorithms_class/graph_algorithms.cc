@@ -5,5 +5,4 @@ std::vector<int> s21::GraphAlgorithms::depthFirstSearch(Graph &graph, int startV
   std::vector<int> visited_nodes;
   s21::stack<int> not_visited_nodes;
   
-
 }

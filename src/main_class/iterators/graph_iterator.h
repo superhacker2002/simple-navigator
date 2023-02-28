@@ -74,6 +74,8 @@ class GraphIterator {
     }
     return *this;
   }
+  int get_curr_row() { return curr_row_; }
+  int get_curr_col() { return curr_col_; }
 
  protected:
   GraphIterator(s21::Matrix<T>* matrix, int i, int j)

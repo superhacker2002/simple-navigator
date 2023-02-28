@@ -19,7 +19,7 @@ public:
     using iterator = ListIterator<value_type>;
     using const_iterator = ConstListIterator<T>;
     using allocator_type = Allocator;
-    using allocator_rebind = typename allocator_type::template rebind<node_type>::other;
+    using allocator_rebind = typename std::allocator_traits<allocator_type>::template rebind_alloc<node_type>;
     using size_type = size_t;
 
 private:
@@ -332,16 +332,16 @@ private:
 
     node_pointer make_node(const_reference val) {
         node_pointer new_node = alloc_rebind_.allocate(1);
-        alloc_rebind_.construct(new_node, node_type());
+        std::allocator_traits<allocator_rebind>::construct(alloc_rebind_, new_node, node_type());
         new_node->data() = allocator_.allocate(1);
-        allocator_.construct(new_node->data(), val);
+        std::allocator_traits<allocator_type>::construct(allocator_, new_node->data(), val);
         return new_node;
     }
 
     void kill_node(node_pointer node) {
-        allocator_.destroy(node->data());
+        std::allocator_traits<allocator_type>::destroy(allocator_, node->data());
         allocator_.deallocate(node->data(), 1);
-        alloc_rebind_.destroy(node);
+        std::allocator_traits<allocator_rebind>::destroy(alloc_rebind_, node);
         alloc_rebind_.deallocate(node, 1);
     }
 

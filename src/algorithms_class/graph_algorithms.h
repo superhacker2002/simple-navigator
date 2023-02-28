@@ -2,7 +2,6 @@
 #define SRC_GRAPH_ALGORITHMS_H_
 
 #include "../main_class/graph.h"
-#include "../helpers/containers/s21_queue.h"
 #include <vector>
 #include <map>
 #include <algorithm>
@@ -17,7 +16,6 @@ namespace s21 {
       
       
       static std::vector<int> getShortestPathBetweenVertices(Graph &graph, int vertex1, int vertex2);
-
 
     private:
       static std::vector<int> getHeirsIndexes(const Graph& graph, int start_vertex);

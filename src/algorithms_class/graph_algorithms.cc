@@ -1,4 +1,13 @@
 #include "graph_algorithms.h"
+#include "../helpers/containers/s21_stack.h"
+#include "../helpers/containers/s21_queue.h"
+
+
+// std::vector<int> s21::GraphAlgorithms::depthFirstSearch(Graph &graph, int start_vertex) {
+//   std::vector<int> visited_vertices = {start_vertex};
+//   s21::Stack<int> not_visited_nodes;
+
+// }
 
 std::vector<int> s21::GraphAlgorithms::breadthFirstSearch(const Graph &graph, int start_vertex) {
     start_vertex--;

@@ -13,8 +13,8 @@ namespace s21 {
       ~Graph();
       void loadGraphFromFile(const std::string& filename);
       void exportGraphToDot(const std::string& filename);
-      iterator begin(int vertice);
-      iterator end(int vertice);
+      iterator begin();
+      iterator end();
     friend class GraphAlgorithms;
 
     private:

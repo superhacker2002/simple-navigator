@@ -9,22 +9,34 @@ class GraphIterator {
  friend class Graph;
  public:
   GraphIterator() {}
-  GraphIterator(const GraphIterator &it) : pointer_(it.pointer_) {}
+
+  GraphIterator(const GraphIterator &it)
+    : matrix_(it.matrix_),
+    curr_row_(it.curr_row_),
+    curr_col_(it.curr_col_) {}
+
   ~GraphIterator() {}
 
   T& operator*() {
-    return matrix_(curr_row_, curr_col_);
+    return (*matrix_)(curr_row_, curr_col_);
   }
 
   bool operator==(const GraphIterator &other) {
-    return matrix_ == other.p_data_;
+    return matrix_ == other.matrix_ &&
+           curr_row_ == other.curr_row_ &&
+           curr_col_ == other.curr_col_;
+  }
+
+  bool operator!=(const GraphIterator &other) {
+    return matrix_ != other.matrix_ ||
+           curr_row_ != other.curr_row_ ||
+           curr_col_ != other.curr_col_;
   }
 
   GraphIterator<T>& operator++() {
-    int rows = matrix_.GetRows();
-    int cols = matrix_.GetCols();
-
-    if (curr_col_ < cols) {
+    int rows = (*matrix_).GetRows();
+    int cols = (*matrix_).GetCols();
+    if (curr_col_ < cols - 1) {
       curr_col_++;
     } else if (curr_row_ < rows) {
       curr_row_++;
@@ -35,8 +47,7 @@ class GraphIterator {
   }
 
   GraphIterator<T>& operator--() {
-    int cols = matrix_.GetCols();
-
+    int cols = (*matrix_).GetCols();
     if (curr_col_ > 0) {
       curr_col_--;
     } else if (curr_row_ > 0) {
@@ -48,12 +59,12 @@ class GraphIterator {
   }
 
  private:
-  GraphIterator(s21::Matrix<T> matrix, int i, int j)
+  GraphIterator(s21::Matrix<T>* matrix, int i, int j)
     : matrix_(matrix),
-    curr_row(i),
-    curr_col(j) {}
+    curr_row_(i),
+    curr_col_(j) {}
   
-  s21::Matrix<T> matrix_;
+  s21::Matrix<T> *matrix_;
   int curr_row_;
   int curr_col_;
 };

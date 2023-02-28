@@ -5,6 +5,7 @@
 #include "../helpers/containers/s21_queue.h"
 #include <vector>
 #include <map>
+#include <algorithm>
 
 namespace s21 {
   class GraphAlgorithms {
@@ -13,6 +14,9 @@ namespace s21 {
       ~GraphAlgorithms();
       static std::vector<int> depthFirstSearch(Graph &graph, int start_vertex);
       static std::vector<int> breadthFirstSearch(const Graph& graph, int start_vertex);
+      
+      
+      static std::vector<int> getShortestPathBetweenVertices(Graph &graph, int vertex1, int vertex2);
 
 
     private:

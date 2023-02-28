@@ -6,10 +6,10 @@ SRC = ../src/main_class/file_handler/file_handler.cc \
 	graph_tests.cc
 
 clean:
-	rm -rf a.out *.dot
+	rm -rf a.out *.dot a.out*
 
 build:
-	$(CC) $(FLAGS) $(SRC)
+	$(CC) $(SRC) $(FLAGS)
 
 test: clean build
 	./a.out

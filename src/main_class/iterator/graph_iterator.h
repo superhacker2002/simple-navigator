@@ -8,7 +8,10 @@ template<typename T>
 class GraphIterator {
  friend class Graph;
  public:
-  GraphIterator() {}
+  GraphIterator()
+    : matrix_(nullptr),
+    curr_row_(0),
+    curr_col_(0) {}
 
   GraphIterator(const GraphIterator &it)
     : matrix_(it.matrix_),
@@ -38,11 +41,12 @@ class GraphIterator {
     int cols = (*matrix_).GetCols();
     if (curr_col_ < cols - 1) {
       curr_col_++;
+    } else if (curr_col_ == cols - 1 && curr_row_ == rows - 1) {
+      curr_col_++;
     } else if (curr_row_ < rows) {
       curr_row_++;
       curr_col_ = 0;
-    }
-
+    } 
     return *this;
   }
 
@@ -54,7 +58,13 @@ class GraphIterator {
       curr_row_--;
       curr_col_ += cols - 1;
     }
+    return *this;
+  }
 
+  GraphIterator<T>& operator-(int num) {
+    for (int i = 0; i < num; i++) {
+      --(*this);
+    }
     return *this;
   }
 
@@ -64,7 +74,7 @@ class GraphIterator {
     curr_row_(i),
     curr_col_(j) {}
   
-  s21::Matrix<T> *matrix_;
+  s21::Matrix<T>* matrix_;
   int curr_row_;
   int curr_col_;
 };

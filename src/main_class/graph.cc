@@ -27,5 +27,5 @@ s21::Graph::iterator s21::Graph::begin() {
 s21::Graph::iterator s21::Graph::end() {
   int rows = m_data_.matrix.GetRows();
   int cols = m_data_.matrix.GetCols();
-  return iterator(&m_data_.matrix, rows - 1, cols - 1);
+  return iterator(&m_data_.matrix, rows - 1, cols);
 }

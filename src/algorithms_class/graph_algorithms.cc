@@ -9,7 +9,7 @@
 
 // }
 
-std::vector<int> s21::GraphAlgorithms::breadthFirstSearch(const Graph &graph, int start_vertex) {
+std::vector<int> s21::GraphAlgorithms::breadthFirstSearch(Graph &graph, int start_vertex) {
     start_vertex--;
     s21::Queue<int> vertices_queue = {start_vertex};
     std::map<int, bool> visited_vertices{{start_vertex, true}};
@@ -54,12 +54,12 @@ std::vector<int> s21::GraphAlgorithms::getShortestPathBetweenVertices(Graph &gra
     }
 }
 
-std::vector<int> s21::GraphAlgorithms::getHeirsIndexes(const Graph& graph, int start_index) {
+std::vector<int> s21::GraphAlgorithms::getHeirsIndexes(Graph& graph, int start_index) {
     std::vector<int> heirs_indexes;
 
-    for (int j = 0; j < graph.m_data_.matrix.GetCols(); ++j)
-        if (graph.m_data_.matrix.at(start_index, j) != 0)
-            heirs_indexes.push_back(j);
+    for (auto it = graph.row_begin(start_index); it != graph.row_end(start_index); ++it)
+        if (*it != 0)
+            heirs_indexes.push_back(it.get_curr_col());
     
     return heirs_indexes;
 }

@@ -3,10 +3,10 @@
 #include "../helpers/containers/s21_queue.h"
 
 
-std::vector<int> s21::GraphAlgorithms::depthFirstSearch(Graph &graph, int startVertex) {
-  std::vector<int> visited_nodes;
+std::vector<int> s21::GraphAlgorithms::depthFirstSearch(Graph &graph, int start_vertex) {
+  std::vector<int> visited_vertices = {start_vertex};
   s21::Stack<int> not_visited_nodes;
-  
+
 }
 
 std::vector<int> s21::GraphAlgorithms::breadthFirstSearch(const Graph &graph, int start_vertex) {

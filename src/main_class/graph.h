@@ -3,14 +3,18 @@
 
 #include "../helpers/includes.h"
 #include "file_handler/file_handler.h"
+#include "iterator/graph_iterator.h"
 
 namespace s21 {
   class Graph {
     public:
+      using iterator = GraphIterator<int>;
       Graph();
       ~Graph();
-      GraphData loadGraphFromFile(const std::string& filename);
+      void loadGraphFromFile(const std::string& filename);
       void exportGraphToDot(const std::string& filename);
+      iterator begin(int vertice);
+      iterator end(int vertice);
     friend class GraphAlgorithms;
 
     private:

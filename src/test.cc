@@ -13,4 +13,5 @@ int main() {
     std::cout << it << " ";
   }
   graph.exportGraphToDot("graph.dot");
+  
 }

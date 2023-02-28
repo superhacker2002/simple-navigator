@@ -6,14 +6,21 @@
 template<typename T>
 class GraphIterator: public std::iterator<std::input_iterator_tag, T> {
  friend class Graph;
- private:
-  GraphIterator(ValueType* p);
  public:
-   GraphIterator(const GraphIterator &it); 
-   bool operator!=(GraphIterator const& other) const;
-   bool operator==(GraphIterator const& other) const;
-   typename GraphIterator::reference operator*() const;
-   GraphIterator& operator++();
+   GraphIterator(int line) : pointer_(m_data_(line, 0)) {}
+   GraphIterator(T* pointer) : pointer_(pointer) {}
+
+   GraphIterator(const GraphIterator &it) : pointer_(it.pointer_) {}
+   bool operator!=(GraphIterator const& other) const {
+    return pointer_ != other.pointer_;
+   }
+   bool operator==(GraphIterator const& other) const {
+    return pointer_ == other.pointer_;
+   }
+   GraphIterator& operator++() {
+    ++pointer_;
+    return *this;
+   }
  private:
    T* pointer_;
 };

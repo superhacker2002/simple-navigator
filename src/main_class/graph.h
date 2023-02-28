@@ -3,9 +3,9 @@
 
 #include "../helpers/includes.h"
 #include "file_handler/file_handler.h"
-#include "iterator/graph_iterator.h"
-#include "iterator/col_graph_iterator.h"
-#include "iterator/row_graph_iterator.h"
+#include "iterators/graph_iterator.h"
+#include "iterators/col_graph_iterator.h"
+#include "iterators/row_graph_iterator.h"
 
 namespace s21 {
   class Graph {

@@ -21,10 +21,11 @@ void s21::Graph::exportGraphToDot(const std::string& filepath) {
 }
 
 s21::Graph::iterator s21::Graph::begin(int vertice) {
-  return iterator(vertice);
+  return iterator(m_data_.matrix, 0, 0);
 }
 
 s21::Graph::iterator s21::Graph::end(int vertice) {
-  int last_neighbour = m_data_.matrix.GetCols();
-  return iterator(m_data_.matrix(vertice, last_neighbour));
+  int rows = m_data_.matrix.GetRows();
+  int cols = m_data_.matrix.GetCols();
+  return iterator(m_data_.matrix, rows - 1, cols - 1);
 }

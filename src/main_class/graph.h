@@ -8,7 +8,7 @@
 namespace s21 {
   class Graph {
     public:
-      using iterator = GraphIterator<int>;
+      using iterator = s21::GraphIterator<int>;
       Graph();
       ~Graph();
       void loadGraphFromFile(const std::string& filename);

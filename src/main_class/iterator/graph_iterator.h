@@ -1,28 +1,62 @@
 #ifndef GRAPH_ITERATOR_H_
 #define GRAPH_ITERATOR_H_
 
-#include <iterator>
+#include "../../helpers/s21_matrix.h"
 
+namespace s21 {
 template<typename T>
-class GraphIterator: public std::iterator<std::input_iterator_tag, T> {
+class GraphIterator {
  friend class Graph;
  public:
-   GraphIterator(int line) : pointer_(m_data_(line, 0)) {}
-   GraphIterator(T* pointer) : pointer_(pointer) {}
+  GraphIterator() {}
+  GraphIterator(const GraphIterator &it) : pointer_(it.pointer_) {}
+  ~GraphIterator() {}
 
-   GraphIterator(const GraphIterator &it) : pointer_(it.pointer_) {}
-   bool operator!=(GraphIterator const& other) const {
-    return pointer_ != other.pointer_;
-   }
-   bool operator==(GraphIterator const& other) const {
-    return pointer_ == other.pointer_;
-   }
-   GraphIterator& operator++() {
-    ++pointer_;
+  T& operator*() {
+    return matrix_(curr_row_, curr_col_);
+  }
+
+  bool operator==(const GraphIterator &other) {
+    return matrix_ == other.p_data_;
+  }
+
+  GraphIterator<T>& operator++() {
+    int rows = matrix_.GetRows();
+    int cols = matrix_.GetCols();
+
+    if (curr_col_ < cols) {
+      curr_col_++;
+    } else if (curr_row_ < rows) {
+      curr_row_++;
+      curr_col_ = 0;
+    }
+
     return *this;
-   }
+  }
+
+  GraphIterator<T>& operator--() {
+    int cols = matrix_.GetCols();
+
+    if (curr_col_ > 0) {
+      curr_col_--;
+    } else if (curr_row_ > 0) {
+      curr_row_--;
+      curr_col_ += cols - 1;
+    }
+
+    return *this;
+  }
+
  private:
-   T* pointer_;
+  GraphIterator(s21::Matrix<T> matrix, int i, int j)
+    : matrix_(matrix),
+    curr_row(i),
+    curr_col(j) {}
+  
+  s21::Matrix<T> matrix_;
+  int curr_row_;
+  int curr_col_;
 };
+}  // namespace s21
 
 #endif  // GRAPH_ITERATOR_H_

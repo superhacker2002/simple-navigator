@@ -1,4 +1,5 @@
 #include "graph.h"
+#include <cassert>
 
 s21::Graph::Graph() {}
 
@@ -29,3 +30,27 @@ s21::Graph::iterator s21::Graph::end() {
   int cols = m_data_.matrix.GetCols();
   return iterator(&m_data_.matrix, rows - 1, cols);
 }
+
+s21::Graph::row_iterator s21::Graph::row_begin(int row) {
+  assert(row < m_data_.matrix.GetRows());
+  return row_iterator(&m_data_.matrix, row, 0);
+}
+
+s21::Graph::row_iterator s21::Graph::row_end(int row) {
+  assert(row < m_data_.matrix.GetRows());
+  int cols = m_data_.matrix.GetCols();
+  return row_iterator(&m_data_.matrix, row, cols);
+}
+
+s21::Graph::col_iterator s21::Graph::col_begin(int col) {
+  assert(col < m_data_.matrix.GetCols());
+  return col_iterator(&m_data_.matrix, 0, col);
+}
+
+s21::Graph::col_iterator s21::Graph::col_end(int col) {
+  assert(col < m_data_.matrix.GetCols());
+  int rows = m_data_.matrix.GetRows();
+  return col_iterator(&m_data_.matrix, rows, col);
+}
+
+

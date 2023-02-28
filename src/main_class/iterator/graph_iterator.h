@@ -68,7 +68,14 @@ class GraphIterator {
     return *this;
   }
 
- private:
+  GraphIterator<T>& operator+(int num) {
+    for (int i = 0; i < num; i++) {
+      ++(*this);
+    }
+    return *this;
+  }
+
+ protected:
   GraphIterator(s21::Matrix<T>* matrix, int i, int j)
     : matrix_(matrix),
     curr_row_(i),

@@ -1,5 +1,5 @@
-CC = gcc 
-FLAGS = -Wall -Werror -Wextra -lgtest -lstdc++ -std=c++17 -g
+CC = gcc
+FLAGS = -Wall -Werror -Wextra -lgtest -lm -lpthread -lstdc++ -std=c++17 -g
 SRC = ../src/main_class/file_handler/file_handler.cc \
  	../src/main_class/graph.cc \
 	../src/algorithms_class/graph_algorithms.cc \

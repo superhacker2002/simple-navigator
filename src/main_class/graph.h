@@ -14,6 +14,7 @@ namespace s21 {
       using row_iterator = s21::RowGraphIterator<int>;
       using col_iterator = s21::ColGraphIterator<int>;
       Graph();
+      Graph(int n);
       Graph(const Graph& other);
       Graph& operator=(const Graph& other);
       ~Graph();

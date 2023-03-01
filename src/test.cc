@@ -8,8 +8,7 @@ int main() {
   //   std::cout << char('A' + (i > 25 ? i % 26 : i)) + std::to_string(i/26) << " ";
   // }
   s21::Graph graph;
-  graph.loadGraphFromFile("../datasets/sample2.txt");
+  graph.loadGraphFromFile("../datasets/sample1.txt");
   s21::Matrix<int> mtrx = s21::GraphAlgorithms::getShortestPathsBetweenAllVertices(graph);
   mtrx.OutputMatrix();
-  
 }

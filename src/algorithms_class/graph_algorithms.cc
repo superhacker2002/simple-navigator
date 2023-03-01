@@ -91,10 +91,8 @@ void s21::GraphAlgorithms::prepareGraphForFloydWarshallAlgo_(Graph& graph) {
                 }
             }
         }
-      }
     }
-  }
-}
+}   
 
 s21::Matrix<int> s21::GraphAlgorithms::getShortestPathsBetweenAllVertices(Graph& graph) {
     std::vector<Graph> graphs(graph.getVerticesCount() + 1, s21::Graph(graph.getVerticesCount()));

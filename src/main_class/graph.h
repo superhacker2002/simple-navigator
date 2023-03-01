@@ -16,6 +16,7 @@ class Graph {
 
   Graph();
   Graph(const Graph& other);
+  Graph(int n);
   Graph& operator=(const Graph& other);
   ~Graph();
 

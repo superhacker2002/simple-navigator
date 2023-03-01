@@ -14,7 +14,7 @@ namespace s21 {
       ~GraphAlgorithms();
       static std::vector<int> depthFirstSearch(Graph &graph, int start_vertex);
       static std::vector<int> breadthFirstSearch(Graph& graph, int start_vertex);
-      static std::vector<int> getShortestPathBetweenVertices(Graph &graph, int vertex1, int vertex2);
+      static int getShortestPathBetweenVertices(Graph &graph, int vertex1, int vertex2);
 
     private:
       template <class Container>

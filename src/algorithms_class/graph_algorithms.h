@@ -14,12 +14,12 @@ namespace s21 {
       ~GraphAlgorithms();
       static std::vector<int> depthFirstSearch(Graph &graph, int start_vertex);
       static std::vector<int> breadthFirstSearch(Graph& graph, int start_vertex);
-      
-      
       static std::vector<int> getShortestPathBetweenVertices(Graph &graph, int vertex1, int vertex2);
 
     private:
-      static std::vector<int> getHeirsIndexes(Graph& graph, int start_vertex);
+      template <class Container>
+      static std::vector<int> searchAlgorithm_(Graph& graph, int start_vertex, Container not_visited_vertices);
+      static std::vector<int> getHeirsIndexes_(Graph& graph, int start_vertex);
   };
 }
 

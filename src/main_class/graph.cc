@@ -4,7 +4,13 @@
 
 s21::Graph::Graph() {}
 
-s21::Graph::Graph(const Graph& other) { m_data_ = other.m_data_; }
+s21::Graph::Graph(int n) {
+  m_data_.matrix = s21::Matrix<int>(n, n);
+}
+
+s21::Graph::Graph(const Graph& other) {
+  m_data_ = other.m_data_;
+}
 
 s21::Graph& s21::Graph::operator=(const Graph& other) {
   m_data_ = other.m_data_;

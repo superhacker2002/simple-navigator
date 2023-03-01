@@ -81,34 +81,33 @@ std::vector<int> s21::GraphAlgorithms::getHeirsIndexes_(Graph& graph,
 }
 
 void s21::GraphAlgorithms::prepareGraphForFloydWarshallAlgo_(Graph& graph) {
-  for (int i = 0; i < graph.getVerticesCount(); i++) {
-    for (int j = 0; j < graph.getVerticesCount(); j++) {
-      if (i == j) {
-        graph.getWeigth(i, j) = 0;
-      } else {
-        if (graph.getWeigth(i, j) == 0) {
-          graph.getWeigth(i, j) = std::numeric_limits<int>::infinity();
+    for (int i = 0; i < graph.getVerticesCount(); i++) {
+        for (int j = 0; j < graph.getVerticesCount(); j++) {
+            if (i == j) {
+                graph.getWeigth(i, j) = 0;
+            } else {
+                if (graph.getWeigth(i, j) == 0) {
+                    graph.getWeigth(i, j) = 1000;
+                }
+            }
         }
-      }
     }
-  }
-}
+}   
 
-s21::Matrix<int> s21::GraphAlgorithms::getShortestPathsBetweenAllVertices(
-    Graph& graph) {
-  std::vector<Graph> graphs(graph.getVerticesCount());
-  prepareGraphForFloydWarshallAlgo_(graph);
-  graphs.at(0) = graph;
-  for (int k = 1; k < graph.getVerticesCount(); ++k) {
-    graphs.at(k) = graphs.at(k - 1);
-    for (int i = 0; i < graph.getVerticesCount(); ++i) {
-      for (int j = 0; j < graph.getVerticesCount(); ++j) {
-        Graph& prev_graph = graphs.at(k - 1);
-        graphs.at(k).getWeigth(i, j) =
-            std::min(prev_graph.getWeigth(i, j),
-                     prev_graph.getWeigth(i, k) + prev_graph.getWeigth(k, j));
-      }
+s21::Matrix<int> s21::GraphAlgorithms::getShortestPathsBetweenAllVertices(Graph& graph) {
+    std::vector<Graph> graphs(graph.getVerticesCount() + 1, s21::Graph(graph.getVerticesCount()));
+    prepareGraphForFloydWarshallAlgo_(graph);
+    graphs.at(0) = graph;
+    for (int k = 1; k <= graph.getVerticesCount(); ++k) {
+        for (int i = 0; i < graph.getVerticesCount(); ++i) {
+            for (int j = 0; j < graph.getVerticesCount(); ++j) {
+                Graph& prev_graph = graphs.at(k - 1);
+                graphs.at(k).getWeigth(i, j) =
+                    std::min(
+                        prev_graph.getWeigth(i, j),
+                        prev_graph.getWeigth(i, k-1) + prev_graph.getWeigth(k-1, j));
+            }
+        }
     }
-  }
-  return graphs.at(graph.getVerticesCount() - 1).graphToMatrix();
+    return graphs.at(graph.getVerticesCount()).graphToMatrix();
 }

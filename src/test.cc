@@ -9,9 +9,7 @@ int main() {
   // }
   s21::Graph graph;
   graph.loadGraphFromFile("../datasets/sample2.txt");
-  for (auto it : s21::GraphAlgorithms::breadthFirstSearch(graph, 3)) {
-    std::cout << it << " ";
-  }
-  graph.exportGraphToDot("graph.dot");
+  s21::Matrix<int> mtrx = s21::GraphAlgorithms::getShortestPathsBetweenAllVertices(graph);
+  mtrx.OutputMatrix();
   
 }

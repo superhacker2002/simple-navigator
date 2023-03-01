@@ -16,10 +16,13 @@ namespace s21 {
       static std::vector<int> breadthFirstSearch(Graph& graph, int start_vertex);
       static std::vector<int> getShortestPathBetweenVertices(Graph &graph, int vertex1, int vertex2);
 
+      static s21::Matrix<int> getShortestPathsBetweenAllVertices(Graph& graph);
+
     private:
       template <class Container>
       static std::vector<int> searchAlgorithm_(Graph& graph, int start_vertex, Container not_visited_vertices);
       static std::vector<int> getHeirsIndexes_(Graph& graph, int start_vertex);
+      static void prepareGraphForFloydWarshallAlgo_(Graph& graph);
   };
 }
 

@@ -3,6 +3,23 @@
 
 s21::Graph::Graph() {}
 
+s21::Graph::Graph(const Graph& other) {
+  m_data_ = other.m_data_;
+}
+
+s21::Graph& s21::Graph::operator=(const Graph& other) {
+  m_data_ = other.m_data_;
+  return *this;
+}
+
+s21::Matrix<int> s21::Graph::graph_to_matrix() {
+  return s21::Matrix<int>(m_data_.matrix);
+}
+
+void s21::Graph::matrix_to_graph(const s21::Matrix<int>& other) {
+  m_data_.matrix = other;
+}
+
 s21::Graph::~Graph() {}
 
 void s21::Graph::loadGraphFromFile(const std::string& filepath) {
@@ -19,6 +36,10 @@ void s21::Graph::exportGraphToDot(const std::string& filepath) {
   } catch (const std::exception& exc) {
     std::cout << exc.what() << std::endl;
   }
+}
+
+int& s21::Graph::getWeigth(int i, int j) {
+  return m_data_.matrix(i, j);
 }
 
 s21::Graph::iterator s21::Graph::begin() {

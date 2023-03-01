@@ -68,3 +68,35 @@ std::vector<int> s21::GraphAlgorithms::getHeirsIndexes_(Graph& graph, int start_
     
     return heirs_indexes;
 }
+
+void s21::GraphAlgorithms::prepareGraphForFloydWarshallAlgo_(Graph& graph) {
+    for (int i = 0; i < graph.getVerticesCount(); i++) {
+        for (int j = 0; j < graph.getVerticesCount(); j++) {
+            if (i == j) {
+                graph.getWeigth(i, j) = 0;
+            } else {
+                if (graph.getWeigth(i, j) == 0) {
+                    graph.getWeigth(i, j) = std::numeric_limits<int>::infinity();
+                }
+            }
+        }
+    }
+}
+
+s21::Matrix<int> s21::GraphAlgorithms::getShortestPathsBetweenAllVertices(Graph& graph) {
+    std::vector<Graph> graphs(graph.getVerticesCount());
+    prepareGraphForFloydWarshallAlgo_(graph);
+    graphs.at(0) = graph;
+    for (int k = 1; k < graph.getVerticesCount(); ++k) {
+        for (int i = 0; i < graph.getVerticesCount(); ++i) {
+            for (int j = 0; j < graph.getVerticesCount(); ++j) {
+                Graph& prev_graph = graphs.at(k - 1);
+                graphs.at(k).getWeigth(i, j) =
+                    std::min(
+                        prev_graph.getWeigth(i, j),
+                        prev_graph.getWeigth(i, k) + prev_graph.getWeigth(k, j));
+            }
+        }
+    }
+    return graphs.at(graph.getVerticesCount() - 1).graph_to_matrix();
+}

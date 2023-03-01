@@ -14,16 +14,21 @@ namespace s21 {
       using row_iterator = s21::RowGraphIterator<int>;
       using col_iterator = s21::ColGraphIterator<int>;
       Graph();
+      Graph(const Graph& other);
+      Graph& operator=(const Graph& other);
       ~Graph();
       void loadGraphFromFile(const std::string& filename);
       void exportGraphToDot(const std::string& filename);
+      int& getWeigth(int i, int j);
+      int getVerticesCount() { return m_data_.matrix.GetCols(); }
       iterator begin();
       iterator end();
       row_iterator row_begin(int row);
       row_iterator row_end(int row);
       col_iterator col_begin(int col);
       col_iterator col_end(int col);
-    friend class GraphAlgorithms;
+      s21::Matrix<int> graph_to_matrix();
+      void matrix_to_graph(const s21::Matrix<int>& other);
 
     private:
       FileHandler m_file_hndlr_;

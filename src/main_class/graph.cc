@@ -21,6 +21,10 @@ void s21::Graph::exportGraphToDot(const std::string& filepath) {
   }
 }
 
+int s21::Graph::getVerticesNumber() {
+  return m_data_.matrix.GetRows();
+}
+
 s21::Graph::iterator s21::Graph::begin() {
   return iterator(&m_data_.matrix, 0, 0);
 }

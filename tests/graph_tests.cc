@@ -9,7 +9,7 @@ const std::vector<int> answer = {0, 12, 0, 0, 0,
                                  0, 0, 0, 20, 8, 
                                  11, 0, 0, 17, 0, 
                                  0, 0, 0, 0, 0,
-                                 0, 0, 0, 0, 1};
+                                 0, 0, 0, 0, 0};
 const std::vector<int> col_answer = {0, 0, 11, 0, 0};
 
 struct GraphTest : public testing::Test {

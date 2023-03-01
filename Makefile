@@ -19,7 +19,8 @@ debug: clean
 
 style_check:
 	cp materials/linters/.clang-format .
-	clang-format -n tests/* \
+	clang-format -n tests/*.cc \
+					tests/*.h \
 					src/algorithms_class/* \
 					src/helpers/containers/* \
 					src/helpers/*.h \

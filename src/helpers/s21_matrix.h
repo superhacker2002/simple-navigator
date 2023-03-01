@@ -256,8 +256,8 @@ class Matrix {
 
   void RemoveMatrix_() {
     if (!IsNull_(*this)) {
-      for (int i = 0; i < this->rows_; i++) delete[](this->matrix_[i]);
-      delete[](this->matrix_);
+      for (int i = 0; i < this->rows_; i++) delete[] (this->matrix_[i]);
+      delete[] (this->matrix_);
     }
   }
 };  // class Matrix

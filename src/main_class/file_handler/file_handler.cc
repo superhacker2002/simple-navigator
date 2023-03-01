@@ -4,24 +4,24 @@ s21::FileHandler::FileHandler() {}
 
 s21::FileHandler::~FileHandler() {}
 
-void s21::FileHandler::writeToFile(const std::string& filepath, s21::GraphData& data) {
+void s21::FileHandler::writeToFile(const std::string& filepath,
+                                   s21::GraphData& data) {
   std::ofstream file(filepath);
   if (file.is_open()) {
     writeHeader_(file);
     for (int i = 0; i < data.matrix.GetRows(); ++i) {
       for (int j = 0; j < data.matrix.GetCols(); ++j) {
         if (data.matrix.at(i, j) != 0) {
-          file << getVertexName_(i)
-              << " -- "
-              << getVertexName_(j)
-              << getLabel_(data.matrix.at(i, j));
+          file << getVertexName_(i) << " -- " << getVertexName_(j)
+               << getLabel_(data.matrix.at(i, j));
         }
       }
     }
     writeFooter_(file);
   } else {
-    throw std::invalid_argument(std::strerror(errno)\
-      + std::string("Write error. Can't open file for writing."));
+    throw std::invalid_argument(
+        std::strerror(errno) +
+        std::string("Write error. Can't open file for writing."));
   }
 }
 
@@ -30,16 +30,15 @@ const std::string s21::FileHandler::getVertexName_(const int it) {
 }
 
 const std::string s21::FileHandler::getLabel_(const int value) {
-  return std::string("[ label = \"") + std::to_string(value) + std::string("\"];\n");
+  return std::string("[ label = \"") + std::to_string(value) +
+         std::string("\"];\n");
 }
 
 void s21::FileHandler::writeHeader_(std::ofstream& file) {
   file << "graph s21_graph_name {\n";
 }
 
-void s21::FileHandler::writeFooter_(std::ofstream& file) {
-  file << "}\n";
-}
+void s21::FileHandler::writeFooter_(std::ofstream& file) { file << "}\n"; }
 
 // should be called in a try-catch block
 s21::GraphData s21::FileHandler::parseFile(const std::string& filepath) {
@@ -59,8 +58,9 @@ s21::GraphData s21::FileHandler::parseFile(const std::string& filepath) {
       throw std::invalid_argument("Parse error : Incorrect file.");
     }
   } else {
-    throw std::invalid_argument(std::strerror(errno)\
-      + std::string(". Parse error : Can't open file for reading."));
+    throw std::invalid_argument(
+        std::strerror(errno) +
+        std::string(". Parse error : Can't open file for reading."));
   }
   return m_grph_data_;
 }
@@ -72,8 +72,9 @@ void s21::FileHandler::parseLine_(const std::string& line, size_t i) {
       m_grph_data_.matrix(i, j) = std::stoi(it.base());
       moveIter_(it);
     } catch (...) {
-      throw std::invalid_argument(std::strerror(errno)\
-        + std::string(". Parse error : Can't parse line from file."));
+      throw std::invalid_argument(
+          std::strerror(errno) +
+          std::string(". Parse error : Can't parse line from file."));
     }
   }
   if (j != m_grph_data_.matrix.GetRows()) {
@@ -87,8 +88,9 @@ size_t s21::FileHandler::getGraphMatrixSize_() {
   try {
     return std::stoul(buffer);
   } catch (...) {
-    throw std::invalid_argument(std::strerror(errno)\
-      + std::string(". Parse error : Can't get graph size from file."));
+    throw std::invalid_argument(
+        std::strerror(errno) +
+        std::string(". Parse error : Can't get graph size from file."));
   }
 }
 

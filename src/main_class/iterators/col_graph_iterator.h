@@ -4,14 +4,14 @@
 #include "graph_iterator.h"
 
 namespace s21 {
-template<typename T>
+template <typename T>
 class ColGraphIterator : public GraphIterator<T> {
- friend class Graph;
+  friend class Graph;
+
  public:
   ColGraphIterator() : GraphIterator<T>() {}
 
-  ColGraphIterator(const ColGraphIterator &it)
-    : GraphIterator<T>(it) {}
+  ColGraphIterator(const ColGraphIterator& it) : GraphIterator<T>(it) {}
 
   ~ColGraphIterator() {}
 
@@ -43,7 +43,7 @@ class ColGraphIterator : public GraphIterator<T> {
 
  private:
   ColGraphIterator(s21::Matrix<T>* matrix, int i, int j)
-    : GraphIterator<T>(matrix, i, j) {}
+      : GraphIterator<T>(matrix, i, j) {}
 };
 }  // namespace s21
 

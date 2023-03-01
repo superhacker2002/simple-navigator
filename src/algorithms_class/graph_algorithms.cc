@@ -88,6 +88,7 @@ s21::Matrix<int> s21::GraphAlgorithms::getShortestPathsBetweenAllVertices(Graph&
     prepareGraphForFloydWarshallAlgo_(graph);
     graphs.at(0) = graph;
     for (int k = 1; k < graph.getVerticesCount(); ++k) {
+        graphs.at(k) = graphs.at(k-1);
         for (int i = 0; i < graph.getVerticesCount(); ++i) {
             for (int j = 0; j < graph.getVerticesCount(); ++j) {
                 Graph& prev_graph = graphs.at(k - 1);
@@ -98,5 +99,5 @@ s21::Matrix<int> s21::GraphAlgorithms::getShortestPathsBetweenAllVertices(Graph&
             }
         }
     }
-    return graphs.at(graph.getVerticesCount() - 1).graph_to_matrix();
+    return graphs.at(graph.getVerticesCount() - 1).graphToMatrix();
 }

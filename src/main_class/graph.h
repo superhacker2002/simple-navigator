@@ -27,8 +27,8 @@ namespace s21 {
       row_iterator row_end(int row);
       col_iterator col_begin(int col);
       col_iterator col_end(int col);
-      s21::Matrix<int> graph_to_matrix();
-      void matrix_to_graph(const s21::Matrix<int>& other);
+      s21::Matrix<int> graphToMatrix();
+      void matrixToGraph(const s21::Matrix<int>& other);
 
     private:
       FileHandler m_file_hndlr_;

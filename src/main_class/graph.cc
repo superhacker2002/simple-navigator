@@ -12,11 +12,11 @@ s21::Graph& s21::Graph::operator=(const Graph& other) {
   return *this;
 }
 
-s21::Matrix<int> s21::Graph::graph_to_matrix() {
+s21::Matrix<int> s21::Graph::graphToMatrix() {
   return s21::Matrix<int>(m_data_.matrix);
 }
 
-void s21::Graph::matrix_to_graph(const s21::Matrix<int>& other) {
+void s21::Graph::matrixToGraph(const s21::Matrix<int>& other) {
   m_data_.matrix = other;
 }
 

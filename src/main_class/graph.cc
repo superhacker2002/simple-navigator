@@ -1,11 +1,10 @@
 #include "graph.h"
+
 #include <cassert>
 
 s21::Graph::Graph() {}
 
-s21::Graph::Graph(const Graph& other) {
-  m_data_ = other.m_data_;
-}
+s21::Graph::Graph(const Graph& other) { m_data_ = other.m_data_; }
 
 s21::Graph& s21::Graph::operator=(const Graph& other) {
   m_data_ = other.m_data_;
@@ -38,13 +37,9 @@ void s21::Graph::exportGraphToDot(const std::string& filepath) {
   }
 }
 
-int s21::Graph::getVerticesCount() {
-  return m_data_.matrix.GetRows();
-}
+int s21::Graph::getVerticesCount() { return m_data_.matrix.GetRows(); }
 
-int& s21::Graph::getWeigth(int i, int j) {
-  return m_data_.matrix(i, j);
-}
+int& s21::Graph::getWeigth(int i, int j) { return m_data_.matrix(i, j); }
 
 s21::Graph::iterator s21::Graph::begin() {
   return iterator(&m_data_.matrix, 0, 0);
@@ -77,5 +72,3 @@ s21::Graph::col_iterator s21::Graph::col_end(int col) {
   int rows = m_data_.matrix.GetRows();
   return col_iterator(&m_data_.matrix, rows, col);
 }
-
-

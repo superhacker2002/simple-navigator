@@ -15,12 +15,13 @@ std::vector<int> s21::GraphAlgorithms::breadthFirstSearch(Graph &graph, int star
 
 int s21::GraphAlgorithms::getShortestPathBetweenVertices(Graph &graph, int vertex1, int vertex2) {
     std::map<int, bool> visited_vertices;
+    s21::Queue<int> not_visited_vertices = {vertex1};
+
     vertex1 -= 1;
-    vertex2 -= 1;
     int vertices_number = graph.getVerticesNumber();
+
     std::vector<int> tags(vertices_number, std::numeric_limits<int>::max());
     tags[vertex1] = 0;
-    s21::Queue<int> not_visited_vertices = {vertex1};
 
     while ((int)visited_vertices.size() != vertices_number) {
         for (auto heir : getHeirsIndexes_(graph, vertex1)) {
@@ -35,7 +36,7 @@ int s21::GraphAlgorithms::getShortestPathBetweenVertices(Graph &graph, int verte
         vertex1 = not_visited_vertices.peek();
 
     }
-    return tags[vertex2];
+    return tags[vertex2 - 1];
 }
 
 template <class Container>

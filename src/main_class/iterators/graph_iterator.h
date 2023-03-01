@@ -4,35 +4,27 @@
 #include "../../helpers/s21_matrix.h"
 
 namespace s21 {
-template<typename T>
+template <typename T>
 class GraphIterator {
- friend class Graph;
- public:
-  GraphIterator()
-    : matrix_(nullptr),
-    curr_row_(0),
-    curr_col_(0) {}
+  friend class Graph;
 
-  GraphIterator(const GraphIterator &it)
-    : matrix_(it.matrix_),
-    curr_row_(it.curr_row_),
-    curr_col_(it.curr_col_) {}
+ public:
+  GraphIterator() : matrix_(nullptr), curr_row_(0), curr_col_(0) {}
+
+  GraphIterator(const GraphIterator& it)
+      : matrix_(it.matrix_), curr_row_(it.curr_row_), curr_col_(it.curr_col_) {}
 
   ~GraphIterator() {}
 
-  T& operator*() {
-    return (*matrix_)(curr_row_, curr_col_);
-  }
+  T& operator*() { return (*matrix_)(curr_row_, curr_col_); }
 
-  bool operator==(const GraphIterator &other) {
-    return matrix_ == other.matrix_ &&
-           curr_row_ == other.curr_row_ &&
+  bool operator==(const GraphIterator& other) {
+    return matrix_ == other.matrix_ && curr_row_ == other.curr_row_ &&
            curr_col_ == other.curr_col_;
   }
 
-  bool operator!=(const GraphIterator &other) {
-    return matrix_ != other.matrix_ ||
-           curr_row_ != other.curr_row_ ||
+  bool operator!=(const GraphIterator& other) {
+    return matrix_ != other.matrix_ || curr_row_ != other.curr_row_ ||
            curr_col_ != other.curr_col_;
   }
 
@@ -46,7 +38,7 @@ class GraphIterator {
     } else if (curr_row_ < rows) {
       curr_row_++;
       curr_col_ = 0;
-    } 
+    }
     return *this;
   }
 
@@ -79,10 +71,8 @@ class GraphIterator {
 
  protected:
   GraphIterator(s21::Matrix<T>* matrix, int i, int j)
-    : matrix_(matrix),
-    curr_row_(i),
-    curr_col_(j) {}
-  
+      : matrix_(matrix), curr_row_(i), curr_col_(j) {}
+
   s21::Matrix<T>* matrix_;
   int curr_row_;
   int curr_col_;

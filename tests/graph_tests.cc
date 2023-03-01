@@ -1,23 +1,19 @@
 
+#include <gtest/gtest.h>
+
+#include <iostream>
+#include <vector>
+
 #include "../src/main_class/graph.h"
 
-#include <gtest/gtest.h>
-#include <vector>
-#include <iostream>
-
-const std::vector<int> answer = {0, 12, 0, 0, 0,
-                                 0, 0, 0, 20, 8, 
-                                 11, 0, 0, 17, 0, 
-                                 0, 0, 0, 0, 0,
-                                 0, 0, 0, 0, 0};
+const std::vector<int> answer = {0,  12, 0, 0, 0, 0, 0, 0, 20, 8, 11, 0, 0,
+                                 17, 0,  0, 0, 0, 0, 0, 0, 0,  0, 0,  0};
 const std::vector<int> col_answer = {0, 0, 11, 0, 0};
 
 struct GraphTest : public testing::Test {
  protected:
   s21::Graph graph;
-  void SetUp() {
-    graph.loadGraphFromFile("../datasets/sample2.txt");
-  }
+  void SetUp() { graph.loadGraphFromFile("../datasets/sample2.txt"); }
   void TearDown() {}
 };
 

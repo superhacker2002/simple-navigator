@@ -21,7 +21,7 @@ void s21::Graph::exportGraphToDot(const std::string& filepath) {
   }
 }
 
-int s21::Graph::getVerticesNumber() {
+int s21::Graph::getVerticesCount() {
   return m_data_.matrix.GetRows();
 }
 

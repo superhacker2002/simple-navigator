@@ -18,8 +18,7 @@ int s21::GraphAlgorithms::getShortestPathBetweenVertices(Graph &graph, int verte
     std::map<int, bool> visited_vertices;
     s21::Queue<int> not_visited_vertices = {vertex1};
 
-
-    int vertices_number = graph.getVerticesNumber();
+    int vertices_number = graph.getVerticesCount();
 
     std::vector<int> tags(vertices_number, std::numeric_limits<int>::max());
     tags[vertex1] = 0;

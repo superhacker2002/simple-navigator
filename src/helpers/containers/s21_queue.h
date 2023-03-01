@@ -16,7 +16,7 @@ private:
 public:
     // FUNCTIONS
     Queue(container_type const &container = container_type()) : container_(container) {}
-    Queue(const Queue &other) : container_(other.container) {}
+    Queue(const Queue &other) : container_(other.container_) {}
     Queue(Queue &&other) { std::move(other); }
     Queue(std::initializer_list<value_type> const &items) : container_(items) {}
     virtual ~Queue() {}
@@ -24,9 +24,11 @@ public:
         container_ = other.container_;
         return *this;
     }
+    void init() {}
 
     // ELEMENT ACCESS
     const_reference front() const { return container_.front(); }
+    const_reference peek() const { return container_.front(); }
     const_reference back() const { return container_.back(); }
 
     // CAPACITY

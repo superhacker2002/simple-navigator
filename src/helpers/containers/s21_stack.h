@@ -32,7 +32,9 @@ public:
     }
     // ELEMENT ACCESS
 
+    void init() {}
     const_reference top() const { return container_.back(); }
+    const_reference peek() const { return container_.back(); }
 
     // CAPACITY
     bool empty() const { return container_.empty(); }

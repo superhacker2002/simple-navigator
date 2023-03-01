@@ -51,6 +51,11 @@ TEST_F(PathAlgorithmsTest, get_shortest_path_between_two_2) {
   EXPECT_EQ(result, 30);
 }
 
+TEST_F(PathAlgorithmsTest, get_shortest_path_between_two_3) {
+  int result = s21::GraphAlgorithms::getShortestPathBetweenVertices(graph, 6, 4);
+  EXPECT_EQ(result, 12);
+}
+
 
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);

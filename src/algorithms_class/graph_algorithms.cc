@@ -78,10 +78,10 @@ s21::Matrix<int> s21::GraphAlgorithms::getShortestPathsBetweenAllVertices(Graph&
         for (int i = 0; i < prepared_graph.getVerticesCount(); ++i) {
             for (int j = 0; j < prepared_graph.getVerticesCount(); ++j) {
                 Graph& prev_graph = graphs.at(k - 1);
-                graphs.at(k).getWeigth(i, j) =
-                    std::min(
-                        prev_graph.getWeigth(i, j),
-                        prev_graph.getWeigth(i, k - 1) + prev_graph.getWeigth(k - 1, j));
+                graphs.at(k).getWeigth(i, j) = std::min(
+                  static_cast<unsigned long int>(prev_graph.getWeigth(i, j)),
+                  static_cast<unsigned long int>(prev_graph.getWeigth(i, k - 1) + prev_graph.getWeigth(k - 1, j))
+                );
             }
         }
     }
@@ -137,7 +137,7 @@ void s21::GraphAlgorithms::prepareGraphForFloydWarshallAlgo_(Graph& graph) {
                 graph.getWeigth(i, j) = 0;
             } else {
                 if (graph.getWeigth(i, j) == 0) {
-                    graph.getWeigth(i, j) = 1000;  // здесь должен быть inf
+                    graph.getWeigth(i, j) = std::numeric_limits<int>::max();  // здесь должен быть inf
                 }
             }
         }

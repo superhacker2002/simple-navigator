@@ -17,7 +17,6 @@ class GraphAlgorithms {
   static std::vector<int> breadthFirstSearch(Graph& graph, int start_vertex);
   static int getShortestPathBetweenVertices(Graph& graph, int vertex1,
                                             int vertex2);
-
   static s21::Matrix<int> getShortestPathsBetweenAllVertices(Graph& graph);
 
  private:

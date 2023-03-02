@@ -49,7 +49,7 @@ int s21::GraphAlgorithms::getShortestPathBetweenVertices(Graph& graph,
   tags[vertex1] = 0;
 
   while ((int)visited_vertices.size() != vertices_number &&
-         !not_visited_vertices.empty()) {
+         !not_visited_vertices.empty())  {
     for (auto heir : getHeirsIndexes_(graph, vertex1)) {
       if (!visited_vertices.count(vertex1)) {
         not_visited_vertices.push(heir);

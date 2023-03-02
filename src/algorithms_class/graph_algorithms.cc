@@ -43,7 +43,7 @@ int s21::GraphAlgorithms::getShortestPathBetweenVertices(Graph& graph,
   vertex1 -= 1;
   std::map<int, bool> visited_vertices;
   s21::Queue<int> not_visited_vertices = {vertex1};
-  
+
   int vertices_number = graph.getVerticesCount();
   std::vector<int> tags(vertices_number, std::numeric_limits<int>::max());
   tags[vertex1] = 0;
@@ -97,7 +97,7 @@ int s21::GraphAlgorithms::isPath_(int tag) {
 
 template <class Container>
 std::vector<int> s21::GraphAlgorithms::searchAlgorithm_(
-    Graph& graph, int start_vertex, Container not_visited_vertices) {
+    Graph& graph, int start_vertex, Container& not_visited_vertices) {
   start_vertex -= 1;
   not_visited_vertices.push(start_vertex);
   std::map<int, bool> visited_vertices{{start_vertex, true}};

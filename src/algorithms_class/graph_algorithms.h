@@ -23,7 +23,7 @@ class GraphAlgorithms {
  private:
   template <class Container>
   static std::vector<int> searchAlgorithm_(Graph& graph, int start_vertex,
-                                           Container not_visited_vertices);
+                                           Container& not_visited_vertices);
   static std::vector<int> getHeirsIndexes_(Graph& graph, int start_vertex);
   static void prepareGraphForFloydWarshallAlgo_(Graph& graph);
   static int isPath_(int tag);

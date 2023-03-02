@@ -45,7 +45,6 @@ int s21::GraphAlgorithms::getShortestPathBetweenVertices(Graph& graph,
   s21::Queue<int> not_visited_vertices = {vertex1};
   int vertices_number = graph.getVerticesCount();
   std::vector<int> tags(vertices_number, std::numeric_limits<int>::max());
-  for (auto &tag : tags) printf ("%d ", tag);
   tags[vertex1] = 0;
 
   while ((int)visited_vertices.size() != vertices_number &&
@@ -53,7 +52,7 @@ int s21::GraphAlgorithms::getShortestPathBetweenVertices(Graph& graph,
     for (auto heir : getHeirsIndexes_(graph, vertex1)) {
       if (!visited_vertices.count(vertex1)) {
         not_visited_vertices.push(heir);
-        int weight = *(graph.rowBegin(vertex1) + heir);
+        int weight = graph.getWeigth(vertex1, heir);
         tags[heir] = std::min(tags[heir], tags[vertex1] + weight);
       }
     }
@@ -61,7 +60,11 @@ int s21::GraphAlgorithms::getShortestPathBetweenVertices(Graph& graph,
     visited_vertices[vertex1] = true;
     vertex1 = not_visited_vertices.peek();
   }
-  return tags[vertex2 - 1];
+  int shortest_path = tags[vertex2 - 1];
+  if (shortest_path == std::numeric_limits<int>::max()) {
+    throw std::invalid_argument("No path between these two vertices.");
+  }
+  return shortest_path;
 }
 
 /**

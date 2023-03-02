@@ -13,6 +13,7 @@ build:
 
 test: clean build
 	./a.out
+	make clean
 
 debug: clean
 	$(CC) $(FLAGS) -g $(SRC)

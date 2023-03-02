@@ -26,6 +26,7 @@ class GraphAlgorithms {
                                            Container not_visited_vertices);
   static std::vector<int> getHeirsIndexes_(Graph& graph, int start_vertex);
   static void prepareGraphForFloydWarshallAlgo_(Graph& graph);
+  static int isPath_(int tag);
 };
 }  // namespace s21
 

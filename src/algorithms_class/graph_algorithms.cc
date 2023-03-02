@@ -43,6 +43,7 @@ int s21::GraphAlgorithms::getShortestPathBetweenVertices(Graph& graph,
   vertex1 -= 1;
   std::map<int, bool> visited_vertices;
   s21::Queue<int> not_visited_vertices = {vertex1};
+  
   int vertices_number = graph.getVerticesCount();
   std::vector<int> tags(vertices_number, std::numeric_limits<int>::max());
   tags[vertex1] = 0;
@@ -60,11 +61,7 @@ int s21::GraphAlgorithms::getShortestPathBetweenVertices(Graph& graph,
     visited_vertices[vertex1] = true;
     vertex1 = not_visited_vertices.peek();
   }
-  int shortest_path = tags[vertex2 - 1];
-  if (shortest_path == std::numeric_limits<int>::max()) {
-    throw std::invalid_argument("No path between these two vertices.");
-  }
-  return shortest_path;
+  return isPath_(tags[vertex2 - 1]);
 }
 
 /**
@@ -89,6 +86,13 @@ s21::Matrix<int> s21::GraphAlgorithms::getShortestPathsBetweenAllVertices(Graph&
         }
     }
     return graphs.at(prepared_graph.getVerticesCount()).graphToMatrix();
+}
+
+int s21::GraphAlgorithms::isPath_(int tag) {
+  if (tag == std::numeric_limits<int>::max()) {
+    throw std::invalid_argument("No path between these two vertices.");
+  }
+  return tag;
 }
 
 template <class Container>

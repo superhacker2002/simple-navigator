@@ -45,6 +45,24 @@ int s21::GraphAlgorithms::getShortestPathBetweenVertices(Graph& graph,
   return tags[vertex2 - 1];
 }
 
+s21::Matrix<int> s21::GraphAlgorithms::getShortestPathsBetweenAllVertices(Graph& graph) {
+    std::vector<Graph> graphs(graph.getVerticesCount() + 1, s21::Graph(graph.getVerticesCount()));
+    prepareGraphForFloydWarshallAlgo_(graph);
+    graphs.at(0) = graph;
+    for (int k = 1; k <= graph.getVerticesCount(); ++k) {
+        for (int i = 0; i < graph.getVerticesCount(); ++i) {
+            for (int j = 0; j < graph.getVerticesCount(); ++j) {
+                Graph& prev_graph = graphs.at(k - 1);
+                graphs.at(k).getWeigth(i, j) =
+                    std::min(
+                        prev_graph.getWeigth(i, j),
+                        prev_graph.getWeigth(i, k-1) + prev_graph.getWeigth(k-1, j));
+            }
+        }
+    }
+    return graphs.at(graph.getVerticesCount()).graphToMatrix();
+}
+
 template <class Container>
 std::vector<int> s21::GraphAlgorithms::searchAlgorithm_(
     Graph& graph, int start_vertex, Container not_visited_vertices) {
@@ -94,20 +112,3 @@ void s21::GraphAlgorithms::prepareGraphForFloydWarshallAlgo_(Graph& graph) {
     }
 }   
 
-s21::Matrix<int> s21::GraphAlgorithms::getShortestPathsBetweenAllVertices(Graph& graph) {
-    std::vector<Graph> graphs(graph.getVerticesCount() + 1, s21::Graph(graph.getVerticesCount()));
-    prepareGraphForFloydWarshallAlgo_(graph);
-    graphs.at(0) = graph;
-    for (int k = 1; k <= graph.getVerticesCount(); ++k) {
-        for (int i = 0; i < graph.getVerticesCount(); ++i) {
-            for (int j = 0; j < graph.getVerticesCount(); ++j) {
-                Graph& prev_graph = graphs.at(k - 1);
-                graphs.at(k).getWeigth(i, j) =
-                    std::min(
-                        prev_graph.getWeigth(i, j),
-                        prev_graph.getWeigth(i, k-1) + prev_graph.getWeigth(k-1, j));
-            }
-        }
-    }
-    return graphs.at(graph.getVerticesCount()).graphToMatrix();
-}

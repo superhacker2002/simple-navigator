@@ -11,8 +11,8 @@ namespace s21 {
 class Graph {
  public:
   using iterator = s21::GraphIterator<int>;
-  using row_iterator = s21::RowGraphIterator<int>;
-  using col_iterator = s21::ColGraphIterator<int>;
+  using rowIterator = s21::RowGraphIterator<int>;
+  using colIterator = s21::ColGraphIterator<int>;
 
   Graph();
   Graph(const Graph& other);
@@ -26,10 +26,10 @@ class Graph {
   int getVerticesCount();
   iterator begin();
   iterator end();
-  row_iterator row_begin(int row);
-  row_iterator row_end(int row);
-  col_iterator col_begin(int col);
-  col_iterator col_end(int col);
+  rowIterator rowBegin(int row);
+  rowIterator rowEnd(int row);
+  colIterator colBegin(int col);
+  colIterator colEnd(int col);
 
   s21::Matrix<int> graphToMatrix();
   void matrixToGraph(const s21::Matrix<int>& other);

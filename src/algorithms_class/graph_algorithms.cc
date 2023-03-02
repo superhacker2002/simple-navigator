@@ -34,7 +34,7 @@ int s21::GraphAlgorithms::getShortestPathBetweenVertices(Graph& graph,
     for (auto heir : getHeirsIndexes_(graph, vertex1)) {
       if (!visited_vertices.count(vertex1)) {
         not_visited_vertices.push(heir);
-        int weight = *(graph.row_begin(vertex1) + heir);
+        int weight = *(graph.rowBegin(vertex1) + heir);
         tags[heir] = std::min(tags[heir], tags[vertex1] + weight);
       }
     }
@@ -89,7 +89,7 @@ std::vector<int> s21::GraphAlgorithms::searchAlgorithm_(
 std::vector<int> s21::GraphAlgorithms::getHeirsIndexes_(Graph& graph,
                                                         int start_index) {
   std::vector<int> heirs_indexes;
-  for (auto it = graph.row_begin(start_index); it != graph.row_end(start_index);
+  for (auto it = graph.rowBegin(start_index); it != graph.rowEnd(start_index);
        ++it) {
     if (*it != 0) {
       heirs_indexes.push_back(it.get_curr_col());

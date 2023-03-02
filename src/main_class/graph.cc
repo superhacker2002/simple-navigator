@@ -57,24 +57,24 @@ s21::Graph::iterator s21::Graph::end() {
   return iterator(&m_data_.matrix, rows - 1, cols);
 }
 
-s21::Graph::row_iterator s21::Graph::row_begin(int row) {
+s21::Graph::rowIterator s21::Graph::rowBegin(int row) {
   assert(row < m_data_.matrix.GetRows());
-  return row_iterator(&m_data_.matrix, row, 0);
+  return rowIterator(&m_data_.matrix, row, 0);
 }
 
-s21::Graph::row_iterator s21::Graph::row_end(int row) {
+s21::Graph::rowIterator s21::Graph::rowEnd(int row) {
   assert(row < m_data_.matrix.GetRows());
   int cols = m_data_.matrix.GetCols();
-  return row_iterator(&m_data_.matrix, row, cols);
+  return rowIterator(&m_data_.matrix, row, cols);
 }
 
-s21::Graph::col_iterator s21::Graph::col_begin(int col) {
+s21::Graph::colIterator s21::Graph::colBegin(int col) {
   assert(col < m_data_.matrix.GetCols());
-  return col_iterator(&m_data_.matrix, 0, col);
+  return colIterator(&m_data_.matrix, 0, col);
 }
 
-s21::Graph::col_iterator s21::Graph::col_end(int col) {
+s21::Graph::colIterator s21::Graph::colEnd(int col) {
   assert(col < m_data_.matrix.GetCols());
   int rows = m_data_.matrix.GetRows();
-  return col_iterator(&m_data_.matrix, rows, col);
+  return colIterator(&m_data_.matrix, rows, col);
 }

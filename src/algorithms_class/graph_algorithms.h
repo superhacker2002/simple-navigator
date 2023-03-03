@@ -9,6 +9,11 @@
 #include "../main_class/iterators/row_graph_iterator.h"
 
 namespace s21 {
+  struct TsmResult {
+    int* vertices;
+    double distance;
+  };
+
 class GraphAlgorithms {
  public:
   GraphAlgorithms();
@@ -18,6 +23,7 @@ class GraphAlgorithms {
   static int getShortestPathBetweenVertices(Graph& graph, int vertex1,
                                             int vertex2);
   static s21::Matrix<int> getShortestPathsBetweenAllVertices(Graph& graph);
+  static TsmResult solveTravelingSalesmanProblem(Graph &graph);
 
  private:
   template <class Container>

@@ -18,18 +18,18 @@ class GraphAlgorithms {
  public:
   GraphAlgorithms();
   ~GraphAlgorithms();
-  static std::vector<int> depthFirstSearch(Graph& graph, int start_vertex);
-  static std::vector<int> breadthFirstSearch(Graph& graph, int start_vertex);
-  static int getShortestPathBetweenVertices(Graph& graph, int vertex1,
+  static std::vector<int> depthFirstSearch(const Graph& graph, int start_vertex);
+  static std::vector<int> breadthFirstSearch(const Graph& graph, int start_vertex);
+  static int getShortestPathBetweenVertices(const Graph& graph, int vertex1,
                                             int vertex2);
-  static s21::Matrix<int> getShortestPathsBetweenAllVertices(Graph& graph);
-  static TsmResult solveTravelingSalesmanProblem(Graph &graph);
+  static s21::Matrix<int> getShortestPathsBetweenAllVertices(const Graph& graph);
+  //static TsmResult solveTravelingSalesmanProblem(const Graph &graph);
 
  private:
   template <class Container>
-  static std::vector<int> searchAlgorithm_(Graph& graph, int start_vertex,
+  static std::vector<int> searchAlgorithm_(const Graph& graph, int start_vertex,
                                            Container& not_visited_vertices);
-  static std::vector<int> getHeirsIndexes_(Graph& graph, int start_vertex);
+  static std::vector<int> getHeirsIndexes_(const Graph& graph, int start_vertex);
   static void prepareGraphForFloydWarshallAlgo_(Graph& graph);
   static int isPath_(int tag);
 };

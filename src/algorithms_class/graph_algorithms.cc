@@ -11,7 +11,7 @@
  * @returns vector containing the traversed vertices in the order
  * of their traversal
 */
-std::vector<int> s21::GraphAlgorithms::depthFirstSearch(Graph& graph,
+std::vector<int> s21::GraphAlgorithms::depthFirstSearch(const Graph& graph,
                                                         int start_vertex) {
   s21::Stack<int> not_visited_verticles;
   return searchAlgorithm_<s21::Stack<int>>(graph, start_vertex,
@@ -25,7 +25,7 @@ std::vector<int> s21::GraphAlgorithms::depthFirstSearch(Graph& graph,
  * @returns vector containing the traversed vertices in the order
  * of their traversal
 */
-std::vector<int> s21::GraphAlgorithms::breadthFirstSearch(Graph& graph,
+std::vector<int> s21::GraphAlgorithms::breadthFirstSearch(const Graph& graph,
                                                           int start_vertex) {
   s21::Queue<int> not_visited_verticles;
   return searchAlgorithm_<s21::Queue<int>>(graph, start_vertex,
@@ -37,7 +37,7 @@ std::vector<int> s21::GraphAlgorithms::breadthFirstSearch(Graph& graph,
  * and vertex2 in a weighted graph using Dijkstra's algorithm.
  * @returns numerical result equal to the smallest distance
 */
-int s21::GraphAlgorithms::getShortestPathBetweenVertices(Graph& graph,
+int s21::GraphAlgorithms::getShortestPathBetweenVertices(const Graph& graph,
                                                          int vertex1,
                                                          int vertex2) {
   vertex1 -= 1;
@@ -53,7 +53,7 @@ int s21::GraphAlgorithms::getShortestPathBetweenVertices(Graph& graph,
     for (auto heir : getHeirsIndexes_(graph, vertex1)) {
       if (!visited_vertices.count(vertex1)) {
         not_visited_vertices.push(heir);
-        int weight = graph.getWeigth(vertex1, heir);
+        int weight = graph.getConstWeight(vertex1, heir);
         tags[heir] = std::min(tags[heir], tags[vertex1] + weight);
       }
     }
@@ -69,7 +69,7 @@ int s21::GraphAlgorithms::getShortestPathBetweenVertices(Graph& graph,
  * vertices in a directed weighted graph using Floyd–Warshall algorithm.
  * @returns matrix of shortest paths between all vertices of the graph.
 */
-s21::Matrix<int> s21::GraphAlgorithms::getShortestPathsBetweenAllVertices(Graph& graph) {
+s21::Matrix<int> s21::GraphAlgorithms::getShortestPathsBetweenAllVertices(const Graph& graph) {
     std::vector<Graph> graphs(graph.getVerticesCount() + 1, s21::Graph(graph.getVerticesCount()));
     s21::Graph prepared_graph(graph);
     prepareGraphForFloydWarshallAlgo_(prepared_graph);
@@ -95,9 +95,9 @@ s21::Matrix<int> s21::GraphAlgorithms::getShortestPathsBetweenAllVertices(Graph&
  * @returns struct that contains array with the desired route 
  * (with the order of traversing the vertices) and the length of this route.
 */
-s21::TsmResult s21::GraphAlgorithms::solveTravelingSalesmanProblem(Graph &graph) {
+// s21::TsmResult s21::GraphAlgorithms::solveTravelingSalesmanProblem(const Graph &graph) {
   
-}
+// }
 
 
 
@@ -111,7 +111,7 @@ int s21::GraphAlgorithms::isPath_(int tag) {
 
 template <class Container>
 std::vector<int> s21::GraphAlgorithms::searchAlgorithm_(
-    Graph& graph, int start_vertex, Container& not_visited_vertices) {
+    const Graph& graph, int start_vertex, Container& not_visited_vertices) {
   start_vertex -= 1;
   not_visited_vertices.push(start_vertex);
   std::map<int, bool> visited_vertices{{start_vertex, true}};
@@ -132,10 +132,10 @@ std::vector<int> s21::GraphAlgorithms::searchAlgorithm_(
   return vertices_sequence;
 }
 
-std::vector<int> s21::GraphAlgorithms::getHeirsIndexes_(Graph& graph,
+std::vector<int> s21::GraphAlgorithms::getHeirsIndexes_(const Graph& graph,
                                                         int start_index) {
   std::vector<int> heirs_indexes;
-  for (auto it = graph.rowBegin(start_index); it != graph.rowEnd(start_index);
+  for (auto it = graph.cRowBegin(start_index); it != graph.cRowEnd(start_index);
        ++it) {
     if (*it != 0) {
       heirs_indexes.push_back(it.get_curr_col());

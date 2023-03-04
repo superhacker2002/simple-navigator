@@ -9,11 +9,11 @@ void s21::FileHandler::writeToFile(const std::string& filepath,
   std::ofstream file(filepath);
   if (file.is_open()) {
     writeHeader_(file);
-    for (int i = 0; i < data.matrix.GetRows(); ++i) {
-      for (int j = 0; j < data.matrix.GetCols(); ++j) {
-        if (data.matrix.at(i, j) != 0) {
+    for (int i = 0; i < data.matrix->GetRows(); ++i) {
+      for (int j = 0; j < data.matrix->GetCols(); ++j) {
+        if (data.matrix->at(i, j) != 0) {
           file << getVertexName_(i) << " -- " << getVertexName_(j)
-               << getLabel_(data.matrix.at(i, j));
+               << getLabel_(data.matrix->at(i, j));
         }
       }
     }
@@ -47,14 +47,14 @@ s21::GraphData s21::FileHandler::parseFile(const std::string& filepath) {
   if (m_file_.is_open()) {
     if (!m_file_.eof()) {
       size_t size = getGraphMatrixSize_();
-      m_grph_data_.matrix = Matrix<int>(size, size);
+      m_grph_data_.matrix = std::make_unique<Matrix<int>>(size, size);
     }
     int i = 0;
-    for (; i < m_grph_data_.matrix.GetCols() && !m_file_.eof(); ++i) {
+    for (; i < m_grph_data_.matrix->GetCols() && !m_file_.eof(); ++i) {
       getline(m_file_, buffer);
       parseLine_(buffer, i);
     }
-    if (i != m_grph_data_.matrix.GetCols()) {
+    if (i != m_grph_data_.matrix->GetCols()) {
       throw std::invalid_argument("Parse error : Incorrect file.");
     }
   } else {
@@ -67,9 +67,9 @@ s21::GraphData s21::FileHandler::parseFile(const std::string& filepath) {
 
 void s21::FileHandler::parseLine_(const std::string& line, size_t i) {
   int j = 0;
-  for (auto it = line.begin(); j < m_grph_data_.matrix.GetRows(); ++j) {
+  for (auto it = line.begin(); j < m_grph_data_.matrix->GetRows(); ++j) {
     try {
-      m_grph_data_.matrix(i, j) = std::stoi(it.base());
+      (*m_grph_data_.matrix)(i, j) = std::stoi(it.base());
       moveIter_(it);
     } catch (...) {
       throw std::invalid_argument(
@@ -77,7 +77,7 @@ void s21::FileHandler::parseLine_(const std::string& line, size_t i) {
           std::string(". Parse error : Can't parse line from file."));
     }
   }
-  if (j != m_grph_data_.matrix.GetRows()) {
+  if (j != m_grph_data_.matrix->GetRows()) {
     throw std::invalid_argument("Parse error : Incorrect file.");
   }
 }

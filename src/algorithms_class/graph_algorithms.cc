@@ -151,7 +151,7 @@ void s21::GraphAlgorithms::prepareGraphForFloydWarshallAlgo_(Graph& graph) {
                 graph.getWeigth(i, j) = 0;
             } else {
                 if (graph.getWeigth(i, j) == 0) {
-                    graph.getWeigth(i, j) = std::numeric_limits<int>::max();  // здесь должен быть inf
+                    graph.getWeigth(i, j) = std::numeric_limits<int>::max();
                 }
             }
         }

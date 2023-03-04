@@ -88,6 +88,20 @@ s21::Matrix<int> s21::GraphAlgorithms::getShortestPathsBetweenAllVertices(Graph&
     return graphs.at(prepared_graph.getVerticesCount()).graphToMatrix();
 }
 
+/**
+ * Method that solves the traveling salesman problem using an ant algorithm.
+ * Finds the most advantageous (shortest) route passing through all the 
+ * vertices of the graph at least once, followed by a return to the original vertex.
+ * @returns struct that contains array with the desired route 
+ * (with the order of traversing the vertices) and the length of this route.
+*/
+s21::TsmResult s21::GraphAlgorithms::solveTravelingSalesmanProblem(Graph &graph) {
+  
+}
+
+
+
+
 int s21::GraphAlgorithms::isPath_(int tag) {
   if (tag == std::numeric_limits<int>::max()) {
     throw std::invalid_argument("No path between these two vertices.");

@@ -53,7 +53,7 @@ int s21::GraphAlgorithms::getShortestPathBetweenVertices(const Graph& graph,
     for (auto heir : getHeirsIndexes_(graph, vertex1)) {
       if (!visited_vertices.count(vertex1)) {
         not_visited_vertices.push(heir);
-        int weight = graph.getConstWeight(vertex1, heir);
+        int weight = graph.getWeight(vertex1, heir);
         tags[heir] = std::min(tags[heir], tags[vertex1] + weight);
       }
     }

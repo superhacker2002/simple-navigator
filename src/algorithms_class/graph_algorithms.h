@@ -23,7 +23,7 @@ class GraphAlgorithms {
   static int getShortestPathBetweenVertices(Graph& graph, int vertex1,
                                             int vertex2);
   static s21::Matrix<int> getShortestPathsBetweenAllVertices(Graph& graph);
-  static TsmResult solveTravelingSalesmanProblem(Graph &graph);
+  //static TsmResult solveTravelingSalesmanProblem(Graph &graph);
 
  private:
   template <class Container>

@@ -9,9 +9,6 @@ void s21::Interface::exit() {
 
 s21::Interface::Interface() {
     signal(SIGINT, s21::Interface::sighandler);
-    function_type foo = showIfaceOptionsMsg;
-    std::pair<int, function_type> pr = {0, foo};
-    m_functions_.insert({0, s21::Interface::showIfaceOptionsMsg});
     
 }
 
@@ -28,7 +25,7 @@ void s21::Interface::showIfaceOptionsMsg() {
 }
 
 void s21::Interface::sighandler(int /*sig*/) {
-    exit();
+    instance->exit();
 }
 
 void s21::Interface::start() {
@@ -41,7 +38,7 @@ void s21::Interface::start() {
         std::cin >> function_num;
         auto function = m_functions_.find(static_cast<GraphFunctions>(function_num));
         if (function != m_functions_.end()) {
-            (*function).second();
+            (*function).second(*instance);
         } else {
             std::cout << "Wrong input!\n";
             showIfaceOptionsMsg();
@@ -49,8 +46,15 @@ void s21::Interface::start() {
     }
 }
 
-void s21::Interface::loadGraphFromFile() {
+void s21::Interface::outputGraph() {
+    instance->m_graph_.graphToMatrix().OutputMatrix();
+}
 
+void s21::Interface::loadGraphFromFile() {
+    std::string file_path;
+    std::cout << "Type in file path";
+    std::cin >> file_path;
+    instance->m_graph_.loadGraphFromFile(file_path);
 }
 
 void s21::Interface::exportGraphToDot() {

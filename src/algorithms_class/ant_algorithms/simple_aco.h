@@ -30,7 +30,6 @@ class SimpleACO {
   std::random_device rand_dev_;
   std::default_random_engine random_generator_;
 
-
   std::vector<AntType> createAnts_();
   void restartAnts_();
   double antProduct_(int from, int to);
@@ -39,7 +38,7 @@ class SimpleACO {
   void updateTrails_();
   void evaporatePheromones_();
   void addPheromones_();
-  void logging();
+  void logging_();
 };
 
 

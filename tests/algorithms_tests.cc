@@ -71,12 +71,11 @@ struct SalesmanAlgorithmsTest : public testing::Test {
 };
 
 TEST_F(SalesmanAlgorithmsTest, simple_ant_algorithm) {
-  std::vector<int> answer = {4, 1, };
+  std::vector<int> answer = {1, 2, 3, 4};
   auto answer_it = answer.begin();
   TsmResult result = s21::GraphAlgorithms::solveTravelingSalesmanProblem(graph);
   for (auto& vertice : result.vertices) {
-    printf("%d ", vertice);
-    // EXPECT_EQ(*answer_it, vertice);
+    EXPECT_EQ(*answer_it, vertice);
     answer_it++;
   }
   EXPECT_EQ(result.distance, 97.0);

@@ -4,8 +4,10 @@
 #include "../../main_class/graph.h"
 #include "../../helpers/s21_matrix.h"
 #include "constants.h"
+
 #include <limits>
 #include <vector>
+#include <random>
 
 class SimpleACO {
  public:
@@ -15,12 +17,19 @@ class SimpleACO {
  private:
   int cities_number_;
   int ants_number_;
-  s21::Graph cities_;
+  double init_pheromone_;
+
   s21::Matrix<int> distances_;
   s21::Matrix<double> pheromones_;
-  double best_path_;
+
+  double best_path_length_;
+  std::vector<int> best_path_;
+
   std::vector<AntType> ants_;
-  int best_index_;
+
+  std::random_device rand_dev_;
+  std::default_random_engine random_generator_;
+
 
   std::vector<AntType> createAnts_();
   void restartAnts_();
@@ -30,6 +39,7 @@ class SimpleACO {
   void updateTrails_();
   void evaporatePheromones_();
   void addPheromones_();
+  void logging();
 };
 
 

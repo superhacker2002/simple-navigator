@@ -95,9 +95,10 @@ s21::Matrix<int> s21::GraphAlgorithms::getShortestPathsBetweenAllVertices(const 
  * @returns struct that contains array with the desired route 
  * (with the order of traversing the vertices) and the length of this route.
 */
-// s21::TsmResult s21::GraphAlgorithms::solveTravelingSalesmanProblem(const Graph &graph) {
-  
-// }
+TsmResult s21::GraphAlgorithms::solveTravelingSalesmanProblem(const Graph &graph) {
+  SimpleACO colony(graph);
+  return colony.findBestPath();
+}
 
 
 

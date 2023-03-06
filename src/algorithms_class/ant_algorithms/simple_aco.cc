@@ -4,13 +4,14 @@
 SimpleACO::SimpleACO(const s21::Graph& graph)
   : cities_number_(graph.getVerticesCount()),
     ants_number_(graph.getVerticesCount()),
-    cities_(graph),
+	init_pheromone_(1.0 / cities_number_),
     distances_(graph.graphToMatrix()),
     pheromones_(cities_number_),
-    best_path_(kMaxDistance),
+    best_path_length_(kMaxDistance),
     ants_(createAnts_()),
-    best_index_(0) {
-	pheromones_.FillMatrix(kInitPheromone);
+	rand_dev_(),
+	random_generator_(rand_dev_()) {
+	pheromones_.FillMatrix(init_pheromone_);
 }
 
 std::vector<AntType> SimpleACO::createAnts_() {
@@ -36,41 +37,42 @@ std::vector<AntType> SimpleACO::createAnts_() {
     return ants;
 }
 
-//reinitialize all ants and redistribute them
 void SimpleACO::restartAnts_() {
 	for (int ant = 0; ant < ants_number_; ant++) {
-		if (ants_[ant].tour_length < best_path_) {
-			best_path_ = ants_[ant].tour_length;
-			best_index_ = ant;
+		if (ants_[ant].tour_length < best_path_length_) {
+			best_path_length_ = ants_[ant].tour_length;
+			best_path_ = ants_[ant].path;
 		}
 	}
 	ants_ = createAnts_();
 }
 
 double SimpleACO::antProduct_(int from, int to) {
-	return pow(pheromones_(from, to), kAlpha) * pow(distances_(from, to), kBetha);
+	return pow(pheromones_(from, to), kAlpha) * pow(1.0 / distances_(from, to), kBetha);
 }
 
 int SimpleACO::selectNextCity_(int ant) {
-	double denom = 0.0;
+	double max_probability = 0.0;
 	int from = ants_[ant].cur_city;
     int to = 0;
 	for (; to < cities_number_; to++) {
 		if (ants_[ant].tabu[to] == 0) {
-			denom += antProduct_(from, to);
+			max_probability += antProduct_(from, to);
 		}
 	}
-	assert(denom != 0.0);
+	assert(max_probability != 0.0);
+	std::uniform_real_distribution<double> dis(0.0, max_probability);
+
 	while (1) {
-		double p;
 		to++;
 		if (to >= cities_number_) {
 			to = 0;
         }
 		if (ants_[ant].tabu[to] == 0) {
-			p = antProduct_(from, to) / denom;
-			double x = ((double)rand()/RAND_MAX);  // change random 
-			if (x < p) {
+			double desire = antProduct_(from, to) / max_probability;
+			double choice = dis(random_generator_);
+			// printf("%f %f\n", desire, choice);
+			if (choice < desire) {
 				break;
 			}
 		}
@@ -81,19 +83,12 @@ int SimpleACO::selectNextCity_(int ant) {
 int SimpleACO::simulateAnts_() {
 	int moving = 0;
 	for (int ant = 0; ant < ants_number_; ant++) {
-		// проверяем, может ли муравей пойти еще куда-то
 		if (ants_[ant].path_index < cities_number_) {
-			// выбираем город
 			int next_city = selectNextCity_(ant);
-			// printf("ant: %d, cur city: %d, next city: %d \n", ant, ants_[ant].cur_city, next_city);
 			ants_[ant].next_city = next_city;
-			// отмечаем следующий город как пройденный
 			ants_[ant].tabu[next_city] = 1;
-			// добавляем в путь муравья следующий город
 			ants_[ant].path[ants_[ant].path_index++] = ants_[ant].next_city;
-			// прибавляем к длине пути длину из текущего города в следующий
 			ants_[ant].tour_length += distances_(ants_[ant].cur_city, next_city);
-			// если муравей дошел до конца пути и ему нужно вернуться обратно
 			if (ants_[ant].path_index == cities_number_) {
 				ants_[ant].tour_length += distances_(ants_[ant].path[cities_number_ - 1], 
                                                      ants_[ant].path[0]);
@@ -110,7 +105,7 @@ void SimpleACO::updateTrails_() {
 	addPheromones_();
 	
 	for (int from = 0; from < cities_number_; from++) {
-		for (int to=0; to < cities_number_; to++) {
+		for (int to = 0; to < cities_number_; to++) {
 			pheromones_(from, to) *= kEvaporationRate;
 		}
 	}
@@ -123,7 +118,7 @@ void SimpleACO::evaporatePheromones_() {
 			if (from != to) {
 				pheromones_(from, to) *=  1.0 - kEvaporationRate;
 				if (pheromones_(from, to) < 0.0) {
-					pheromones_(from, to) = kInitPheromone;
+					pheromones_(from, to) = init_pheromone_;
 				}
 			}
 		}
@@ -149,17 +144,27 @@ void SimpleACO::addPheromones_() {
 
 TsmResult SimpleACO::findBestPath() {
 	int curr_time = 0;
-	
-	while (curr_time++ < kMaxTime) {
+	int max_time = kMaxTours * cities_number_;
+	while (curr_time++ < max_time) {
 		if (simulateAnts_() == 0) {
 			updateTrails_();
-			if (curr_time != kMaxTime) {
-				restartAnts_();
-            }
-			std::cout << "\n Time is " << curr_time << "(" << best_path_ << ")";
+			restartAnts_();
 		}
 	}
-	
-	std::cout << "\nSACO: Best tour = " << best_path_ << std::endl;
-	return TsmResult{ants_[0].path, best_path_};
+	for (int i = 0; i < ants_number_; i++) {
+		best_path_[i] += 1;
+	}
+	return TsmResult{best_path_, best_path_length_};
+}
+
+void SimpleACO::logging() {
+	for (int ant = 0; ant < ants_number_; ant++) {
+		printf("ant: %d, path: ", ant);
+		for (int j = 0; j < cities_number_; j++) {
+			printf("%d ", ants_[ant].path[j] + 1);
+		}
+		printf("\n");
+		printf("tour length: %f\n", ants_[ant].tour_length);
+	}
+	printf("\n");
 }

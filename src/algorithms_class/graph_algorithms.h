@@ -7,6 +7,7 @@
 
 #include "../main_class/graph.h"
 #include "../main_class/iterators/row_graph_iterator.h"
+#include "ant_algorithms/simple_aco.h"
 
 namespace s21 {
 class GraphAlgorithms {
@@ -18,7 +19,7 @@ class GraphAlgorithms {
   static int getShortestPathBetweenVertices(const Graph& graph, int vertex1,
                                             int vertex2);
   static s21::Matrix<int> getShortestPathsBetweenAllVertices(const Graph& graph);
-  //static TsmResult solveTravelingSalesmanProblem(const Graph &graph);
+  static TsmResult solveTravelingSalesmanProblem(const Graph &graph);
 
  private:
   template <class Container>

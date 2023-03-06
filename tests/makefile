@@ -4,7 +4,7 @@ SRC = ../src/main_class/file_handler/file_handler.cc \
  	../src/main_class/graph.cc \
 	../src/algorithms_class/graph_algorithms.cc \
 	algorithms_tests.cc \
-	../src/algorithms_class/ant_algorithms/simple_aco.cc
+	../src/algorithms_class/ant_algorithm/simple_aco.cc
 
 clean:
 	rm -rf a.out *.dot a.out*

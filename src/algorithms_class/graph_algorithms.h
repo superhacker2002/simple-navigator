@@ -7,7 +7,7 @@
 
 #include "../main_class/graph.h"
 #include "../main_class/iterators/row_graph_iterator.h"
-#include "ant_algorithms/simple_aco.h"
+#include "ant_algorithm/simple_aco.h"
 
 namespace s21 {
 class GraphAlgorithms {

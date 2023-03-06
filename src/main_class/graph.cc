@@ -47,7 +47,7 @@ int s21::Graph::getVerticesCount() const { return m_data_.matrix->GetRows(); }
 
 int& s21::Graph::getWeigth(int i, int j) { return (*m_data_.matrix)(i, j); }
 
-int s21::Graph::getConstWeight(int i, int j) const { return m_data_.matrix->at(i, j); }
+int s21::Graph::getWeight(int i, int j) const { return m_data_.matrix->at(i, j); }
 
 s21::Graph::iterator s21::Graph::begin() {
   return iterator(m_data_.matrix.get(), 0, 0);

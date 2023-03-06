@@ -26,7 +26,7 @@ class Graph {
   void loadGraphFromFile(const std::string& filename);
   void exportGraphToDot(const std::string& filename);
   int& getWeigth(int i, int j);
-  int getConstWeight(int i, int j) const;
+  int getWeight(int i, int j) const;
   int getVerticesCount() const;
   iterator begin();
   iterator end();

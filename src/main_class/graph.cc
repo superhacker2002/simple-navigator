@@ -17,7 +17,7 @@ s21::Graph& s21::Graph::operator=(const Graph& other) {
   return *this;
 }
 
-s21::Matrix<int> s21::Graph::graphToMatrix() {
+s21::Matrix<int> s21::Graph::graphToMatrix() const {
   return s21::Matrix<int>(*m_data_.matrix);
 }
 

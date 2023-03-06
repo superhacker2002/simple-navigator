@@ -9,11 +9,6 @@
 #include "../main_class/iterators/row_graph_iterator.h"
 
 namespace s21 {
-  struct TsmResult {
-    int* vertices;
-    double distance;
-  };
-
 class GraphAlgorithms {
  public:
   GraphAlgorithms();

@@ -42,7 +42,7 @@ class Graph {
   constColIterator cColBegin(int col) const;
   constColIterator cColEnd(int col) const;
 
-  s21::Matrix<int> graphToMatrix();
+  s21::Matrix<int> graphToMatrix() const;
   void matrixToGraph(const s21::Matrix<int>& other);
 
  private:

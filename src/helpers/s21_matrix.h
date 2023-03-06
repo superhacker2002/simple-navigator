@@ -56,6 +56,14 @@ class Matrix {
     }
   }
 
+  Matrix(int size) : rows_(size), columns_(size) {
+    if (size <= 0) throw std::out_of_range("Out of range");
+    this->matrix_ = new T*[size];
+    for (int i = 0; i < size; i++) {
+      this->matrix_[i] = new T[size]();
+    }
+  }
+
   Matrix(const Matrix& other) : Matrix(other.rows_, other.columns_) {
     this->SetEqualValues_(other);
   }
@@ -66,6 +74,14 @@ class Matrix {
   }
 
   ~Matrix() { this->RemoveMatrix_(); }
+
+  void FillMatrix(T value) {
+    for (int i = 0; i < rows_; i++) {
+      for (int j = 0; j < columns_; j++) {
+        matrix_[i][j] = value;
+      }
+    }
+  }
 
   //  Operators overloads
 

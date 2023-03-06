@@ -157,15 +157,3 @@ TsmResult SimpleACO::findBestPath() {
 	}
 	return TsmResult{best_path_, best_path_length_};
 }
-
-void SimpleACO::logging_() {
-	for (int ant = 0; ant < ants_number_; ant++) {
-		printf("ant: %d, path: ", ant);
-		for (int j = 0; j < cities_number_; j++) {
-			printf("%d ", ants_[ant].path[j] + 1);
-		}
-		printf("\n");
-		printf("tour length: %f\n", ants_[ant].tour_length);
-	}
-	printf("\n");
-}

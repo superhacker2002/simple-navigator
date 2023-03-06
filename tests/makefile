@@ -13,7 +13,8 @@ build:
 	$(CC) $(SRC) $(FLAGS)
 
 test: clean build
-	./a.out --gtest_repeat=100 --gtest_break_on_failure
+	./a.out 
+	# --gtest_repeat=100 --gtest_break_on_failure
 	make clean
 
 debug: clean

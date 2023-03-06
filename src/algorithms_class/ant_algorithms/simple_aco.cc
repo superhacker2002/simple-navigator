@@ -152,8 +152,8 @@ TsmResult SimpleACO::findBestPath() {
 			}
 		}
 	}
-	for (int i = 0; i < ants_number_; i++) {
-		best_path_[i] += 1;
+	for (int city = 0; city < cities_number_; city++) {
+		best_path_[city] += 1;
 	}
 	return TsmResult{best_path_, best_path_length_};
 }

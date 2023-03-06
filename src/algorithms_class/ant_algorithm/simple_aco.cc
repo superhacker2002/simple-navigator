@@ -60,9 +60,10 @@ int SimpleACO::selectNextCity_(int ant) {
 			max_probability += antProduct_(from, to);
 		}
 	}
-	assert(max_probability != 0.0);
+	if (max_probability == 0.0 || max_probability == kMaxDistance) {
+		throw std::invalid_argument("Impossible to solve salesman problem for this graph.");
+	}
 	std::uniform_real_distribution<double> dis(0.0, max_probability);
-
 	while (1) {
 		to++;
 		if (to >= cities_number_) {
@@ -107,8 +108,7 @@ void SimpleACO::updateTrails_() {
 		for (int to = 0; to < cities_number_; to++) {
 			pheromones_(from, to) *= kEvaporationRate;
 		}
-	}
-	
+	}	
 }
 
 void SimpleACO::evaporatePheromones_() {

@@ -63,14 +63,9 @@ TEST_F(PathAlgorithmsTest, get_shortest_path_between_two_4) {
   EXPECT_ANY_THROW(s21::GraphAlgorithms::getShortestPathBetweenVertices(graph, 7, 3));
 }
 
-struct SalesmanAlgorithmsTest : public testing::Test {
- protected:
+TEST(salesman_algorithm_tests, simple_ant_algorithm) {
   s21::Graph graph;
-  void SetUp() { graph.loadGraphFromFile("../datasets/sample9.txt"); }
-  void TearDown() {}
-};
-
-TEST_F(SalesmanAlgorithmsTest, simple_ant_algorithm) {
+  graph.loadGraphFromFile("../datasets/sample9.txt");
   std::vector<int> answer = {1, 2, 3, 4};
   auto answer_it = answer.begin();
   TsmResult result = s21::GraphAlgorithms::solveTravelingSalesmanProblem(graph);
@@ -79,6 +74,12 @@ TEST_F(SalesmanAlgorithmsTest, simple_ant_algorithm) {
     answer_it++;
   }
   EXPECT_EQ(result.distance, 97.0);
+}
+
+TEST(salesman_algorithm_tests, simple_ant_algorithm_fail) {
+  s21::Graph graph;
+  graph.loadGraphFromFile("../datasets/sample8.txt");
+  EXPECT_ANY_THROW(s21::GraphAlgorithms::solveTravelingSalesmanProblem(graph));
 }
 
 int main(int argc, char** argv) {

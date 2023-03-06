@@ -4,8 +4,8 @@
 #include <limits>
 #include <vector>
 
-constexpr int kCitiesNumber = 30;
-constexpr int kAntsNumber = 30;
+constexpr int kCitiesNumber = 4;
+constexpr int kAntsNumber = 4;
 constexpr double kMaxDistance = std::numeric_limits<double>::infinity();
 constexpr double kAlpha = 1.0;  // weight of pheromones in path choice
 constexpr double kBetha = 1.0;  // weight of distance in path choice
@@ -13,7 +13,7 @@ constexpr double kEvaporationRate = 0.5;
 constexpr double kConstQValue = 100.0;
 
 // ?
-constexpr int kMaxTours = 20;
+constexpr int kMaxTours = 4;
 constexpr int kMaxTime = kMaxTours * kCitiesNumber;
 constexpr double kInitPheromone =  1.0 / kCitiesNumber;
 

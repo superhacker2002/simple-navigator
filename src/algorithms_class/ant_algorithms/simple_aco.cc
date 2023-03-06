@@ -43,8 +43,8 @@ void SimpleACO::restartAnts_() {
 			best_path_ = ants_[ant].tour_length;
 			best_index_ = ant;
 		}
-        ants_ = createAnts_();
 	}
+	ants_ = createAnts_();
 }
 
 double SimpleACO::antProduct_(int from, int to) {
@@ -60,7 +60,7 @@ int SimpleACO::selectNextCity_(int ant) {
 			denom += antProduct_(from, to);
 		}
 	}
-	// assert(denom != 0.0);
+	assert(denom != 0.0);
 	while (1) {
 		double p;
 		to++;
@@ -81,14 +81,19 @@ int SimpleACO::selectNextCity_(int ant) {
 int SimpleACO::simulateAnts_() {
 	int moving = 0;
 	for (int ant = 0; ant < ants_number_; ant++) {
+		// проверяем, может ли муравей пойти еще куда-то
 		if (ants_[ant].path_index < cities_number_) {
+			// выбираем город
 			int next_city = selectNextCity_(ant);
+			// printf("ant: %d, cur city: %d, next city: %d \n", ant, ants_[ant].cur_city, next_city);
 			ants_[ant].next_city = next_city;
+			// отмечаем следующий город как пройденный
 			ants_[ant].tabu[next_city] = 1;
+			// добавляем в путь муравья следующий город
 			ants_[ant].path[ants_[ant].path_index++] = ants_[ant].next_city;
-			
+			// прибавляем к длине пути длину из текущего города в следующий
 			ants_[ant].tour_length += distances_(ants_[ant].cur_city, next_city);
-			
+			// если муравей дошел до конца пути и ему нужно вернуться обратно
 			if (ants_[ant].path_index == cities_number_) {
 				ants_[ant].tour_length += distances_(ants_[ant].path[cities_number_ - 1], 
                                                      ants_[ant].path[0]);

@@ -47,7 +47,8 @@ s21::GraphData s21::FileHandler::parseFile(const std::string& filepath) {
   if (m_file_.is_open()) {
     if (!m_file_.eof()) {
       size_t size = getGraphMatrixSize_();
-      m_grph_data_.matrix = std::make_unique<s21::GraphData::MatrixType>(size, size);
+      m_grph_data_.matrix =
+          std::make_unique<s21::GraphData::MatrixType>(size, size);
     }
     int i = 0;
     for (; i < m_grph_data_.matrix->GetCols() && !m_file_.eof(); ++i) {

@@ -49,17 +49,19 @@ class RowGraphIterator : public GraphIterator<T> {
 template <typename T>
 class ConstRowGraphIterator : public RowGraphIterator<T> {
   friend class Graph;
-  public:
-    ConstRowGraphIterator() : RowGraphIterator<T>() {}
 
-    ConstRowGraphIterator(const ConstRowGraphIterator& other) : RowGraphIterator<T>(other) {}
+ public:
+  ConstRowGraphIterator() : RowGraphIterator<T>() {}
 
-    ~ConstRowGraphIterator() {}
+  ConstRowGraphIterator(const ConstRowGraphIterator& other)
+      : RowGraphIterator<T>(other) {}
 
-    T operator*() { return (*this->matrix_)(this->curr_row_, this->curr_col_); }
+  ~ConstRowGraphIterator() {}
 
-  private:
-    ConstRowGraphIterator(s21::Matrix<T>* matrix, int i, int j)
+  T operator*() { return (*this->matrix_)(this->curr_row_, this->curr_col_); }
+
+ private:
+  ConstRowGraphIterator(s21::Matrix<T>* matrix, int i, int j)
       : RowGraphIterator<T>(matrix, i, j) {}
 };
 

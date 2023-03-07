@@ -1,15 +1,15 @@
 #ifndef SRC_INCLUDES_INCLUDES_H_
 #define SRC_INCLUDES_INCLUDES_H_
 
-#include "s21_matrix.h"
 #include "memory"
+#include "s21_matrix.h"
 
 // note: incase if we wount need anything more
 // then matrix - change struct to using
 namespace s21 {
 struct GraphData {
   using MatrixType = Matrix<double>;
-  void operator= (const GraphData& other) {
+  void operator=(const GraphData& other) {
     matrix = std::make_unique<MatrixType>(*other.matrix);
   }
   GraphData() {}

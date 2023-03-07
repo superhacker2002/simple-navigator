@@ -56,11 +56,13 @@ TEST_F(PathAlgorithmsTest, get_shortest_path_between_two_3) {
   EXPECT_EQ(result, 12);
 }
 
-
 TEST_F(PathAlgorithmsTest, get_shortest_path_between_two_4) {
-  EXPECT_ANY_THROW(s21::GraphAlgorithms::getShortestPathBetweenVertices(graph, 2, 3));
-  EXPECT_ANY_THROW(s21::GraphAlgorithms::getShortestPathBetweenVertices(graph, 3, 1));
-  EXPECT_ANY_THROW(s21::GraphAlgorithms::getShortestPathBetweenVertices(graph, 7, 3));
+  EXPECT_ANY_THROW(
+      s21::GraphAlgorithms::getShortestPathBetweenVertices(graph, 2, 3));
+  EXPECT_ANY_THROW(
+      s21::GraphAlgorithms::getShortestPathBetweenVertices(graph, 3, 1));
+  EXPECT_ANY_THROW(
+      s21::GraphAlgorithms::getShortestPathBetweenVertices(graph, 7, 3));
 }
 
 struct AllAlgorithmsTest : public testing::Test {
@@ -91,7 +93,6 @@ TEST_F(AllAlgorithmsTest, spanning_tree_search) {
   graph.loadGraphFromFile("../datasets/sample9.txt");
   s21::GraphAlgorithms::getLeastSpanningTree(graph);
 }
-
 
 int main(int argc, char** argv) {
   ::testing::InitGoogleTest(&argc, argv);

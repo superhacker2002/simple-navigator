@@ -1,13 +1,13 @@
 #ifndef ANT_ALGORITHMS_SIMPLE_ACO_H_
 #define ANT_ALGORITHMS_SIMPLE_ACO_H_
 
-#include "../../main_class/graph.h"
-#include "../../helpers/s21_matrix.h"
-#include "constants.h"
-
 #include <limits>
-#include <vector>
 #include <random>
+#include <vector>
+
+#include "../../helpers/s21_matrix.h"
+#include "../../main_class/graph.h"
+#include "constants.h"
 
 class SimpleACO {
  public:
@@ -19,7 +19,7 @@ class SimpleACO {
   int ants_number_;
   double init_pheromone_;
 
-  s21::Matrix<int> distances_;
+  s21::Matrix<double> distances_;
   s21::Matrix<double> pheromones_;
 
   double best_path_length_;
@@ -40,6 +40,5 @@ class SimpleACO {
   void addPheromones_();
   void logging_();
 };
-
 
 #endif  // ANT_ALGORITHMS_SIMPLE_ACO_H_

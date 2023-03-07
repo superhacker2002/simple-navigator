@@ -8,9 +8,7 @@ s21::Graph::Graph(int n) {
   m_data_.matrix = std::make_unique<s21::GraphData::MatrixType>(n, n);
 }
 
-s21::Graph::Graph(const Graph& other) {
-  m_data_ = other.m_data_;
-}
+s21::Graph::Graph(const Graph& other) { m_data_ = other.m_data_; }
 
 s21::Graph& s21::Graph::operator=(const Graph& other) {
   m_data_ = other.m_data_;
@@ -47,7 +45,9 @@ int s21::Graph::getVerticesCount() const { return m_data_.matrix->GetRows(); }
 
 double& s21::Graph::getWeigth(int i, int j) { return (*m_data_.matrix)(i, j); }
 
-double s21::Graph::getWeight(int i, int j) const { return m_data_.matrix->at(i, j); }
+double s21::Graph::getWeight(int i, int j) const {
+  return m_data_.matrix->at(i, j);
+}
 
 s21::Graph::iterator s21::Graph::begin() {
   return iterator(m_data_.matrix.get(), 0, 0);
@@ -107,7 +107,7 @@ s21::Graph::constColIterator s21::Graph::cColBegin(int col) const {
   return constColIterator(m_data_.matrix.get(), 0, col);
 }
 
-s21::Graph::constColIterator s21::Graph::cColEnd(int col) const{
+s21::Graph::constColIterator s21::Graph::cColEnd(int col) const {
   assert(col < m_data_.matrix->GetCols());
   int rows = m_data_.matrix->GetRows();
   return constColIterator(m_data_.matrix.get(), rows, col);

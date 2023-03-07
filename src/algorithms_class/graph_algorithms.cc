@@ -47,7 +47,7 @@ int s21::GraphAlgorithms::getShortestPathBetweenVertices(const Graph& graph,
   s21::Queue<int> not_visited_vertices = {vertex1};
 
   int vertices_number = graph.getVerticesCount();
-  std::vector<int> tags(vertices_number, std::numeric_limits<int>::max());
+  std::vector<double> tags(vertices_number, INF);
   tags[vertex1] = 0;
 
   while ((int)visited_vertices.size() != vertices_number &&
@@ -55,7 +55,7 @@ int s21::GraphAlgorithms::getShortestPathBetweenVertices(const Graph& graph,
     for (auto heir : getHeirsIndexes_(graph, vertex1)) {
       if (!visited_vertices.count(vertex1)) {
         not_visited_vertices.push(heir);
-        int weight = graph.getWeight(vertex1, heir);
+        double weight = graph.getWeight(vertex1, heir);
         tags[heir] = std::min(tags[heir], tags[vertex1] + weight);
       }
     }
@@ -63,6 +63,7 @@ int s21::GraphAlgorithms::getShortestPathBetweenVertices(const Graph& graph,
     visited_vertices[vertex1] = true;
     vertex1 = not_visited_vertices.peek();
   }
+  printf("%f\n", tags[vertex2 - 1]);
   return isPath_(tags[vertex2 - 1]);
 }
 
@@ -136,7 +137,7 @@ s21::GraphData::MatrixType s21::GraphAlgorithms::getLeastSpanningTree(
   return spanning_tree;
 }
 
-int s21::GraphAlgorithms::isPath_(int tag) {
+int s21::GraphAlgorithms::isPath_(double tag) {
   if (tag == INF) {
     throw std::invalid_argument("No path between these two vertices.");
   }
@@ -178,7 +179,7 @@ std::vector<int> s21::GraphAlgorithms::getHeirsIndexes_(const Graph& graph,
   return heirs_indexes;
 }
 
-s21::Graph& s21::GraphAlgorithms::prepareGraphForFloydWarshallAlgo_(
+s21::Graph s21::GraphAlgorithms::prepareGraphForFloydWarshallAlgo_(
     const Graph& graph) {
   s21::Graph prepared_graph(graph);
   for (int i = 0; i < prepared_graph.getVerticesCount(); i++) {

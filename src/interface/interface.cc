@@ -3,8 +3,8 @@
 static s21::Interface* instance = nullptr;
 static bool m_shutdown_ = false;
 
-void s21::Interface::exit() {
-    m_shutdown_ = true;
+void s21::Interface::exitFromInterface() {
+    exit (EXIT_SUCCESS);
 }
 
 s21::Interface::Interface() {
@@ -25,7 +25,7 @@ void s21::Interface::showIfaceOptionsMsg() {
 }
 
 void s21::Interface::sighandler(int /*sig*/) {
-    instance->exit();
+    instance->exitFromInterface();
 }
 
 void s21::Interface::start() {
@@ -47,14 +47,14 @@ void s21::Interface::start() {
 }
 
 void s21::Interface::outputGraph() {
-    instance->m_graph_.graphToMatrix().OutputMatrix();
+    m_graph_.graphToMatrix().OutputMatrix();
 }
 
 void s21::Interface::loadGraphFromFile() {
     std::string file_path;
     std::cout << "Type in file path";
     std::cin >> file_path;
-    instance->m_graph_.loadGraphFromFile(file_path);
+    m_graph_.loadGraphFromFile(file_path);
 }
 
 void s21::Interface::exportGraphToDot() {

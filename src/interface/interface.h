@@ -55,7 +55,7 @@ class Interface {
     private:
         static void sighandler(int sig);
         Interface();
-        void exit();
+        void exitFromInterface();
         void showIfaceOptionsMsg();
         void loadGraphFromFile();
         void exportGraphToDot();
@@ -71,7 +71,7 @@ class Interface {
 
         s21::Graph m_graph_;
         std::map<int, function_type> m_functions_ = {
-            {static_cast<int>(EXIT),                            &s21::Interface::exit},
+            {static_cast<int>(EXIT),                            &s21::Interface::exitFromInterface},
             {static_cast<int>(LOAD_GRAPH_FROM_FILE),            &s21::Interface::loadGraphFromFile},
             {static_cast<int>(EXPORT_GRAPH_TO_DOT),             &s21::Interface::exportGraphToDot},
             {static_cast<int>(BREADTH_SEARCH),                  &s21::Interface::breadthSearch},

@@ -17,11 +17,13 @@ class GraphAlgorithms {
   static std::vector<int> depthFirstSearch(const Graph& graph, int start_vertex);
   static std::vector<int> breadthFirstSearch(const Graph& graph, int start_vertex);
   static int getShortestPathBetweenVertices(const Graph& graph, int vertex1,
-                                            int vertex2);
-  static s21::Matrix<int> getShortestPathsBetweenAllVertices(const Graph& graph);
+                                            int vertex2);  // double path
+  static s21::Matrix<int> getShortestPathsBetweenAllVertices(const Graph& graph);  // double
   static TsmResult solveTravelingSalesmanProblem(const Graph &graph);
+  static s21::Matrix<double> getLeastSpanningTree(const Graph &graph);
 
  private:
+  static constexpr double INF = std::numeric_limits<double>::infinity();
   template <class Container>
   static std::vector<int> searchAlgorithm_(const Graph& graph, int start_vertex,
                                            Container& not_visited_vertices);

@@ -2,6 +2,7 @@
 
 #include "../helpers/containers/s21_queue.h"
 #include "../helpers/containers/s21_stack.h"
+#include <queue>
 
 /**
  * Method for traversing graph data structure.
@@ -100,7 +101,36 @@ TsmResult s21::GraphAlgorithms::solveTravelingSalesmanProblem(const Graph &graph
   return colony.findBestPath();
 }
 
+s21::Matrix<double> s21::GraphAlgorithms::getLeastSpanningTree(const Graph &graph) {
+  int vertices_number = graph.getVerticesCount();
+  std::vector<bool> visited_vertices(vertices_number, false);
+  visited_vertices[0] = true;
+  s21::Matrix<double> spanning_tree(vertices_number);
+  spanning_tree.FillMatrix(0.0);
+  int current_edge = 0;
 
+  while (current_edge < vertices_number - 1) {
+    double min_dist = INF;
+    int from = 0, to = 0;
+    for (int i = 0; i < vertices_number; i++) {
+      if (visited_vertices[i]) {
+        for (int j = 0; j < vertices_number; j++) {
+          double distance = graph.getWeight(i, j);
+          if (!visited_vertices[j] && distance && distance < min_dist) {
+            min_dist = distance;
+            from = i;
+            to = j;
+          }
+        }
+      }
+    }
+    spanning_tree(from, to) = graph.getWeight(from, to);
+    visited_vertices[to] = true;
+    current_edge++;
+  }
+  spanning_tree.OutputMatrix();
+  return spanning_tree;
+}
 
 
 int s21::GraphAlgorithms::isPath_(int tag) {

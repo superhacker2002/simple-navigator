@@ -98,19 +98,12 @@ s21::GraphAlgorithms::getShortestPathsBetweenAllVertices(const Graph& graph) {
  * vertex.
  * @returns struct that contains array with the desired route
  * (with the order of traversing the vertices) and the length of this route.
-<<<<<<< HEAD
-*/
-// s21::TsmResult s21::GraphAlgorithms::solveTravelingSalesmanProblem(Graph &graph) {
-  
-// }
-=======
  */
 TsmResult s21::GraphAlgorithms::solveTravelingSalesmanProblem(
     const Graph& graph) {
   SimpleACO colony(graph);
   return colony.findBestPath();
 }
->>>>>>> e7f948d4726cb7d517dec34d01d76c9433596f64
 
 s21::GraphData::MatrixType s21::GraphAlgorithms::getLeastSpanningTree(
     const Graph& graph) {

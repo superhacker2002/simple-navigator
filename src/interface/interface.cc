@@ -9,9 +9,6 @@ void s21::Interface::exitFromInterface() {
 
 s21::Interface::Interface() {
     signal(SIGINT, s21::Interface::sighandler);
-    function_type foo = showIfaceOptionsMsg;
-    std::pair<int, function_type> pr = {0, foo};
-    m_functions_.insert({0, s21::Interface::showIfaceOptionsMsg});
 }
 
 s21::Interface* s21::Interface::getIfaceInstance() {
@@ -125,19 +122,19 @@ void s21::Interface::shortestPathBetweenAllPairs() {
 }
 
 void s21::Interface::minimalSpanningTreeSearch() {
-    // std::cout << MENU_MSGS[MINIMAL_SPANNING_TREE_SEARCH];
-    // auto res =
-    //     s21::GraphAlgorithms::getLeastSpanningTree(m_graph_);
-    // std::cout << "Result : \n";
-    // res.OutputMatrix();
+    std::cout << MENU_MSGS[MINIMAL_SPANNING_TREE_SEARCH];
+    auto res =
+        s21::GraphAlgorithms::getLeastSpanningTree(m_graph_);
+    std::cout << "Result : \n";
+    res.OutputMatrix();
 }
 
 void s21::Interface::salesmanProblemSolve() {
-    // std::cout << MENU_MSGS[SALESMAN_PROBLEM_SOLVE];
-    // auto res = s21::GraphAlgorithms::solveTravelingSalesmanProblem(m_graph_);
-    // std::cout << "Result : \n";
-    // for (auto it : res.vertices) {
-    //     std::cout << *it << " ";
-    // }
-    // std::cout << "Distance of this route is " << res.disctance;
+    std::cout << MENU_MSGS[SALESMAN_PROBLEM_SOLVE];
+    auto res = s21::GraphAlgorithms::solveTravelingSalesmanProblem(m_graph_);
+    std::cout << "Result : \n";
+    for (auto it : res.vertices) {
+        std::cout << it << " ";
+    }
+    std::cout << "Distance of this route is " << res.distance;
 }

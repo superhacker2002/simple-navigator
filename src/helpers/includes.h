@@ -8,14 +8,15 @@
 // then matrix - change struct to using
 namespace s21 {
 struct GraphData {
+  using MatrixType = Matrix<double>;
   void operator= (const GraphData& other) {
-    matrix = std::make_unique<Matrix<int>>(*other.matrix);
+    matrix = std::make_unique<MatrixType>(*other.matrix);
   }
   GraphData() {}
   GraphData(const GraphData& other) {
-    matrix = std::make_unique<Matrix<int>>(*other.matrix);
+    matrix = std::make_unique<MatrixType>(*other.matrix);
   }
-  std::unique_ptr<Matrix<int>> matrix;
+  std::unique_ptr<MatrixType> matrix;
   // smth else if needed
 };
 }  // namespace s21

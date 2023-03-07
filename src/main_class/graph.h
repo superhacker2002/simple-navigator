@@ -10,12 +10,12 @@
 namespace s21 {
 class Graph {
  public:
-  using iterator = s21::GraphIterator<int>;
-  using rowIterator = s21::RowGraphIterator<int>;
-  using colIterator = s21::ColGraphIterator<int>;
-  using constIterator = s21::ConstGraphIterator<int>;
-  using constRowIterator = s21::ConstRowGraphIterator<int>;
-  using constColIterator = s21::ConstColGraphIterator<int>;
+  using iterator = s21::GraphIterator<double>;
+  using rowIterator = s21::RowGraphIterator<double>;
+  using colIterator = s21::ColGraphIterator<double>;
+  using constIterator = s21::ConstGraphIterator<double>;
+  using constRowIterator = s21::ConstRowGraphIterator<double>;
+  using constColIterator = s21::ConstColGraphIterator<double>;
 
   Graph();
   Graph(const Graph& other);
@@ -25,8 +25,8 @@ class Graph {
 
   void loadGraphFromFile(const std::string& filename);
   void exportGraphToDot(const std::string& filename);
-  int& getWeigth(int i, int j);
-  int getWeight(int i, int j) const;
+  double& getWeigth(int i, int j);
+  double getWeight(int i, int j) const;
   int getVerticesCount() const;
   iterator begin();
   iterator end();
@@ -42,8 +42,8 @@ class Graph {
   constColIterator cColBegin(int col) const;
   constColIterator cColEnd(int col) const;
 
-  s21::Matrix<int> graphToMatrix() const;
-  void matrixToGraph(const s21::Matrix<int>& other);
+  s21::GraphData::MatrixType graphToMatrix() const;
+  void matrixToGraph(const s21::GraphData::MatrixType& other);
 
  private:
   FileHandler m_file_hndlr_;

@@ -70,7 +70,7 @@ int s21::GraphAlgorithms::getShortestPathBetweenVertices(const Graph& graph,
  * vertices in a directed weighted graph using Floyd–Warshall algorithm.
  * @returns matrix of shortest paths between all vertices of the graph.
 */
-s21::Matrix<int> s21::GraphAlgorithms::getShortestPathsBetweenAllVertices(const Graph& graph) {
+s21::GraphData::MatrixType s21::GraphAlgorithms::getShortestPathsBetweenAllVertices(const Graph& graph) {
     std::vector<Graph> graphs(graph.getVerticesCount() + 1, s21::Graph(graph.getVerticesCount()));
     s21::Graph prepared_graph(graph);
     prepareGraphForFloydWarshallAlgo_(prepared_graph);
@@ -101,11 +101,11 @@ TsmResult s21::GraphAlgorithms::solveTravelingSalesmanProblem(const Graph &graph
   return colony.findBestPath();
 }
 
-s21::Matrix<double> s21::GraphAlgorithms::getLeastSpanningTree(const Graph &graph) {
+s21::GraphData::MatrixType s21::GraphAlgorithms::getLeastSpanningTree(const Graph &graph) {
   int vertices_number = graph.getVerticesCount();
   std::vector<bool> visited_vertices(vertices_number, false);
   visited_vertices[0] = true;
-  s21::Matrix<double> spanning_tree(vertices_number);
+  s21::GraphData::MatrixType spanning_tree(vertices_number);
   spanning_tree.FillMatrix(0.0);
   int current_edge = 0;
 

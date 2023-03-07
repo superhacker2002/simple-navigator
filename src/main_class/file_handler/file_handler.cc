@@ -47,7 +47,7 @@ s21::GraphData s21::FileHandler::parseFile(const std::string& filepath) {
   if (m_file_.is_open()) {
     if (!m_file_.eof()) {
       size_t size = getGraphMatrixSize_();
-      m_grph_data_.matrix = std::make_unique<Matrix<int>>(size, size);
+      m_grph_data_.matrix = std::make_unique<s21::GraphData::MatrixType>(size, size);
     }
     int i = 0;
     for (; i < m_grph_data_.matrix->GetCols() && !m_file_.eof(); ++i) {
@@ -69,7 +69,7 @@ void s21::FileHandler::parseLine_(const std::string& line, size_t i) {
   int j = 0;
   for (auto it = line.begin(); j < m_grph_data_.matrix->GetRows(); ++j) {
     try {
-      (*m_grph_data_.matrix)(i, j) = std::stoi(it.base());
+      (*m_grph_data_.matrix)(i, j) = std::stof(it.base());
       moveIter_(it);
     } catch (...) {
       throw std::invalid_argument(
@@ -100,5 +100,5 @@ void s21::FileHandler::moveIter_(std::string::const_iterator& it) {
 }
 
 bool s21::FileHandler::isNumber_(const char sym) {
-  return sym >= '0' && sym <= '9';
+  return (sym >= '0' && sym <= '9') || sym == '.';
 }

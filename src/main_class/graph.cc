@@ -5,7 +5,7 @@
 s21::Graph::Graph() {}
 
 s21::Graph::Graph(int n) {
-  m_data_.matrix = std::make_unique<s21::Matrix<int>>(n, n);
+  m_data_.matrix = std::make_unique<s21::GraphData::MatrixType>(n, n);
 }
 
 s21::Graph::Graph(const Graph& other) {
@@ -17,11 +17,11 @@ s21::Graph& s21::Graph::operator=(const Graph& other) {
   return *this;
 }
 
-s21::Matrix<int> s21::Graph::graphToMatrix() const {
-  return s21::Matrix<int>(*m_data_.matrix);
+s21::GraphData::MatrixType s21::Graph::graphToMatrix() const {
+  return s21::GraphData::MatrixType(*m_data_.matrix);
 }
 
-void s21::Graph::matrixToGraph(const s21::Matrix<int>& other) {
+void s21::Graph::matrixToGraph(const s21::GraphData::MatrixType& other) {
   *m_data_.matrix = other;
 }
 
@@ -45,9 +45,9 @@ void s21::Graph::exportGraphToDot(const std::string& filepath) {
 
 int s21::Graph::getVerticesCount() const { return m_data_.matrix->GetRows(); }
 
-int& s21::Graph::getWeigth(int i, int j) { return (*m_data_.matrix)(i, j); }
+double& s21::Graph::getWeigth(int i, int j) { return (*m_data_.matrix)(i, j); }
 
-int s21::Graph::getWeight(int i, int j) const { return m_data_.matrix->at(i, j); }
+double s21::Graph::getWeight(int i, int j) const { return m_data_.matrix->at(i, j); }
 
 s21::Graph::iterator s21::Graph::begin() {
   return iterator(m_data_.matrix.get(), 0, 0);

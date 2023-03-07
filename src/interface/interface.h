@@ -2,10 +2,13 @@
 #define INTERFACE_
 
 #include "../main_class/graph.h"
+#include "../algorithms_class/graph_algorithms.h"
 #include <string_view>
 #include <signal.h>
 #include <map>
 #include <functional>
+#include <thread>
+#include <chrono>
 
 const static std::string_view IFACE_OPTIONS_MSG = 
 "\
@@ -21,6 +24,14 @@ const static std::string_view IFACE_OPTIONS_MSG =
     0 - exit (CTRL + C)\n\
     Type in the following number to start function\n\
 ";
+
+const static std::vector<std::string_view> MENU_MSGS = {
+    "\nExit from app\n", "\nLoad graph from file\n", "\nExport graph to dot\n", "\nBreadth search\n",
+    "\nDepth search\n", "\nShortest path between two vertices\n", "\nShortest path between all pairs of vertices\n",
+    "\nMinimal spanning tree search\n", "\nSalesman problem solve\n", "\nOutput current graph\n"
+};
+
+const static std::string_view LEAVE_MSG = "If you want to go back type 0\n";
 
 namespace s21 {
 enum GraphFunctions {

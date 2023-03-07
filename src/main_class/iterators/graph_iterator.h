@@ -77,6 +77,26 @@ class GraphIterator {
   int curr_row_;
   int curr_col_;
 };
+
+template <typename T>
+class ConstGraphIterator : public GraphIterator<T> {
+  friend class Graph;
+
+ public:
+  ConstGraphIterator() : GraphIterator<T>() {}
+
+  ConstGraphIterator(const ConstGraphIterator& other)
+      : GraphIterator<T>(other) {}
+
+  ~ConstGraphIterator() {}
+
+  T operator*() { return (*this->matrix_)(this->curr_row_, this->curr_col_); }
+
+ private:
+  ConstGraphIterator(s21::Matrix<T>* matrix, int i, int j)
+      : GraphIterator<T>(matrix, i, j) {}
+};
+
 }  // namespace s21
 
 #endif  // GRAPH_ITERATOR_H_

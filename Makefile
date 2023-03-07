@@ -19,13 +19,16 @@ debug: clean
 
 style_check:
 	cp materials/linters/.clang-format .
-	clang-format -n tests/*.cc \
-					tests/*.h \
-					src/algorithms_class/* \
-					src/helpers/containers/* \
+	clang-format -i tests/*.cc \
+					src/algorithms_class/*.h \
+					src/algorithms_class/*.cc \
+					src/algorithms_class/ant_algorithm/*.h \
+					src/algorithms_class/ant_algorithm/*.cc \
+					src/helpers/containers/*.h \
 					src/helpers/*.h \
-					src/main_class/file_handler/* \
-					src/main_class/iterators/* \
+					src/main_class/file_handler/*.cc \
+					src/main_class/file_handler/*.h \
+					src/main_class/iterators/*.h \
 					src/main_class/*.cc \
 					src/main_class/*.h
 	rm -rf .clang-format

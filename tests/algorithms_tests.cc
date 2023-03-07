@@ -56,18 +56,43 @@ TEST_F(PathAlgorithmsTest, get_shortest_path_between_two_3) {
   EXPECT_EQ(result, 12);
 }
 
-
 TEST_F(PathAlgorithmsTest, get_shortest_path_between_two_4) {
-  EXPECT_ANY_THROW(s21::GraphAlgorithms::getShortestPathBetweenVertices(graph, 2, 3));
-  EXPECT_ANY_THROW(s21::GraphAlgorithms::getShortestPathBetweenVertices(graph, 3, 1));
-  EXPECT_ANY_THROW(s21::GraphAlgorithms::getShortestPathBetweenVertices(graph, 7, 3));
+  EXPECT_ANY_THROW(
+      s21::GraphAlgorithms::getShortestPathBetweenVertices(graph, 2, 3));
+  EXPECT_ANY_THROW(
+      s21::GraphAlgorithms::getShortestPathBetweenVertices(graph, 3, 1));
+  EXPECT_ANY_THROW(
+      s21::GraphAlgorithms::getShortestPathBetweenVertices(graph, 7, 3));
 }
 
-// TEST_F(PathAlgorithmsTest, get_shortest_path_between_two_5) {
-//   int result =
-//       s21::GraphAlgorithms::getShortestPathBetweenVertices(graph, 6, 8);
-//   EXPECT_EQ(result, 12);
-// }
+struct AllAlgorithmsTest : public testing::Test {
+ protected:
+  s21::Graph graph;
+  void SetUp() {}
+  void TearDown() {}
+};
+
+TEST_F(AllAlgorithmsTest, simple_ant_algorithm) {
+  graph.loadGraphFromFile("../datasets/sample9.txt");
+  std::vector<int> answer = {1, 2, 3, 4};
+  auto answer_it = answer.begin();
+  TsmResult result = s21::GraphAlgorithms::solveTravelingSalesmanProblem(graph);
+  for (auto& vertice : result.vertices) {
+    EXPECT_EQ(*answer_it, vertice);
+    answer_it++;
+  }
+  EXPECT_EQ(result.distance, 97.0);
+}
+
+TEST_F(AllAlgorithmsTest, simple_ant_algorithm_fail) {
+  graph.loadGraphFromFile("../datasets/sample8.txt");
+  EXPECT_ANY_THROW(s21::GraphAlgorithms::solveTravelingSalesmanProblem(graph));
+}
+
+TEST_F(AllAlgorithmsTest, spanning_tree_search) {
+  graph.loadGraphFromFile("../datasets/sample9.txt");
+  s21::GraphAlgorithms::getLeastSpanningTree(graph);
+}
 
 int main(int argc, char** argv) {
   ::testing::InitGoogleTest(&argc, argv);

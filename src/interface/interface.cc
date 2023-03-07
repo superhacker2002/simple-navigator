@@ -9,7 +9,9 @@ void s21::Interface::exitFromInterface() {
 
 s21::Interface::Interface() {
     signal(SIGINT, s21::Interface::sighandler);
-    
+    function_type foo = showIfaceOptionsMsg;
+    std::pair<int, function_type> pr = {0, foo};
+    m_functions_.insert({0, s21::Interface::showIfaceOptionsMsg});
 }
 
 s21::Interface* s21::Interface::getIfaceInstance() {

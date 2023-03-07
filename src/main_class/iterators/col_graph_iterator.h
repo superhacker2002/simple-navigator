@@ -41,10 +41,30 @@ class ColGraphIterator : public GraphIterator<T> {
     return *this;
   }
 
- private:
+ protected:
   ColGraphIterator(s21::Matrix<T>* matrix, int i, int j)
       : GraphIterator<T>(matrix, i, j) {}
 };
+
+template <typename T>
+class ConstColGraphIterator : public ColGraphIterator<T> {
+  friend class Graph;
+
+ public:
+  ConstColGraphIterator() : ColGraphIterator<T>() {}
+
+  ConstColGraphIterator(const ConstColGraphIterator& it)
+      : ColGraphIterator<T>(it) {}
+
+  ~ConstColGraphIterator() {}
+
+  T operator*() { return (*this->matrix_)(this->curr_row_, this->curr_col_); }
+
+ private:
+  ConstColGraphIterator(s21::Matrix<T>* matrix, int i, int j)
+      : ColGraphIterator<T>(matrix, i, j) {}
+};
+
 }  // namespace s21
 
 #endif  // COL_GRAPH_ITERATOR_

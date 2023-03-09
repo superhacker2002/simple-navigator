@@ -44,6 +44,7 @@ class Graph {
 
   s21::GraphData::MatrixType graphToMatrix() const;
   void matrixToGraph(const s21::GraphData::MatrixType& other);
+  bool isEmpty();
 
  private:
   FileHandler m_file_hndlr_;

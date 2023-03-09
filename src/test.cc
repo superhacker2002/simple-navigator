@@ -12,6 +12,6 @@ int main() {
   // graph.loadGraphFromFile("../datasets/sample1.txt");
   // s21::Matrix<int> mtrx = s21::GraphAlgorithms::getShortestPathsBetweenAllVertices(graph);
   // mtrx.OutputMatrix();
-  s21::Interface* iface = s21::Interface::getIfaceInstance();
-  iface->start();
+  s21::Interface& iface = s21::Interface::getIfaceInstance();
+  iface.start();
 }

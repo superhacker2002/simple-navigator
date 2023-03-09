@@ -25,6 +25,10 @@ void s21::Graph::matrixToGraph(const s21::GraphData::MatrixType& other) {
 
 s21::Graph::~Graph() {}
 
+bool s21::Graph::isEmpty() {
+  return m_data_.matrix.get() == nullptr ? true : m_data_.matrix->isEmpty();
+}
+
 void s21::Graph::loadGraphFromFile(const std::string& filepath) {
   try {
     m_data_ = m_file_hndlr_.parseFile(filepath);

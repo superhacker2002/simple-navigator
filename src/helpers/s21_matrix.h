@@ -144,6 +144,10 @@ class Matrix {
 
   // Main methods
 
+  bool isEmpty() {
+    return columns_ == 0 && rows_ == 0;
+  }
+
   const T at(const int& i, const int& j) const {
     if (i >= this->rows_ || j >= this->columns_ || i < 0 || j < 0)
       throw std::out_of_range("Out of range");

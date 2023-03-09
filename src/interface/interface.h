@@ -11,7 +11,7 @@
 #include <chrono>
 
 const static std::string_view IFACE_OPTIONS_MSG = 
-"\
+"\n\
     1 - loading the original graph from a file\n\
     2 - loading current graph to .dot file\n\
     3 - graph traversal in breadth with output of the result to the console\n\
@@ -51,13 +51,8 @@ class Interface {
     using function_type = std::function<void(Interface&)>;
     // using function_type = std::function<void()>;
 
-    Interface(const Interface& other) = delete;
-    Interface(Interface&& other) = delete;
-    Interface& operator=(const Interface& other) = delete;
-    Interface& operator=(Interface&& other) = delete;
-
     public:
-        static Interface*  getIfaceInstance();
+        static Interface&  getIfaceInstance();
         ~Interface() {}
         void start();
 
@@ -65,7 +60,6 @@ class Interface {
 
     private:
         static void sighandler(int sig);
-        Interface();
         void exitFromInterface();
         void showIfaceOptionsMsg();
         void loadGraphFromFile();
@@ -78,7 +72,11 @@ class Interface {
         void salesmanProblemSolve();
         void outputGraph();
 
-
+        Interface();
+        Interface(const Interface& other);
+        Interface(Interface&& other);
+        Interface& operator=(const Interface& other);
+        Interface& operator=(Interface&& other);
 
         s21::Graph m_graph_;
         std::map<int, function_type> m_functions_ = {
@@ -93,11 +91,6 @@ class Interface {
             {static_cast<int>(SALESMAN_PROBLEM_SOLVE),          &s21::Interface::salesmanProblemSolve},
             {static_cast<int>(OUTPUT_GRAPH),                    &s21::Interface::outputGraph}
         };
-
-            
-            
-
-
 };  // class Interface
 }  // namespace s21
 

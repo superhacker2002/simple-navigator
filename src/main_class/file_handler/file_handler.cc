@@ -1,8 +1,10 @@
 #include "file_handler.h"
 
-s21::FileHandler::FileHandler() {}
+s21::FileHandler::FileHandler() {
+}
 
-s21::FileHandler::~FileHandler() {}
+s21::FileHandler::~FileHandler() {
+}
 
 void s21::FileHandler::writeToFile(const std::string& filepath,
                                    s21::GraphData& data) {

@@ -7,10 +7,10 @@ void s21::Interface::exitFromInterface() {
 }
 
 s21::Interface::Interface() {
-    signal(SIGINT, sighandler);
+    signal(SIGINT, s21::Interface::sighandler);
 }
 
-s21::Interface::instance s21::Interface::getIfaceInstance() {
+s21::Interface& s21::Interface::getIfaceInstance() {
     static s21::Interface instance;
     return instance;
 }
@@ -21,7 +21,7 @@ void s21::Interface::showIfaceOptionsMsg() {
 }
 
 void s21::Interface::sighandler(int /*sig*/) {
-    exitFromInterface();
+    // instance->exitFromInterface();
 }
 
 void s21::Interface::start() {
@@ -32,9 +32,13 @@ void s21::Interface::start() {
         }
         showIfaceOptionsMsg();
         std::cin >> function_num;
-        if (function_num > 0 || function_num < 9) {
-            auto function = m_functions_[function_num];
-            function();
+        auto function = m_functions_.find(static_cast<GraphFunctions>(function_num));
+        if (function != m_functions_.end()) {
+            if (function_num == LOAD_GRAPH_FROM_FILE || function_num == EXIT || !m_graph_.isEmpty()) {
+                (*function).second(*this);
+            } else {
+                std::cout << "Error : graph is empty!\n";
+            }       
         } else {
             std::cout << "Wrong input!\n";
         }
@@ -42,7 +46,7 @@ void s21::Interface::start() {
 }
 
 void s21::Interface::outputGraph() {
-    std::cout << MENU_MSGS[EXIT];
+    std::cout << MENU_MSGS[OUTPUT_GRAPH];
     m_graph_.graphToMatrix().OutputMatrix();
 }
 
@@ -62,7 +66,7 @@ void s21::Interface::exportGraphToDot() {
     std::cout << "Type in file name\n";
     std::cin >> file_path;
     if (file_path[0] != '0') {
-        m_graph_.loadGraphFromFile(file_path);
+        m_graph_.exportGraphToDot(file_path);
     }
 }
 

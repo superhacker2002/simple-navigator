@@ -1,6 +1,5 @@
 #include "interface.h"
 
-static s21::Interface* instance = nullptr;
 static bool m_shutdown_ = false;
 
 void s21::Interface::exitFromInterface() {
@@ -8,14 +7,12 @@ void s21::Interface::exitFromInterface() {
 }
 
 s21::Interface::Interface() {
-    signal(SIGINT, s21::Interface::sighandler);
+    signal(SIGINT, sighandler);
 }
 
-s21::Interface* s21::Interface::getIfaceInstance() {
-    if (instance) {
-        return instance;
-    }
-    return new Interface();
+s21::Interface::instance s21::Interface::getIfaceInstance() {
+    static s21::Interface instance;
+    return instance;
 }
 
 void s21::Interface::showIfaceOptionsMsg() {
@@ -24,7 +21,7 @@ void s21::Interface::showIfaceOptionsMsg() {
 }
 
 void s21::Interface::sighandler(int /*sig*/) {
-    instance->exitFromInterface();
+    exitFromInterface();
 }
 
 void s21::Interface::start() {
@@ -35,9 +32,9 @@ void s21::Interface::start() {
         }
         showIfaceOptionsMsg();
         std::cin >> function_num;
-        auto function = m_functions_.find(static_cast<GraphFunctions>(function_num));
-        if (function != m_functions_.end()) {
-            (*function).second(*instance);
+        if (function_num > 0 || function_num < 9) {
+            auto function = m_functions_[function_num];
+            function();
         } else {
             std::cout << "Wrong input!\n";
         }

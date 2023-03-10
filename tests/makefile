@@ -10,7 +10,7 @@ clean:
 	rm -rf a.out *.dot a.out*
 
 build:
-	$(CC) $(SRC) $(FLAGS)
+	$(CC) $(SRC) $(FLAGS) -g
 
 test: clean build
 	./a.out 

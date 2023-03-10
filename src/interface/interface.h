@@ -32,6 +32,7 @@ const static std::vector<std::string_view> MENU_MSGS = {
 };
 
 const static std::string_view LEAVE_MSG = "If you want to go back type 0\n";
+constexpr int OP_NUM = 9;
 
 namespace s21 {
 enum GraphFunctions {
@@ -48,8 +49,7 @@ enum GraphFunctions {
 };
 
 class Interface {
-    using function_type = std::function<void(Interface&)>;
-    // using function_type = std::function<void()>;
+    using function_type = std::function<void()>;
 
     Interface(const Interface& other) = delete;
     Interface(Interface&& other) = delete;
@@ -57,14 +57,13 @@ class Interface {
     Interface& operator=(Interface&& other) = delete;
 
     public:
-        static Interface*  getIfaceInstance();
+        using instance = Interface&;
+        static instance getIfaceInstance();
         ~Interface() {}
         void start();
 
-
-
     private:
-        static void sighandler(int sig);
+        void sighandler(int sig);
         Interface();
         void exitFromInterface();
         void showIfaceOptionsMsg();
@@ -81,22 +80,18 @@ class Interface {
 
 
         s21::Graph m_graph_;
-        std::map<int, function_type> m_functions_ = {
-            {static_cast<int>(EXIT),                            &s21::Interface::exitFromInterface},
-            {static_cast<int>(LOAD_GRAPH_FROM_FILE),            &s21::Interface::loadGraphFromFile},
-            {static_cast<int>(EXPORT_GRAPH_TO_DOT),             &s21::Interface::exportGraphToDot},
-            {static_cast<int>(BREADTH_SEARCH),                  &s21::Interface::breadthSearch},
-            {static_cast<int>(DEPTH_SEARCH),                    &s21::Interface::depthSearch},
-            {static_cast<int>(SHORTEST_PATH_BETWEEN_TWO),       &s21::Interface::shortestPathBetweenTwo},
-            {static_cast<int>(SHORTEST_PATH_BETWEEN_ALL_PAIRS), &s21::Interface::shortestPathBetweenAllPairs},
-            {static_cast<int>(MINIMAL_SPANNING_TREE_SEARCH),    &s21::Interface::minimalSpanningTreeSearch},
-            {static_cast<int>(SALESMAN_PROBLEM_SOLVE),          &s21::Interface::salesmanProblemSolve},
-            {static_cast<int>(OUTPUT_GRAPH),                    &s21::Interface::outputGraph}
+        std::vector<function_type> m_functions_ = {
+            &s21::Interface::exitFromInterface,
+            &s21::Interface::loadGraphFromFile,
+            &s21::Interface::exportGraphToDot,
+            &s21::Interface::breadthSearch,
+            &s21::Interface::depthSearch,
+            &s21::Interface::shortestPathBetweenTwo,
+            &s21::Interface::shortestPathBetweenAllPairs,
+            &s21::Interface::minimalSpanningTreeSearch,
+            &s21::Interface::salesmanProblemSolve,
+            &s21::Interface::outputGraph
         };
-
-            
-            
-
 
 };  // class Interface
 }  // namespace s21

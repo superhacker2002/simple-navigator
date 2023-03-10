@@ -1,8 +1,8 @@
 #include <iostream>
 #include <fstream>
-#include "main_class/graph.h"
-#include "algorithms_class/graph_algorithms.h"
-#include "interface/interface.h"
+#include "src/main_class/graph.h"
+#include "src/algorithms_class/graph_algorithms.h"
+#include "src/interface/interface.h"
 
 int main() {
   // for (int i = 0; i < 12; ++i) {
@@ -12,6 +12,6 @@ int main() {
   // graph.loadGraphFromFile("../datasets/sample1.txt");
   // s21::Matrix<int> mtrx = s21::GraphAlgorithms::getShortestPathsBetweenAllVertices(graph);
   // mtrx.OutputMatrix();
-  s21::Interface* iface = s21::Interface::getIfaceInstance();
-  iface->start();
+  s21::Interface& iface = s21::Interface::getIfaceInstance();
+  iface.start();
 }

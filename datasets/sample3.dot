@@ -1,5 +1,0 @@
-graph graphname {
-    a -- b [ label = "3"];
-    b -- c [ label = "8"];
-    b -- d [ label = "10"];
-}

@@ -63,7 +63,6 @@ int s21::GraphAlgorithms::getShortestPathBetweenVertices(const Graph& graph,
     visited_vertices[vertex1] = true;
     vertex1 = not_visited_vertices.peek();
   }
-  printf("%f\n", tags[vertex2 - 1]);
   return isPath_(tags[vertex2 - 1]);
 }
 
@@ -136,7 +135,6 @@ s21::GraphData::MatrixType s21::GraphAlgorithms::getLeastSpanningTree(
     visited_vertices[to] = true;
     current_edge++;
   }
-  spanning_tree.OutputMatrix();
   return spanning_tree;
 }
 

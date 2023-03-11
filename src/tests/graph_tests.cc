@@ -11,7 +11,7 @@ const std::vector<int> col_answer = {0, 0, 11, 0, 0};
 struct GraphTest : public testing::Test {
  protected:
   s21::Graph graph;
-  void SetUp() { graph.loadGraphFromFile("../datasets/sample2.txt"); }
+  void SetUp() { graph.loadGraphFromFile("../datasets/small_o_w_1.txt"); }
   void TearDown() {}
 };
 

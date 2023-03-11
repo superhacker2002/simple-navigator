@@ -44,10 +44,14 @@ interface: $(ALGORITHMS_LIB)
 	./console_interface
 
 
-test: $(GRAPH_LIB) $(ALGORITHMS_LIB)
+test: test_graph test_algorithms
+
+test_graph: $(GRAPH_LIB)
 	@$(CC) $(SRC_GRAPH_TEST) $(GRAPH_LIB) -o graph_tests $(TEST_FLAGS)
-	@$(CC) $(SRC_ALGORITHMS_TEST) $(ALGORITHMS_LIB) -o algorithms_tests $(TEST_FLAGS)
 	./graph_tests
+
+test_algorithms:
+	@$(CC) $(SRC_ALGORITHMS_TEST) $(ALGORITHMS_LIB) -o algorithms_tests $(TEST_FLAGS)
 	./algorithms_tests
 
 clean:

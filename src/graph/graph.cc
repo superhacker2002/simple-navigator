@@ -9,6 +9,14 @@ s21::Graph::Graph(int n) {
 
 s21::Graph::Graph(const Graph& other) { m_data_ = other.m_data_; }
 
+void s21::Graph::loadGraphFromFile(const std::string& filepath) {
+    m_data_ = m_file_hndlr_.parseFile(filepath);
+}
+
+void s21::Graph::exportGraphToDot(const std::string& filepath) {
+    m_file_hndlr_.writeToFile(filepath, m_data_);
+}
+
 s21::Graph& s21::Graph::operator=(const Graph& other) {
   m_data_ = other.m_data_;
   return *this;
@@ -26,22 +34,6 @@ s21::Graph::~Graph() {}
 
 bool s21::Graph::isEmpty() {
   return m_data_.matrix.get() == nullptr ? true : m_data_.matrix->isEmpty();
-}
-
-void s21::Graph::loadGraphFromFile(const std::string& filepath) {
-  try {
-    m_data_ = m_file_hndlr_.parseFile(filepath);
-  } catch (const std::exception& exc) {
-    std::cout << exc.what() << std::endl;
-  }
-}
-
-void s21::Graph::exportGraphToDot(const std::string& filepath) {
-  try {
-    m_file_hndlr_.writeToFile(filepath, m_data_);
-  } catch (const std::exception& exc) {
-    std::cout << exc.what() << std::endl;
-  }
 }
 
 int s21::Graph::getVerticesCount() const { return m_data_.matrix->GetRows(); }

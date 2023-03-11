@@ -23,6 +23,7 @@ class FileHandler {
   std::ifstream m_file_;
 
   size_t getGraphMatrixSize_();
+  void createMatrix_();
   void parseLine_(const std::string& line, size_t j);
   void moveIter_(std::string::const_iterator& it);
   bool isNumber_(const char sym);

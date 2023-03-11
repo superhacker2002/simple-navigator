@@ -1,11 +1,12 @@
 CC =gcc
 FLAGS =-Wall -Werror -Wextra -std=c++17
-TEST_FLAGS =-lgtest
+GTEST_FLAG =-lgtest
 LINKER_FLAGS =-lstdc++
+TEST_FLAGS =$(FLAGS) $(LINKER_FLAGS) $(GTEST_FLAG)
 
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S), Linux)
-	TEST_FLAGS +=-lm -lpthread
+	LINKER_FLAGS +=-lm -lpthread
 endif
 
 SRC_GRAPH = graph/file_handler/file_handler.cc \
@@ -36,8 +37,8 @@ $(ALGORITHMS_LIB): $(GRAPH_OBJ) $(ALGORITHMS_OBJ)
 	ar -rcs $(ALGORITHMS_LIB) $?
 
 test: $(GRAPH_LIB) $(ALGORITHMS_LIB)
-	@$(CC) $(SRC_GRAPH_TEST) $(GRAPH_LIB) -o graph_tests $(FLAGS) $(LINKER_FLAGS) $(TEST_FLAGS)
-	@$(CC) $(SRC_ALGORITHMS_TEST) $(ALGORITHMS_LIB) -o algorithms_tests $(FLAGS) $(LINKER_FLAGS) $(TEST_FLAGS)
+	@$(CC) $(SRC_GRAPH_TEST) $(GRAPH_LIB) -o graph_tests $(TEST_FLAGS)
+	@$(CC) $(SRC_ALGORITHMS_TEST) $(ALGORITHMS_LIB) -o algorithms_tests $(TEST_FLAGS)
 	./graph_tests
 	./algorithms_tests
 

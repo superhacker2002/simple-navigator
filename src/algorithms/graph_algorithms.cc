@@ -39,7 +39,7 @@ std::vector<int> s21::GraphAlgorithms::breadthFirstSearch(const Graph& graph,
  * and vertex2 in a weighted graph using Dijkstra's algorithm.
  * @returns numerical result equal to the smallest distance
  */
-int s21::GraphAlgorithms::getShortestPathBetweenVertices(const Graph& graph,
+double s21::GraphAlgorithms::getShortestPathBetweenVertices(const Graph& graph,
                                                          int vertex1,
                                                          int vertex2) {
   vertex1 -= 1;

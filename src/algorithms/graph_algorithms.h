@@ -12,16 +12,16 @@
 namespace s21 {
 class GraphAlgorithms {
  public:
-  GraphAlgorithms();
-  ~GraphAlgorithms();
+  GraphAlgorithms() = delete;
+  ~GraphAlgorithms() = delete;
   static std::vector<int> depthFirstSearch(const Graph& graph,
                                            int start_vertex);
   static std::vector<int> breadthFirstSearch(const Graph& graph,
                                              int start_vertex);
-  static int getShortestPathBetweenVertices(const Graph& graph, int vertex1,
-                                            int vertex2);  // double path
+  static double getShortestPathBetweenVertices(const Graph& graph, int vertex1,
+                                            int vertex2);
   static GraphData::MatrixType getShortestPathsBetweenAllVertices(
-      const Graph& graph);  // double
+      const Graph& graph);
   static TsmResult solveTravelingSalesmanProblem(const Graph& graph);
   static GraphData::MatrixType getLeastSpanningTree(const Graph& graph);
 

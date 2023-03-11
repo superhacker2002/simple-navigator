@@ -1,5 +1,5 @@
-#ifndef SRC_PARSER_PARSER_H_
-#define SRC_PARSER_PARSER_H_
+#ifndef FILE_HANDLER_H_
+#define FILE_HANDLER_H_
 
 #include <fstream>
 #include <stdexcept>
@@ -34,4 +34,4 @@ class FileHandler {
 
 }  // namespace s21
 
-#endif  // SRC_PARSER_PARSER_H_
+#endif  // FILE_HANDLER_H_

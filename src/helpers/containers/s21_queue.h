@@ -1,3 +1,6 @@
+#ifndef S21_QUEUE_H_
+#define S21_QUEUE_H_
+
 #include "s21_list.h"
 
 namespace s21 {
@@ -49,3 +52,5 @@ class Queue {
   }
 };
 }  // namespace s21
+
+#endif  // S21_QUEUE_H_

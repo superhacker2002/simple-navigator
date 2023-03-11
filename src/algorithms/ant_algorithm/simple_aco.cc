@@ -1,6 +1,5 @@
 #include "simple_aco.h"
 
-#include <iostream>
 // TODO: add path from last city to the first
 
 SimpleACO::SimpleACO(const s21::Graph& graph)

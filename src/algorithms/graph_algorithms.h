@@ -1,12 +1,12 @@
-#ifndef SRC_GRAPH_ALGORITHMS_H_
-#define SRC_GRAPH_ALGORITHMS_H_
+#ifndef GRAPH_ALGORITHMS_H_
+#define GRAPH_ALGORITHMS_H_
 
 #include <algorithm>
 #include <map>
 #include <vector>
 
-#include "../main_class/graph.h"
-#include "../main_class/iterators/row_graph_iterator.h"
+#include "../graph/graph.h"
+#include "../graph/iterators/row_graph_iterator.h"
 #include "ant_algorithm/simple_aco.h"
 
 namespace s21 {
@@ -37,4 +37,4 @@ class GraphAlgorithms {
 };
 }  // namespace s21
 
-#endif  // SRC_GRAPH_ALGORITHMS_H_
+#endif  // GRAPH_ALGORITHMS_H_

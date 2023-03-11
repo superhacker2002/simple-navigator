@@ -1,5 +1,5 @@
-#ifndef SRC_S21_NODE_H_
-#define SRC_S21_NODE_H_
+#ifndef S21_NODE_H_
+#define S21_NODE_H_
 
 namespace s21 {
 template <typename value_type>
@@ -69,4 +69,4 @@ class Node {
 };
 }  // namespace s21
 
-#endif  // SRC_S21_NODE_H_
+#endif  // S21_NODE_H_

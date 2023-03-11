@@ -1,5 +1,5 @@
-#ifndef SRC_S21_LIST_H_
-#define SRC_S21_LIST_H_
+#ifndef S21_LIST_H_
+#define S21_LIST_H_
 
 #include <initializer_list>
 #include <stdexcept>
@@ -391,4 +391,4 @@ class List {
   }
 };
 }  // namespace s21
-#endif  // SRC_S21_LIST_H_
+#endif  // LIST_H_

@@ -1,5 +1,4 @@
 #include "graph.h"
-
 #include <cassert>
 
 s21::Graph::Graph() {}

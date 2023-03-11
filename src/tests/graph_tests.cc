@@ -1,10 +1,8 @@
+#include "../s21_graph.h"
 
 #include <gtest/gtest.h>
-
 #include <iostream>
 #include <vector>
-
-#include "../src/main_class/graph.h"
 
 const std::vector<int> answer = {0,  12, 0, 0, 0, 0, 0, 0, 20, 8, 11, 0, 0,
                                  17, 0,  0, 0, 0, 0, 0, 0, 0,  0, 0,  0};

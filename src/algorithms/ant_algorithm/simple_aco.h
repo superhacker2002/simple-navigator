@@ -1,13 +1,13 @@
-#ifndef ANT_ALGORITHMS_SIMPLE_ACO_H_
-#define ANT_ALGORITHMS_SIMPLE_ACO_H_
+#ifndef SIMPLE_ACO_H_
+#define SIMPLE_ACO_H_
+
+#include "../../helpers/s21_matrix.h"
+#include "../../graph/graph.h"
+#include "constants.h"
 
 #include <limits>
 #include <random>
 #include <vector>
-
-#include "../../helpers/s21_matrix.h"
-#include "../../main_class/graph.h"
-#include "constants.h"
 
 class SimpleACO {
  public:
@@ -41,4 +41,4 @@ class SimpleACO {
   void logging_();
 };
 
-#endif  // ANT_ALGORITHMS_SIMPLE_ACO_H_
+#endif  // SIMPLE_ACO_H_

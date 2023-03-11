@@ -105,6 +105,9 @@ TsmResult s21::GraphAlgorithms::solveTravelingSalesmanProblem(
   return colony.findBestPath();
 }
 
+/**
+ * 
+*/
 s21::GraphData::MatrixType s21::GraphAlgorithms::getLeastSpanningTree(
     const Graph& graph) {
   int vertices_number = graph.getVerticesCount();

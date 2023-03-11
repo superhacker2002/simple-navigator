@@ -1,5 +1,5 @@
-#ifndef SRC_HELPERS_MATRIX_H_
-#define SRC_HELPERS_MATRIX_H_
+#ifndef MATRIX_H_
+#define MATRIX_H_
 
 #include <math.h>
 #include <stdlib.h>
@@ -282,4 +282,5 @@ class Matrix {
   }
 };  // class Matrix
 }  // namespace s21
-#endif  // SRC_HELPERS_MATRIX_H_
+
+#endif  // MATRIX_H_

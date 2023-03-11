@@ -1,5 +1,5 @@
-#ifndef SRC_GRAPH_H_
-#define SRC_GRAPH_H_
+#ifndef GRAPH_H_
+#define GRAPH_H_
 
 #include "../helpers/includes.h"
 #include "file_handler/file_handler.h"
@@ -52,4 +52,4 @@ class Graph {
 };
 }  // namespace s21
 
-#endif  // SRC_GRAPH_H_
+#endif  // GRAPH_H_

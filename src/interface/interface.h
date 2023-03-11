@@ -1,7 +1,7 @@
-#ifndef INTERFACE_
-#define INTERFACE_
+#ifndef INTERFACE_H_
+#define INTERFACE_H_
 
-#include "../main_class/graph.h"
+#include "../graph/graph.h"
 #include "../algorithms_class/graph_algorithms.h"
 #include <string_view>
 #include <signal.h>
@@ -93,4 +93,4 @@ class Interface {
 }  // namespace s21
 
 
-#endif  // INTERFACE_
+#endif  // INTERFACE_H_

@@ -1,5 +1,5 @@
-#ifndef SRC_S21_STACK_H_
-#define SRC_S21_STACK_H_
+#ifndef S21_STACK_H_
+#define S21_STACK_H_
 
 #include <initializer_list>
 #include <stdexcept>
@@ -52,4 +52,4 @@ class Stack {
 };
 }  // namespace s21
 
-#endif  // SRC_S21_STACK_H_
+#endif  // S21_STACK_H_

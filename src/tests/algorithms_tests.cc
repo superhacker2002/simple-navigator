@@ -1,7 +1,6 @@
-#include <gtest/gtest.h>
+#include "../s21_graph_algorithms.h"
 
-#include "../src/algorithms_class/graph_algorithms.h"
-#include "../src/main_class/graph.h"
+#include <gtest/gtest.h>
 
 const std::vector<int> bfs_1_answer = {1, 2, 3, 5, 4, 6, 7};
 const std::vector<int> dfs_1_answer = {1, 3, 6, 7, 4, 2, 5};

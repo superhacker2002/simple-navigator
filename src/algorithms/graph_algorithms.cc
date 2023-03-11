@@ -43,17 +43,15 @@ double s21::GraphAlgorithms::getShortestPathBetweenVertices(const Graph& graph,
                                                          int vertex1,
                                                          int vertex2) {
   vertex1 -= 1;
-  std::map<int, bool> visited_vertices;
-  s21::Queue<int> not_visited_vertices = {vertex1};
-
   int vertices_number = graph.getVerticesCount();
+  std::vector<bool> visited_vertices(vertices_number);
+  s21::Queue<int> not_visited_vertices = {vertex1};
   std::vector<double> tags(vertices_number, INF);
   tags[vertex1] = 0;
 
-  while ((int)visited_vertices.size() != vertices_number &&
-         !not_visited_vertices.empty()) {
+  while (!not_visited_vertices.empty()) {
     for (auto heir : getHeirsIndexes_(graph, vertex1)) {
-      if (!visited_vertices.count(vertex1)) {
+      if (!visited_vertices[vertex1]) {
         not_visited_vertices.push(heir);
         double weight = graph.getWeight(vertex1, heir);
         tags[heir] = std::min(tags[heir], tags[vertex1] + weight);
@@ -151,8 +149,10 @@ template <class Container>
 std::vector<int> s21::GraphAlgorithms::searchAlgorithm_(
     const Graph& graph, int start_vertex, Container& not_visited_vertices) {
   start_vertex -= 1;
+  int vertices_number = graph.getVerticesCount();
   not_visited_vertices.push(start_vertex);
-  std::map<int, bool> visited_vertices{{start_vertex, true}};
+  std::vector<bool> visited_vertices(vertices_number);
+  visited_vertices[start_vertex] = true;
   std::vector<int> vertices_sequence;
 
   while (!not_visited_vertices.empty()) {

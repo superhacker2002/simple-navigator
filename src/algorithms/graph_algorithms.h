@@ -2,7 +2,6 @@
 #define GRAPH_ALGORITHMS_H_
 
 #include <algorithm>
-#include <map>
 #include <vector>
 
 #include "../graph/graph.h"

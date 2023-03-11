@@ -105,7 +105,9 @@ TsmResult s21::GraphAlgorithms::solveTravelingSalesmanProblem(
 }
 
 /**
- * 
+ * Method for search for the smallest spanning tree in a graph
+ * using the Prim algorithm.
+ * @returns the adjacency matrix for the minimum spanning tree
 */
 s21::GraphData::MatrixType s21::GraphAlgorithms::getLeastSpanningTree(
     const Graph& graph) {

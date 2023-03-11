@@ -1,8 +1,8 @@
 #ifndef INTERFACE_H_
 #define INTERFACE_H_
 
-#include "../graph/graph.h"
-#include "../algorithms_class/graph_algorithms.h"
+#include "../s21_graph.h"
+#include "../s21_graph_algorithms.h"
 #include <string_view>
 #include <signal.h>
 #include <map>

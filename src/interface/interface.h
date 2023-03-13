@@ -3,12 +3,8 @@
 
 #include "../s21_graph.h"
 #include "../s21_graph_algorithms.h"
-#include <chrono>
-#include <functional>
-#include <map>
 #include <signal.h>
 #include <string_view>
-#include <thread>
 
 const static std::string_view IFACE_OPTIONS_MSG =
     "\n\u001b[32mChoose option:\e[0m\n\

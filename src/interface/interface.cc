@@ -82,7 +82,7 @@ void s21::Interface::breadthSearch() {
     int start_vertex;
     std::cout << "\u001b[32mType in index of start vertex.\e[0m\n";
     std::cin >> start_vertex;
-    if (start_vertex == 0) {
+    if (start_vertex == GraphFunctions::EXIT) {
       break;
     } else if (checkVertex(start_vertex)) {
       auto res =
@@ -103,7 +103,7 @@ void s21::Interface::depthSearch() {
     int start_vertex;
     std::cout << "\u001b[32mType in index of start vertex.\e[0m\n";
     std::cin >> start_vertex;
-    if (start_vertex == 0) {
+    if (start_vertex == GraphFunctions::EXIT) {
       break;
     } else if (checkVertex(start_vertex)) {
       auto res = s21::GraphAlgorithms::depthFirstSearch(m_graph_, start_vertex);
@@ -124,14 +124,14 @@ void s21::Interface::shortestPathBetweenTwo() {
     int first_vertex;
     std::cout << "\u001b[32mType in index of start vertex.\e[0m\n";
     std::cin >> first_vertex;
-    if (first_vertex == 0) {
+    if (first_vertex == GraphFunctions::EXIT) {
       break;
     } else if (checkVertex(first_vertex)) {
         while (1) {
             int second_vertex;
             std::cout << "\n\u001b[32mType in index of second vertex.\e[0m\n";
             std::cin >> second_vertex;
-            if (second_vertex == 0) {
+            if (second_vertex == GraphFunctions::EXIT) {
                 break;
             } else if (checkVertex(second_vertex)) {
                 auto res = s21::GraphAlgorithms::getShortestPathBetweenVertices(

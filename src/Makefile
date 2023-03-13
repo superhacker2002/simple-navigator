@@ -2,12 +2,13 @@ CC =gcc
 FLAGS =-Wall -Werror -Wextra -std=c++17
 GTEST_FLAG =-lgtest
 LINKER_FLAGS =-lstdc++
-TEST_FLAGS =$(FLAGS) $(LINKER_FLAGS) $(GTEST_FLAG)
 
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S), Linux)
 	LINKER_FLAGS +=-lm -lpthread
 endif
+
+TEST_FLAGS =$(FLAGS) $(LINKER_FLAGS) $(GTEST_FLAG)
 
 SRC_GRAPH = graph/file_handler/file_handler.cc \
 			graph/graph.cc \

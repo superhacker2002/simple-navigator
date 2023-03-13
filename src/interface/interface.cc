@@ -158,12 +158,17 @@ void s21::Interface::minimalSpanningTreeSearch() {
 
 void s21::Interface::salesmanProblemSolve() {
   std::cout << MENU_MSGS[SALESMAN_PROBLEM_SOLVE];
-  auto res = s21::GraphAlgorithms::solveTravelingSalesmanProblem(m_graph_);
-  std::cout << "Result : \n";
-  for (auto it : res.vertices) {
-    std::cout << it << " ";
+  try {
+    auto res = s21::GraphAlgorithms::solveTravelingSalesmanProblem(m_graph_);
+    std::cout << "\n\u001b[35mThe most profitable route passing" <<
+                "through all the vertices of the graph:\e[0m\n";
+    for (auto it : res.vertices) {
+      std::cout << it << " ";
+    }
+    std::cout << "\u001b[35Distance of this route is\e[0m" << res.distance;
+  } catch (const std::exception& err) {
+    std::cout << "\u001b[31m" << err.what() << "\e[0m\n";
   }
-  std::cout << "Distance of this route is " << res.distance;
 }
 
 bool s21::Interface::checkVertex(int start_vertex) {

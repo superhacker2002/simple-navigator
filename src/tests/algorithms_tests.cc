@@ -10,9 +10,9 @@ struct SearchAlgorithmsTest : public testing::Test {
 };
 
 TEST_F(SearchAlgorithmsTest, dfs_1) {
-  const std::vector<int> dfs_1_answer = {1, 3, 6, 7, 4, 2, 5};
+  const std::vector<int> dfs_answer = {1, 3, 6, 7, 4, 2, 5};
   std::vector<int> result = s21::GraphAlgorithms::depthFirstSearch(graph, 1);
-  auto answer_it = dfs_1_answer.begin();
+  auto answer_it = dfs_answer.begin();
   for (auto& heir : result) {
     EXPECT_EQ(*answer_it, heir);
     answer_it++;
@@ -20,14 +20,41 @@ TEST_F(SearchAlgorithmsTest, dfs_1) {
 }
 
 TEST_F(SearchAlgorithmsTest, bfs_1) {
-  const std::vector<int> bfs_1_answer = {1, 2, 3, 5, 4, 6, 7};
+  const std::vector<int> bfs_answer = {1, 2, 3, 5, 4, 6, 7};
   std::vector<int> result = s21::GraphAlgorithms::breadthFirstSearch(graph, 1);
-  auto answer_it = bfs_1_answer.begin();
+  auto answer_it = bfs_answer.begin();
   for (auto& heir : result) {
     EXPECT_EQ(*answer_it, heir);
     answer_it++;
   }
 }
+
+struct SearchAlgorithmsTest2 : public testing::Test {
+ protected:
+  s21::Graph graph;
+  void SetUp() { graph.loadGraphFromFile("../datasets/no_nw_tree.txt"); }
+  void TearDown() {}
+};
+
+TEST_F(SearchAlgorithmsTest2, dfs_2) {
+  const std::vector<int> dfs_answer = {1, 3, 8, 2, 5, 7, 6, 4};
+  std::vector<int> result = s21::GraphAlgorithms::depthFirstSearch(graph, 1);
+  auto answer_it = dfs_answer.begin();
+  for (auto& heir : result) {
+    EXPECT_EQ(*answer_it, heir);
+    answer_it++;
+  }
+}
+
+TEST_F(SearchAlgorithmsTest2, bfs_2) {
+  const std::vector<int> bfs_answer = {1, 2, 3, 4, 5, 8, 6, 7};
+  std::vector<int> result = s21::GraphAlgorithms::breadthFirstSearch(graph, 1);
+  auto answer_it = bfs_answer.begin();
+  for (auto& heir : result) {
+    EXPECT_EQ(*answer_it, heir);
+    answer_it++;
+  }
+} 
 
 struct PathAlgorithmsTest : public testing::Test {
  protected:
@@ -69,12 +96,71 @@ TEST_F(PathAlgorithmsTest, get_shortest_path_between_two_5) {
       s21::GraphAlgorithms::getShortestPathBetweenVertices(graph, 7, 3));
 }
 
+
+
 struct AllAlgorithmsTest : public testing::Test {
  protected:
   s21::Graph graph;
   void SetUp() {}
   void TearDown() {}
 };
+
+TEST_F(AllAlgorithmsTest, spanning_tree_search_1) {
+  const std::vector<double> answer = {0, 20, 0, 0,
+                                      0, 0, 30, 0,
+                                      0, 0, 0, 12,
+                                      0, 0, 0, 0,};
+  graph.loadGraphFromFile("../datasets/complete.txt");
+  s21::Matrix<double> result = s21::GraphAlgorithms::getLeastSpanningTree(graph);
+  s21::Graph result_graph;
+  result_graph.matrixToGraph(result);
+  auto answer_it = answer.begin();
+  for (auto& weight : result_graph) {
+    EXPECT_FLOAT_EQ(*answer_it, weight);
+    answer_it++;
+  }
+}
+
+TEST_F(AllAlgorithmsTest, spanning_tree_search_2) {
+  const std::vector<double> answer = {0, 0, 3, 0, 0, 0, 0, 0, 0, 0,
+                                      0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 
+                                      0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 
+                                      0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 
+                                      0, 0, 0, 0, 0, 8, 0, 0, 0, 8, 
+                                      0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 
+                                      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+                                      0, 0, 0, 0, 0, 0, 0, 0, 3, 0,
+                                      0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                                      0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+  graph.loadGraphFromFile("../datasets/no_w.txt");
+  s21::Matrix<double> result = s21::GraphAlgorithms::getLeastSpanningTree(graph);
+  s21::Graph result_graph;
+  result_graph.matrixToGraph(result);
+  auto answer_it = answer.begin();
+  for (auto& weight : result_graph) {
+    EXPECT_FLOAT_EQ(*answer_it, weight);
+    answer_it++;
+  }
+}
+
+TEST_F(AllAlgorithmsTest, spanning_tree_search_3) {
+  const std::vector<double> answer = {0, 10, 20, 0, 0, 0, 0, 
+                                      0, 0, 0, 0, 6, 0, 0,
+                                      0, 0, 0, 3, 0, 9, 0,
+                                      0, 0, 0, 0, 0, 0, 7,
+                                      0, 0, 0, 0, 0, 0, 0,
+                                      0, 0, 0, 0, 0, 0, 0,
+                                      0, 0, 0, 0, 0, 0, 0,};
+  graph.loadGraphFromFile("../datasets/small_o_w_2.txt");
+  s21::Matrix<double> result = s21::GraphAlgorithms::getLeastSpanningTree(graph);
+  s21::Graph result_graph;
+  result_graph.matrixToGraph(result);
+  auto answer_it = answer.begin();
+  for (auto& weight : result_graph) {
+    EXPECT_FLOAT_EQ(*answer_it, weight);
+    answer_it++;
+  }
+}
 
 TEST_F(AllAlgorithmsTest, simple_ant_algorithm_1) {
   graph.loadGraphFromFile("../datasets/complete.txt");
@@ -85,17 +171,24 @@ TEST_F(AllAlgorithmsTest, simple_ant_algorithm_1) {
     EXPECT_EQ(*answer_it, vertice);
     answer_it++;
   }
-  EXPECT_EQ(result.distance, 97.0);
+  EXPECT_FLOAT_EQ(result.distance, 97.0);
+}
+
+TEST_F(AllAlgorithmsTest, simple_ant_algorithm_2) {
+  graph.loadGraphFromFile("../datasets/complete_2.txt");
+  const std::vector<int> answer = {1, 2, 3, 4, 5, 1};
+  auto answer_it = answer.begin();
+  TsmResult result = s21::GraphAlgorithms::solveTravelingSalesmanProblem(graph);
+  for (auto& vertice : result.vertices) {
+    EXPECT_EQ(*answer_it, vertice);
+    answer_it++;
+  }
+  EXPECT_FLOAT_EQ(result.distance, 40.0);
 }
 
 TEST_F(AllAlgorithmsTest, simple_ant_algorithm_fail) {
   graph.loadGraphFromFile("../datasets/ncomplete.txt");
   EXPECT_ANY_THROW(s21::GraphAlgorithms::solveTravelingSalesmanProblem(graph));
-}
-
-TEST_F(AllAlgorithmsTest, spanning_tree_search) {
-  graph.loadGraphFromFile("../datasets/complete.txt");
-  s21::GraphAlgorithms::getLeastSpanningTree(graph);
 }
 
 int main(int argc, char** argv) {

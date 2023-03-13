@@ -8,7 +8,7 @@ ifeq ($(UNAME_S), Linux)
 	LINKER_FLAGS +=-lm -lpthread
 endif
 
-TEST_FLAGS =$(FLAGS) $(LINKER_FLAGS) $(GTEST_FLAG)
+TEST_FLAGS =$(FLAGS) $(GTEST_FLAG) $(LINKER_FLAGS)
 
 SRC_GRAPH = graph/file_handler/file_handler.cc \
 			graph/graph.cc \

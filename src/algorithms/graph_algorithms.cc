@@ -66,7 +66,7 @@ double s21::GraphAlgorithms::getShortestPathBetweenVertices(const Graph& graph,
 
 /**
  * Method for finding shortest paths between all pairs of
- * vertices in a directed weighted graph using Floyd–Warshall algorithm.
+ * vertices in oriented weighted graph using Floyd-Warshall algorithm.
  * @returns matrix of shortest paths between all vertices of the graph.
  */
 s21::GraphData::MatrixType
@@ -89,22 +89,8 @@ s21::GraphAlgorithms::getShortestPathsBetweenAllVertices(const Graph& graph) {
 }
 
 /**
- * Method that solves the traveling salesman problem using an ant algorithm.
- * Finds the most advantageous (shortest) route passing through all the
- * vertices of the graph at least once, followed by a return to the original
- * vertex.
- * @returns struct that contains array with the desired route
- * (with the order of traversing the vertices) and the length of this route.
- */
-TsmResult s21::GraphAlgorithms::solveTravelingSalesmanProblem(
-    const Graph& graph) {
-  SimpleACO colony(graph);
-  return colony.findBestPath();
-}
-
-/**
- * Method for search for the smallest spanning tree in a graph
- * using the Prim algorithm.
+ * Method for search for the smallest spanning tree in a 
+ * weighted graph using the Prim algorithm.
  * @returns the adjacency matrix for the minimum spanning tree
 */
 s21::GraphData::MatrixType s21::GraphAlgorithms::getLeastSpanningTree(
@@ -138,6 +124,20 @@ s21::GraphData::MatrixType s21::GraphAlgorithms::getLeastSpanningTree(
   return spanning_tree;
 }
 
+/**
+ * Method that solves the traveling salesman problem using an ant algorithm.
+ * Finds the most advantageous (shortest) route passing through all the
+ * vertices of the graph at least once, followed by a return to the original
+ * vertex (only in complete weighted graph).
+ * @returns struct that contains array with the desired route
+ * (with the order of traversing the vertices) and the length of this route.
+ */
+TsmResult s21::GraphAlgorithms::solveTravelingSalesmanProblem(
+    const Graph& graph) {
+  SimpleACO colony(graph);
+  return colony.findBestPath();
+}
+
 int s21::GraphAlgorithms::isPath_(double tag) {
   if (tag == INF) {
     throw std::invalid_argument("No path between these two vertices.");
@@ -153,13 +153,13 @@ std::vector<int> s21::GraphAlgorithms::searchAlgorithm_(
   not_visited_vertices.push(start_vertex);
   std::vector<bool> visited_vertices(vertices_number);
   visited_vertices[start_vertex] = true;
-  std::vector<int> vertices_sequence;
+  std::vector<int> path;
 
   while (!not_visited_vertices.empty()) {
     int curr_vertex = not_visited_vertices.peek();
     not_visited_vertices.pop();
     visited_vertices[curr_vertex] = true;
-    vertices_sequence.push_back(curr_vertex + 1);
+    path.push_back(curr_vertex + 1);
     for (int& heir : getHeirsIndexes_(graph, curr_vertex)) {
       if (!visited_vertices[heir]) {
         not_visited_vertices.push(heir);
@@ -167,7 +167,7 @@ std::vector<int> s21::GraphAlgorithms::searchAlgorithm_(
       }
     }
   }
-  return vertices_sequence;
+  return path;
 }
 
 std::vector<int> s21::GraphAlgorithms::getHeirsIndexes_(const Graph& graph,

@@ -25,22 +25,23 @@ void s21::Interface::sighandler(int /*sig*/) {
 }
 
 void s21::Interface::start() {
-    int function_num;
+    size_t function_num;
+    std::cout << START_MSG;
     while (true) {
         if (m_shutdown_) {
             break;
         }
         showIfaceOptionsMsg();
         std::cin >> function_num;
-        auto function = m_functions_.find(static_cast<GraphFunctions>(function_num));
-        if (function != m_functions_.end()) {
+        if (function_num < m_functions_.size()) {
+            auto function = m_functions_[function_num];
             if (function_num == LOAD_GRAPH_FROM_FILE || function_num == EXIT || !m_graph_.isEmpty()) {
-                (*function).second(*this);
+                function(*this);
             } else {
-                std::cout << "Error : graph is empty!\n";
-            }       
+                std::cout << "\u001b[31mError: graph is empty! Chose option 1 to load graph.\e[0m\n";
+            }     
         } else {
-            std::cout << "Wrong input!\n";
+            std::cout << "\u001b[31mWrong input!\e[0m\n";
         }
     }
 }
@@ -53,34 +54,45 @@ void s21::Interface::outputGraph() {
 void s21::Interface::loadGraphFromFile() {
     std::string file_path;
     std::cout << MENU_MSGS[LOAD_GRAPH_FROM_FILE] << LEAVE_MSG;
-    std::cout << "Type in file name\n";
+    std::cout << "\u001b[32mType in file name.\e[0m\n";
     std::cin >> file_path;
     if (file_path[0] != '0') {
-        m_graph_.loadGraphFromFile(file_path);
+        try {
+            m_graph_.loadGraphFromFile(file_path);
+            std::cout << "\u001b[32mGraph is successfully loaded. ";
+        } catch (const std::exception& err) {
+            std::cout << "\u001b[31m" << err.what() << "\e[0m\n";
+        }
     }
 }
 
 void s21::Interface::exportGraphToDot() {
     std::string file_path;
     std::cout << MENU_MSGS[EXPORT_GRAPH_TO_DOT] << LEAVE_MSG;
-    std::cout << "Type in file name\n";
+    std::cout << "\u001b[32Type in file name.\e[0m\n";
     std::cin >> file_path;
     if (file_path[0] != '0') {
-        m_graph_.exportGraphToDot(file_path);
+        try {
+            m_graph_.exportGraphToDot(file_path);
+            std::cout << "\u001b[32mGraph is successfully exported to .dot file. ";
+        } catch (const std::exception& err) {
+            std::cout << "\u001b[31m" << err.what() << "\e[0m\n";
+        }
     }
 }
 
 void s21::Interface::breadthSearch() {
     int startVertex = 1;
     std::cout << MENU_MSGS[BREADTH_SEARCH] << LEAVE_MSG;
-    std::cout << "Type in index of start vertex\n";
+    std::cout << "\u001b[32mType in index of start vertex.\e[0m\n";
     std::cin >> startVertex;
     if (startVertex != 0) {
         auto res = s21::GraphAlgorithms::breadthFirstSearch(m_graph_, startVertex);
-        std::cout << "Result : \n";
+        std::cout << "\nResult of the braedth search: \n";
         for (auto it : res) {
             std::cout << it << " ";
         }
+        std::cout << '\n';
     }
 }
 

@@ -43,7 +43,6 @@ interface: $(ALGORITHMS_LIB)
 	@$(CC) $(SRC_INTERFACE) $(ALGORITHMS_LIB) -o console_interface $(FLAGS) $(LINKER_FLAGS)
 	./console_interface
 
-
 test: test_graph test_algorithms
 
 test_graph: $(GRAPH_LIB)

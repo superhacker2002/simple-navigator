@@ -17,26 +17,32 @@ const static std::string_view IFACE_OPTIONS_MSG =
     \u001b[33;1m7\e[0m - search for the minimal spanning tree in the graph\n\
     \u001b[33;1m8\e[0m - solve the salesman problem using ant algorithm\n\
     \u001b[33;1m9\e[0m - output current graph\n\
-    \u001b[33;1m0\e[0m - exit (CTRL + C)\n\n\
+    \u001b[33;1m0\e[0m - exit (CTRL + C)\n\
 ";
 
 const static std::vector<std::string_view> MENU_MSGS = {
-    "\n\u001b[34mExit from app.\e[0m\n\n",
-    "\n\u001b[34mLoad graph from file.\e[0m\n\n",
-    "\n\u001b[34mExport graph to dot.\e[0m\n\n",
-    "\n\u001b[34mBreadth search.\e[0m\n\n",
-    "\n\u001b[34mDepth search.\e[0m\n\n",
-    "\n\u001b[34mShortest path between two vertices.\e[0m\n\n",
-    "\n\u001b[34mShortest path between all pairs of vertices.\e[0m\n\n",
-    "\n\u001b[34mMinimal spanning tree search.\e[0m\n\n",
-    "\n\u001b[34mSalesman problem solve.\e[0m\n\n",
-    "\n\u001b[34mOutput current graph.\e[0m\n\n"};
+    "\n\u001b[34;1mExit from app.\e[0m\n\n",
+    "\n\u001b[34;1mLoad graph from file.\e[0m\n\n",
+    "\n\u001b[34;1mExport graph to dot.\e[0m\n\n",
+    "\n\u001b[34;1mBreadth search.\e[0m\n\n",
+    "\n\u001b[34;1mDepth search.\e[0m\n\n",
+    "\n\u001b[34;1mShortest path between two vertices.\e[0m\n\n",
+    "\n\u001b[34;1mShortest path between all pairs of vertices.\e[0m\n\n",
+    "\n\u001b[34;1mMinimal spanning tree search.\e[0m\n\n",
+    "\n\u001b[34;1mSalesman problem solve.\e[0m\n\n",
+    "\n\u001b[34;1mOutput current graph.\e[0m\n\n"
+};
 
 const static std::string_view LEAVE_MSG = "If you want to go back type 0.\n\n";
 
 const static std::string_view START_MSG =
     "\n\u001b[32;1mConsole application for checking the operability of the "
     "implemented libraries s21_graph.h and s21_graph_algorithms.h\e[0m\n";
+
+const static std::vector<std::string_view> WRONG_SIZE = {
+    "\n\u001b[31mThe numbering of vertices in the graph begins with 1.\e[0m\n",
+    "\n\u001b[31mThe graph does not have vertex with this number.\e[0m\n"
+};
 
 namespace s21 {
 enum GraphFunctions {
@@ -54,7 +60,6 @@ enum GraphFunctions {
 
 class Interface {
   using function_type = std::function<void(Interface &)>;
-  // using function_type = std::function<void()>;
 
 public:
   static Interface &getIfaceInstance();
@@ -74,6 +79,7 @@ private:
   void minimalSpanningTreeSearch();
   void salesmanProblemSolve();
   void outputGraph();
+  bool checkVertex(int start_vertex);
 
   Interface();
   Interface(const Interface &other);

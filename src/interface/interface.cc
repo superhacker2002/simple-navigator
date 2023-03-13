@@ -14,7 +14,7 @@ s21::Interface &s21::Interface::getIfaceInstance() {
 void s21::Interface::showIfaceOptionsMsg() { std::cout << IFACE_OPTIONS_MSG; }
 
 void s21::Interface::sighandler(int /*sig*/) {
-  // instance->exitFromInterface();
+  exit(EXIT_SUCCESS);
 }
 
 void s21::Interface::start() {
@@ -169,7 +169,7 @@ void s21::Interface::salesmanProblemSolve() {
 bool s21::Interface::checkVertex(int start_vertex) {
   int vertices_num = m_graph_.getVerticesCount();
   bool is_correct = true;
-  if (start_vertex < 0) {
+  if (start_vertex <= 0) {
     std::cout << WRONG_SIZE[0];
     is_correct = false;
   } else if (start_vertex > vertices_num) {

@@ -38,7 +38,6 @@ class SimpleACO {
   void updateTrails_();
   void evaporatePheromones_();
   void addPheromones_();
-  void logging_();
 };
 
 #endif  // SIMPLE_ACO_H_

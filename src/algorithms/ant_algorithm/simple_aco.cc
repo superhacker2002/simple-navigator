@@ -1,7 +1,5 @@
 #include "simple_aco.h"
 
-// TODO: add path from last city to the first
-
 SimpleACO::SimpleACO(const s21::Graph& graph)
     : cities_number_(graph.getVerticesCount()),
       ants_number_(graph.getVerticesCount()),
@@ -24,7 +22,7 @@ std::vector<AntType> SimpleACO::createAnts_() {
     AntType ant;
     ant.cur_city = to++;
     for (int from = 0; from < cities_number_; from++) {
-      ant.tabu.push_back(0);
+      ant.tabu.push_back(kUnvisited);
       ant.path.push_back(kUndefined);
     }
     ant.path_index = 1;
@@ -32,16 +30,17 @@ std::vector<AntType> SimpleACO::createAnts_() {
     ant.next_city = kUndefined;
     ant.tour_length = 0;
     ants.push_back(ant);
-    ants[ant_num].tabu[ants[ant_num].cur_city] = 1;
+    ants[ant_num].tabu[ants[ant_num].cur_city] = kVisited;
   }
   return ants;
 }
 
 void SimpleACO::restartAnts_() {
-  for (int ant = 0; ant < ants_number_; ant++) {
-    if (ants_[ant].tour_length < best_path_length_) {
-      best_path_length_ = ants_[ant].tour_length;
-      best_path_ = ants_[ant].path;
+  for (auto& ant : ants_) {
+    if (ant.tour_length < best_path_length_) {
+      best_path_length_ = ant.tour_length;
+      best_path_ = ant.path;
+      best_path_.push_back(ant.path[0]);  // return to the first city
     }
   }
   ants_ = createAnts_();
@@ -57,7 +56,7 @@ int SimpleACO::selectNextCity_(int ant) {
   int from = ants_[ant].cur_city;
   int to = 0;
   for (; to < cities_number_; to++) {
-    if (ants_[ant].tabu[to] == 0) {
+    if (ants_[ant].tabu[to] == kUnvisited) {
       max_probability += antProduct_(from, to);
     }
   }
@@ -71,7 +70,7 @@ int SimpleACO::selectNextCity_(int ant) {
     if (to >= cities_number_) {
       to = 0;
     }
-    if (ants_[ant].tabu[to] == 0) {
+    if (ants_[ant].tabu[to] == kUnvisited) {
       double desire = antProduct_(from, to) / max_probability;
       double choice = dis(random_generator_);
       if (choice < desire) {
@@ -84,18 +83,18 @@ int SimpleACO::selectNextCity_(int ant) {
 
 int SimpleACO::simulateAnts_() {
   int moving = 0;
-  for (int ant = 0; ant < ants_number_; ant++) {
-    if (ants_[ant].path_index < cities_number_) {
-      int next_city = selectNextCity_(ant);
-      ants_[ant].next_city = next_city;
-      ants_[ant].tabu[next_city] = 1;
-      ants_[ant].path[ants_[ant].path_index++] = ants_[ant].next_city;
-      ants_[ant].tour_length += distances_(ants_[ant].cur_city, next_city);
-      if (ants_[ant].path_index == cities_number_) {
-        ants_[ant].tour_length +=
-            distances_(ants_[ant].path[cities_number_ - 1], ants_[ant].path[0]);
+  for (auto& ant : ants_) {
+    if (ant.path_index < cities_number_) {
+      int next_city = selectNextCity_(&ant - &ants_[0]);
+      ant.next_city = next_city;
+      ant.tabu[next_city] = kVisited;
+      ant.path[ant.path_index++] = ant.next_city;
+      ant.tour_length += distances_(ant.cur_city, next_city);
+      if (ant.path_index == cities_number_) {
+        ant.tour_length +=
+            distances_(ant.path[cities_number_ - 1], ant.path[0]);
       }
-      ants_[ant].cur_city = next_city;
+      ant.cur_city = next_city;
       moving++;
     }
   }
@@ -127,17 +126,17 @@ void SimpleACO::evaporatePheromones_() {
 }
 
 void SimpleACO::addPheromones_() {
-  for (int ant = 0; ant < ants_number_; ant++) {
+  for (auto& ant : ants_) {
     for (int city = 0; city < cities_number_; city++) {
       int from, to;
       if (city < cities_number_ - 1) {
-        from = ants_[ant].path[city];
-        to = ants_[ant].path[city + 1];
+        from = ant.path[city];
+        to = ant.path[city + 1];
       } else {
-        from = ants_[ant].path[city];
-        to = ants_[ant].path[0];
+        from = ant.path[city];
+        to = ant.path[0];
       }
-      pheromones_(from, to) += (kConstQValue / ants_[ant].tour_length);
+      pheromones_(from, to) += (kConstQValue / ant.tour_length);
       pheromones_(to, from) = pheromones_(from, to);
     }
   }
@@ -154,7 +153,7 @@ TsmResult SimpleACO::findBestPath() {
       }
     }
   }
-  for (int city = 0; city < cities_number_; city++) {
+  for (int city = 0; city < cities_number_ + 1; city++) {
     best_path_[city] += 1;
   }
   return TsmResult{best_path_, best_path_length_};

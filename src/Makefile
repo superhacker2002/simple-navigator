@@ -50,7 +50,7 @@ test_graph: $(GRAPH_LIB)
 	@$(CC) $(SRC_GRAPH_TEST) $(GRAPH_LIB) -o graph_tests $(TEST_FLAGS)
 	./graph_tests
 
-test_algorithms:
+test_algorithms: $(ALGORITHMS_LIB)
 	@$(CC) $(SRC_ALGORITHMS_TEST) $(ALGORITHMS_LIB) -o algorithms_tests $(TEST_FLAGS)
 	./algorithms_tests
 

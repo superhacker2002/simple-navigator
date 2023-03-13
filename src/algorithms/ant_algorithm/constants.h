@@ -12,6 +12,8 @@ constexpr double kConstQValue = 100.0;
 constexpr int kMaxTours = 20;  // max number of tours each ant can do
 constexpr double kInitPheromone = 1.0 / 4.0;
 constexpr int kUndefined = -1;
+constexpr int kUnvisited = 0;
+constexpr int kVisited = 1;
 
 struct AntType {
   int cur_city, next_city, path_index;

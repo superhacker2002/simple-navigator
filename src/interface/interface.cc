@@ -160,12 +160,12 @@ void s21::Interface::salesmanProblemSolve() {
   std::cout << MENU_MSGS[SALESMAN_PROBLEM_SOLVE];
   try {
     auto res = s21::GraphAlgorithms::solveTravelingSalesmanProblem(m_graph_);
-    std::cout << "\n\u001b[35mThe most profitable route passing" <<
+    std::cout << "\u001b[35mThe most profitable route passing " <<
                 "through all the vertices of the graph:\e[0m\n";
     for (auto it : res.vertices) {
       std::cout << it << " ";
     }
-    std::cout << "\u001b[35Distance of this route is\e[0m" << res.distance;
+    std::cout << "\n\u001b[35mLength of this route is:\e[0m\n" << res.distance << "\n";
   } catch (const std::exception& err) {
     std::cout << "\u001b[31m" << err.what() << "\e[0m\n";
   }

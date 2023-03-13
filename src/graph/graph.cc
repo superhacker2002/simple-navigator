@@ -27,6 +27,9 @@ s21::GraphData::MatrixType s21::Graph::graphToMatrix() const {
 }
 
 void s21::Graph::matrixToGraph(const s21::GraphData::MatrixType& other) {
+  if (m_data_.matrix == nullptr) {
+    m_data_.matrix = std::make_unique<s21::GraphData::MatrixType>(1);
+  }
   *m_data_.matrix = other;
 }
 

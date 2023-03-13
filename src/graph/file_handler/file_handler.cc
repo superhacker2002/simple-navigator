@@ -23,7 +23,7 @@ void s21::FileHandler::writeToFile(const std::string& filepath,
   } else {
     throw std::invalid_argument(
         std::strerror(errno) +
-        std::string("Write error. Can't open file for writing."));
+        std::string("Writing error : Can't open file for writing."));
   }
 }
 
@@ -54,12 +54,11 @@ s21::GraphData s21::FileHandler::parseFile(const std::string& filepath) {
       parseLine_(buffer, i);
     }
     if (i != m_grph_data_.matrix->GetCols()) {
-      throw std::invalid_argument("Parsing error: Incorrect file.");
+      throw std::invalid_argument("Parsing error : Incorrect adjacency matrix.");
     }
   } else {
     throw std::invalid_argument(
-        std::strerror(errno) +
-        std::string(". Parsing error: Can't open file for reading."));
+        std::strerror(errno));
   }
   return m_grph_data_;
 }
@@ -80,12 +79,11 @@ void s21::FileHandler::parseLine_(const std::string& line, size_t i) {
       moveIter_(it);
     } catch (...) {
       throw std::invalid_argument(
-          std::strerror(errno) +
-          std::string(". Parse error : Can't parse line from file."));
+          std::string("Parsing error : Incorrect file contents."));
     }
   }
   if (j != m_grph_data_.matrix->GetRows()) {
-    throw std::invalid_argument("Parse error : Incorrect file.");
+    throw std::invalid_argument("Parsing error : Incorrect adjacency matrix.");
   }
 }
 
@@ -96,8 +94,7 @@ size_t s21::FileHandler::getGraphMatrixSize_() {
     return std::stoul(buffer);
   } catch (...) {
     throw std::invalid_argument(
-        std::strerror(errno) +
-        std::string(". Parse error : Can't get graph size from file."));
+        std::string("Parsing error : Incorrect size of adjacency matrix."));
   }
 }
 

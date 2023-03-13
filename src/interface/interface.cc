@@ -127,27 +127,21 @@ void s21::Interface::shortestPathBetweenTwo() {
     if (first_vertex == GraphFunctions::EXIT) {
       break;
     } else if (checkVertex(first_vertex)) {
-        while (1) {
-            int second_vertex;
-            std::cout << "\n\u001b[32mType in index of second vertex.\e[0m\n";
-            std::cin >> second_vertex;
-            if (second_vertex == GraphFunctions::EXIT) {
-                break;
-            } else if (checkVertex(second_vertex)) {
-                auto res = s21::GraphAlgorithms::getShortestPathBetweenVertices(
-                    m_graph_, first_vertex, second_vertex);
-                std::cout << "\n\u001b[35mShortest path between " << first_vertex
-                            << " and " << second_vertex << " vertices: \e[0m\n";
-                std::cout << res << "\n";
-                finded_res = true;
-                break;
-            }
+      while (!finded_res) {
+        int second_vertex;
+        std::cout << "\n\u001b[32mType in index of second vertex.\e[0m\n";
+        std::cin >> second_vertex;
+        if (second_vertex == GraphFunctions::EXIT) {
+          break;
+        } else if (checkVertex(second_vertex)) {
+          checkPath(first_vertex, second_vertex);
+          finded_res = true;
         }
+      }
     }
   }
 }
 
-//../datasets/complete.txt
 void s21::Interface::shortestPathBetweenAllPairs() {
   std::cout << MENU_MSGS[SHORTEST_PATH_BETWEEN_ALL_PAIRS];
   auto res = s21::GraphAlgorithms::getShortestPathsBetweenAllVertices(m_graph_);
@@ -183,4 +177,16 @@ bool s21::Interface::checkVertex(int start_vertex) {
     is_correct = false;
   }
   return is_correct;
+}
+
+void s21::Interface::checkPath(int first_vertex, int second_vertex) {
+    try {
+        auto res = s21::GraphAlgorithms::getShortestPathBetweenVertices(
+        m_graph_, first_vertex, second_vertex);
+        std::cout << "\n\u001b[35mShortest path between " << first_vertex
+                << " and " << second_vertex << " vertices: \e[0m\n";
+        std::cout << res << "\n";
+    } catch (const std::exception& err) {
+        std::cout << "\u001b[31m" << err.what() << "\e[0m\n";
+    }
 }

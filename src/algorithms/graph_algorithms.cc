@@ -140,7 +140,7 @@ TsmResult s21::GraphAlgorithms::solveTravelingSalesmanProblem(
 
 int s21::GraphAlgorithms::isPath_(double tag) {
   if (tag == INF) {
-    throw std::invalid_argument("No path between these two vertices.");
+    throw std::invalid_argument("Error : No path between these two vertices.");
   }
   return tag;
 }

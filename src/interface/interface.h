@@ -80,6 +80,7 @@ private:
   void salesmanProblemSolve();
   void outputGraph();
   bool checkVertex(int start_vertex);
+  void checkPath(int first_vertex, int second_vertex);
 
   Interface();
   Interface(const Interface &other);

@@ -18,15 +18,17 @@ void s21::Interface::sighandler(int /*sig*/) {
 }
 
 void s21::Interface::start() {
-  size_t function_num;
   std::cout << START_MSG;
   while (true) {
     if (m_shutdown_) {
       break;
     }
     showIfaceOptionsMsg();
-    std::cin >> function_num;
-    if (function_num < m_functions_.size()) {
+    std::string function_str;
+    std::cin >> function_str;
+    int function_num = checkInput(function_str);
+    if (function_num >= GraphFunctions::EXIT &&
+        function_num < static_cast<int>(m_functions_.size())) {
       auto function = m_functions_[function_num];
       if (function_num == LOAD_GRAPH_FROM_FILE || function_num == EXIT ||
           !m_graph_.isEmpty()) {
@@ -35,8 +37,6 @@ void s21::Interface::start() {
         std::cout << "\u001b[31mError : graph is empty! Chose option 1 to load "
                      "graph.\e[0m\n";
       }
-    } else {
-      std::cout << "\u001b[31mWrong input!\e[0m\n";
     }
   }
 }
@@ -51,7 +51,7 @@ void s21::Interface::loadGraphFromFile() {
   std::cout << MENU_MSGS[LOAD_GRAPH_FROM_FILE] << LEAVE_MSG;
   std::cout << "\u001b[32mType in relative path to the file.\e[0m\n";
   std::cin >> file_path;
-  if (file_path[0] != '0') {
+  if (file_path.size() > 1 && file_path[0] != 'b') {
     try {
       m_graph_.loadGraphFromFile(file_path);
       std::cout << "\u001b[32mGraph is successfully loaded.\n";
@@ -66,7 +66,7 @@ void s21::Interface::exportGraphToDot() {
   std::cout << MENU_MSGS[EXPORT_GRAPH_TO_DOT] << LEAVE_MSG;
   std::cout << "\u001b[32Type in file name.\e[0m\n";
   std::cin >> file_path;
-  if (file_path[0] != '0') {
+  if (file_path.size() > 1 && file_path[0] != 'b') {
     try {
       m_graph_.exportGraphToDot(file_path);
       std::cout << "\u001b[32mGraph is successfully exported to .dot file. ";
@@ -77,22 +77,23 @@ void s21::Interface::exportGraphToDot() {
 }
 
 void s21::Interface::breadthSearch() {
-  std::cout << MENU_MSGS[BREADTH_SEARCH];
+  std::cout << MENU_MSGS[BREADTH_SEARCH] << LEAVE_MSG;
   while (1) {
-    int start_vertex;
     std::cout << "\u001b[32mType in index of start vertex.\e[0m\n";
-    std::cin >> start_vertex;
-    if (start_vertex == GraphFunctions::EXIT) {
-      break;
-    } else if (checkVertex(start_vertex)) {
-      auto res =
-          s21::GraphAlgorithms::breadthFirstSearch(m_graph_, start_vertex);
-      std::cout << "\n\u001b[35mResult of the breadth search:\e[0m\n";
-      for (auto it : res) {
-        std::cout << it << " ";
-      }
-      std::cout << '\n';
-      break;
+    std::string start_vertex_str;
+    std::cin >> start_vertex_str;
+    if (start_vertex_str.size() == 1 && start_vertex_str[0] == 'b') {
+        break;
+    }
+    int start_vertex = checkInput(start_vertex_str);
+    if (start_vertex != NA && checkVertex(start_vertex)) {
+        auto res = s21::GraphAlgorithms::breadthFirstSearch(m_graph_, start_vertex);
+        std::cout << "\n\u001b[35mResult of the breadth search:\e[0m\n";
+        for (auto it : res) {
+            std::cout << it << " ";
+        }
+        std::cout << '\n';
+        break;
     }
   }
 }
@@ -100,12 +101,14 @@ void s21::Interface::breadthSearch() {
 void s21::Interface::depthSearch() {
   std::cout << MENU_MSGS[DEPTH_SEARCH];
   while (1) {
-    int start_vertex;
     std::cout << "\u001b[32mType in index of start vertex.\e[0m\n";
-    std::cin >> start_vertex;
-    if (start_vertex == GraphFunctions::EXIT) {
-      break;
-    } else if (checkVertex(start_vertex)) {
+    std::string start_vertex_str;
+    std::cin >> start_vertex_str;
+    if (start_vertex_str.size() == 1 && start_vertex_str[0] == 'b') {
+        break;
+    }
+    int start_vertex = checkInput(start_vertex_str);
+    if (start_vertex != NA && checkVertex(start_vertex)) {
       auto res = s21::GraphAlgorithms::depthFirstSearch(m_graph_, start_vertex);
       std::cout << "\n\u001b[35mResult of the depth search:\e[0m\n";
       for (auto it : res) {
@@ -152,7 +155,7 @@ void s21::Interface::shortestPathBetweenAllPairs() {
 void s21::Interface::minimalSpanningTreeSearch() {
   std::cout << MENU_MSGS[MINIMAL_SPANNING_TREE_SEARCH];
   auto res = s21::GraphAlgorithms::getLeastSpanningTree(m_graph_);
-  std::cout << "Result : \n";
+  std::cout << "\u001b[35mMinimal spanning tree for this graph is:\e[0m\n";
   res.OutputMatrix();
 }
 
@@ -160,7 +163,7 @@ void s21::Interface::salesmanProblemSolve() {
   std::cout << MENU_MSGS[SALESMAN_PROBLEM_SOLVE];
   try {
     auto res = s21::GraphAlgorithms::solveTravelingSalesmanProblem(m_graph_);
-    std::cout << "\u001b[35mThe most profitable route passing " <<
+    std::cout << "\u001b[35mThe most profitable route passing "
                 "through all the vertices of the graph:\e[0m\n";
     for (auto it : res.vertices) {
       std::cout << it << " ";
@@ -193,5 +196,14 @@ void s21::Interface::checkPath(int first_vertex, int second_vertex) {
         std::cout << res << "\n";
     } catch (const std::exception& err) {
         std::cout << "\u001b[31m" << err.what() << "\e[0m\n";
+    }
+}
+
+int s21::Interface::checkInput(std::string input) {
+    try {
+        return std::stoi(input);
+    } catch (...) {
+        std::cout << "\n\u001b[31mError : Not numeric input.\e[0m\n\n";
+        return -1;
     }
 }

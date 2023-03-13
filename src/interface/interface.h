@@ -33,7 +33,7 @@ const static std::vector<std::string_view> MENU_MSGS = {
     "\n\u001b[34;1mOutput current graph.\e[0m\n\n"
 };
 
-const static std::string_view LEAVE_MSG = "If you want to go back type 0.\n\n";
+const static std::string_view LEAVE_MSG = "If you want to go back type 'b'.\n\n";
 
 const static std::string_view START_MSG =
     "\n\u001b[32;1mConsole application for checking the operability of the "
@@ -43,6 +43,8 @@ const static std::vector<std::string_view> WRONG_SIZE = {
     "\n\u001b[31mThe numbering of vertices in the graph begins with 1.\e[0m\n",
     "\n\u001b[31mThe graph does not have vertex with this number.\e[0m\n"
 };
+
+constexpr int NA = -1;
 
 namespace s21 {
 enum GraphFunctions {
@@ -81,6 +83,7 @@ private:
   void outputGraph();
   bool checkVertex(int start_vertex);
   void checkPath(int first_vertex, int second_vertex);
+  int checkInput(std::string input);
 
   Interface();
   Interface(const Interface &other);

@@ -157,14 +157,14 @@ void s21::Interface::shortestPathBetweenTwo() {
 void s21::Interface::shortestPathBetweenAllPairs() {
   std::cout << MENU_MSGS[SHORTEST_PATH_BETWEEN_ALL_PAIRS];
   auto res = s21::GraphAlgorithms::getShortestPathsBetweenAllVertices(m_graph_);
-  std::cout << "Result : \n";
+  std::cout << "\u001b[35mMatrix of the shortest paths between all vertices:\e[0m\n";
   res.OutputMatrix();
 }
 
 void s21::Interface::minimalSpanningTreeSearch() {
   std::cout << MENU_MSGS[MINIMAL_SPANNING_TREE_SEARCH];
   auto res = s21::GraphAlgorithms::getLeastSpanningTree(m_graph_);
-  std::cout << "\u001b[35mMinimal spanning tree for this graph is:\e[0m\n";
+  std::cout << "\u001b[35mAdjacency matrix of the minimal spanning tree for this graph:\e[0m\n";
   res.OutputMatrix();
 }
 

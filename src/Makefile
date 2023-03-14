@@ -14,7 +14,8 @@ SRC_GRAPH = graph/file_handler/file_handler.cc \
 			graph/graph.cc \
 
 SRC_ALGORITHMS = algorithms/graph_algorithms.cc \
-				algorithms/ant_algorithm/simple_aco.cc 
+				algorithms/ant_algorithm/simple_aco.cc  \
+				algorithms/branch_and_bound_algorithm/branch_and_bound.cc
 
 SRC_INTERFACE = main.cc interface/interface.cc
 

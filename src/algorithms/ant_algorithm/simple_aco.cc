@@ -142,7 +142,7 @@ void SimpleACO::addPheromones_() {
   }
 }
 
-TsmResult SimpleACO::findBestPath() {
+s21::TsmResult SimpleACO::findBestPath() {
   int curr_time = 0;
   int max_time = kMaxTours * cities_number_;
   while (curr_time++ < max_time) {
@@ -156,5 +156,5 @@ TsmResult SimpleACO::findBestPath() {
   for (int city = 0; city < cities_number_ + 1; city++) {
     best_path_[city] += 1;
   }
-  return TsmResult{best_path_, best_path_length_};
+  return s21::TsmResult{best_path_, best_path_length_};
 }

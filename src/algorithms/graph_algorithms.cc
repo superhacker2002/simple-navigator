@@ -1,9 +1,12 @@
 #include "graph_algorithms.h"
 
-#include <queue>
-
 #include "../helpers/containers/s21_queue.h"
 #include "../helpers/containers/s21_stack.h"
+
+#include "../graph/iterators/row_graph_iterator.h"
+
+#include "branch_and_bound_algorithm/branch_and_bound.h"
+#include "ant_algorithm/simple_aco.h"
 
 /**
  * Method for traversing graph data structure.
@@ -132,10 +135,16 @@ s21::GraphData::MatrixType s21::GraphAlgorithms::getLeastSpanningTree(
  * @returns struct that contains array with the desired route
  * (with the order of traversing the vertices) and the length of this route.
  */
-TsmResult s21::GraphAlgorithms::solveTravelingSalesmanProblem(
+s21::TsmResult s21::GraphAlgorithms::solveTravelingSalesmanProblem(
     const Graph& graph) {
   SimpleACO colony(graph);
   return colony.findBestPath();
+}
+
+s21::TsmResult s21::GraphAlgorithms::solveTravelingSalesmanProblemBB(
+    const Graph& graph) {
+  BranchAndBound algorithm(graph);
+  return algorithm.getShortestRoute();
 }
 
 int s21::GraphAlgorithms::isPath_(double tag) {

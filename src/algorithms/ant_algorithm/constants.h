@@ -22,9 +22,4 @@ struct AntType {
   double tour_length;
 };
 
-struct TsmResult {
-  std::vector<int> vertices;
-  double distance;
-};
-
 #endif  // CONSTANTS_H_

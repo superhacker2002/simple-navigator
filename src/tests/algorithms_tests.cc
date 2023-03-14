@@ -166,7 +166,7 @@ TEST_F(AllAlgorithmsTest, simple_ant_algorithm_1) {
   graph.loadGraphFromFile("../datasets/complete.txt");
   const std::vector<int> answer = {1, 2, 3, 4, 1};
   auto answer_it = answer.begin();
-  TsmResult result = s21::GraphAlgorithms::solveTravelingSalesmanProblem(graph);
+  s21::TsmResult result = s21::GraphAlgorithms::solveTravelingSalesmanProblem(graph);
   for (auto& vertice : result.vertices) {
     EXPECT_EQ(*answer_it, vertice);
     answer_it++;
@@ -178,7 +178,7 @@ TEST_F(AllAlgorithmsTest, simple_ant_algorithm_2) {
   graph.loadGraphFromFile("../datasets/complete_2.txt");
   const std::vector<int> answer = {1, 2, 3, 4, 5, 1};
   auto answer_it = answer.begin();
-  TsmResult result = s21::GraphAlgorithms::solveTravelingSalesmanProblem(graph);
+  s21::TsmResult result = s21::GraphAlgorithms::solveTravelingSalesmanProblem(graph);
   for (auto& vertice : result.vertices) {
     EXPECT_EQ(*answer_it, vertice);
     answer_it++;
@@ -189,6 +189,18 @@ TEST_F(AllAlgorithmsTest, simple_ant_algorithm_2) {
 TEST_F(AllAlgorithmsTest, simple_ant_algorithm_fail) {
   graph.loadGraphFromFile("../datasets/ncomplete.txt");
   EXPECT_ANY_THROW(s21::GraphAlgorithms::solveTravelingSalesmanProblem(graph));
+}
+
+TEST_F(AllAlgorithmsTest, branch_and_bound_algorithm_test_1) {
+  graph.loadGraphFromFile("../datasets/complete.txt");
+  // const std::vector<int> answer = {1, 2, 3, 4, 1};
+  // auto answer_it = answer.begin();
+  s21::TsmResult result = s21::GraphAlgorithms::solveTravelingSalesmanProblemBB(graph);
+  // for (auto& vertice : result.vertices) {
+  //   EXPECT_EQ(*answer_it, vertice);
+  //   answer_it++;
+  // }
+  EXPECT_FLOAT_EQ(result.distance, 97.0);
 }
 
 int main(int argc, char** argv) {

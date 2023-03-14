@@ -20,5 +20,11 @@ struct GraphData {
   std::unique_ptr<MatrixType> matrix;
   // smth else if needed
 };
+
+struct TsmResult {
+  std::vector<int> vertices;
+  double distance;
+};
+
 }  // namespace s21
 #endif  // INCLUDES_H_

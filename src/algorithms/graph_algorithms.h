@@ -5,8 +5,6 @@
 #include <vector>
 
 #include "../graph/graph.h"
-#include "../graph/iterators/row_graph_iterator.h"
-#include "ant_algorithm/simple_aco.h"
 
 namespace s21 {
 class GraphAlgorithms {
@@ -21,8 +19,9 @@ class GraphAlgorithms {
                                             int vertex2);
   static GraphData::MatrixType getShortestPathsBetweenAllVertices(
       const Graph& graph);
-  static TsmResult solveTravelingSalesmanProblem(const Graph& graph);
   static GraphData::MatrixType getLeastSpanningTree(const Graph& graph);
+  static TsmResult solveTravelingSalesmanProblem(const Graph& graph);
+  static TsmResult solveTravelingSalesmanProblemBB(const Graph& graph);
 
  private:
   static constexpr double INF = std::numeric_limits<double>::infinity();

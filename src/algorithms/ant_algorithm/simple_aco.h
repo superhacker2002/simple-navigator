@@ -4,6 +4,7 @@
 #include "../../helpers/s21_matrix.h"
 #include "../../graph/graph.h"
 #include "constants.h"
+#include "../../helpers/includes.h"
 
 #include <limits>
 #include <random>
@@ -12,7 +13,7 @@
 class SimpleACO {
  public:
   SimpleACO(const s21::Graph& graph);
-  TsmResult findBestPath();
+  s21::TsmResult findBestPath();
 
  private:
   int cities_number_;

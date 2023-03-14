@@ -16,6 +16,19 @@ struct GraphTest : public testing::Test {
   void TearDown() {}
 };
 
+TEST_F(GraphTest, export_to_dot1) {
+  graph.loadGraphFromFile("../datasets/small_o_w_1.txt");
+  graph.exportGraphToDot("small_o_w_1.dot");
+  EXPECT_EQ(0, system("diff small_o_w_1.dot tests/small_o_w_1_answer.dot"));
+  system("rm small_o_w_1.dot");
+}
+
+TEST_F(GraphTest, export_to_dot2) {
+  graph.loadGraphFromFile("../datasets/o_w.txt");
+  graph.exportGraphToDot("o_w.dot");
+  EXPECT_EQ(0, system("diff o_w.dot tests/o_w_answer.dot"));
+  system("rm o_w.dot");
+}
 
 TEST_F(GraphTest, loading_from_file) {
   graph.loadGraphFromFile("../datasets/small_o_w_1.txt");
@@ -40,6 +53,8 @@ TEST_F(GraphTest, loading_from_file_double) {
     ++answer_it;
   }
 }
+
+
 
 TEST_F(GraphTest, broken_loading) {
   EXPECT_ANY_THROW(graph.loadGraphFromFile("../datasets/bad_files/empty.txt"));

@@ -1,0 +1,7 @@
+graph s21_graph_name {
+A0 -- B0[ label = "12"];
+B0 -- D0[ label = "20"];
+B0 -- E0[ label = "8"];
+C0 -- A0[ label = "11"];
+C0 -- D0[ label = "17"];
+}

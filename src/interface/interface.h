@@ -40,8 +40,8 @@ const static std::string_view START_MSG =
     "implemented libraries s21_graph.h and s21_graph_algorithms.h\e[0m\n";
 
 const static std::vector<std::string_view> WRONG_SIZE = {
-    "\n\u001b[31mThe numbering of vertices in the graph begins with 1.\e[0m\n",
-    "\n\u001b[31mThe graph does not have vertex with this number.\e[0m\n"
+    "\n\u001b[31mThe numbering of vertices in the graph begins with 1.\e[0m\n\n",
+    "\n\u001b[31mThe graph does not have vertex with this number.\e[0m\n\n"
 };
 
 constexpr int NA = -1;
@@ -83,7 +83,8 @@ private:
   void outputGraph();
   bool checkVertex(int start_vertex);
   void checkPath(int first_vertex, int second_vertex);
-  int checkInput(std::string input);
+  int checkInput(std::string input, int& result);
+  bool checkBackInput(std::string input);
 
   Interface();
   Interface(const Interface &other);

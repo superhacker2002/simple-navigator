@@ -5,13 +5,17 @@
 
 namespace SalesmanSolverFactory {
     std::unique_ptr<ISalesmanSolver> getSalesmanSolver(SolverAlgorithm type, const s21::Graph& graph) {
+        std::unique_ptr<ISalesmanSolver> solver;
         switch (type) {
             case SolverAlgorithm::ANT_COLONY_OPTIMIZATION: {
-                return std::make_unique<SimpleACO>(graph);
+                solver = std::make_unique<SimpleACO>(graph);
+                break;
             }
             case SolverAlgorithm::BRANCH_AND_BOUND: {
-                return std::make_unique<BranchAndBound>(graph);
+                solver =  std::make_unique<BranchAndBound>(graph);
+                break;
             }
         }
+        return solver;
     }
 }

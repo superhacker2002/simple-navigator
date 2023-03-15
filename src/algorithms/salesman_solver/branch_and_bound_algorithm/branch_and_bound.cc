@@ -74,7 +74,7 @@ void BranchAndBound::TSPRec_(double curr_bound, double curr_weight, int level, s
     }
 }
 
-s21::TsmResult BranchAndBound::getShortestRoute() {
+s21::TsmResult BranchAndBound::findBestPath() {
     final_res_ = kMaxDistance;
     int start = 0;
     for (int v = 0; v < graph_.getVerticesCount(); ++v) {

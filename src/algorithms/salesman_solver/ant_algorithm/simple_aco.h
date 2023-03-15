@@ -1,19 +1,20 @@
 #ifndef SIMPLE_ACO_H_
 #define SIMPLE_ACO_H_
 
-#include "../../helpers/s21_matrix.h"
-#include "../../graph/graph.h"
+#include "../../../helpers/s21_matrix.h"
+#include "../../../helpers/includes.h"
+#include "../../../graph/graph.h"
 #include "constants.h"
-#include "../../helpers/includes.h"
+#include "../solver_interface.h"
 
 #include <limits>
 #include <random>
 #include <vector>
 
-class SimpleACO {
+class SimpleACO : public ISalesmanSolver {
  public:
   SimpleACO(const s21::Graph& graph);
-  s21::TsmResult findBestPath();
+  s21::TsmResult findBestPath() override;
 
  private:
   int cities_number_;

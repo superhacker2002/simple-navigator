@@ -1,16 +1,17 @@
 #ifndef BRANCH_AND_BOUND_H_
 #define BRANCH_AND_BOUND_H_
 
-#include "../../graph/graph.h"
-#include "../../helpers/includes.h"
+#include "../../../graph/graph.h"
+#include "../../../helpers/includes.h"
+#include "../solver_interface.h"
 
 #include <vector>
 #include <limits>
 
-class BranchAndBound {
+class BranchAndBound : public ISalesmanSolver {
  public:
   BranchAndBound(const s21::Graph& graph);
-  s21::TsmResult getShortestRoute();
+  s21::TsmResult findBestPath() override;
   ~BranchAndBound();
 
  private:

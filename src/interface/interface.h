@@ -100,7 +100,7 @@ private:
   Interface &operator=(Interface &&other);
 
   s21::Graph m_graph_;
-  const std::vector<function_type> m_functions_ = {
+  const std::array<function_type, 11> m_functions_ = {
       &s21::Interface::exitFromInterface,
       &s21::Interface::loadGraphFromFile,
       &s21::Interface::exportGraphToDot,

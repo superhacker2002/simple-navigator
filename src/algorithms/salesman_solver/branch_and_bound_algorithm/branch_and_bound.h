@@ -1,12 +1,12 @@
 #ifndef BRANCH_AND_BOUND_H_
 #define BRANCH_AND_BOUND_H_
 
+#include <limits>
+#include <vector>
+
 #include "../../../graph/graph.h"
 #include "../../../helpers/includes.h"
 #include "../solver_interface.h"
-
-#include <vector>
-#include <limits>
 
 class BranchAndBound : public ISalesmanSolver {
  public:
@@ -15,7 +15,7 @@ class BranchAndBound : public ISalesmanSolver {
   ~BranchAndBound();
 
  private:
-  const double kMaxDistance = std::numeric_limits<double>::infinity(); 
+  const double kMaxDistance = std::numeric_limits<double>::infinity();
   s21::Graph graph_;
   std::vector<bool> visited_;
   double final_res_;
@@ -23,8 +23,12 @@ class BranchAndBound : public ISalesmanSolver {
 
   int firstMin_(int from);
   int secondMin_(int from);
-  void TSPRec_(double curr_bound, double curr_weight, int level, std::vector<int>& curr_path);
-
+  void TSPRec_(double curr_bound, double curr_weight, int level,
+               std::vector<int>& curr_path);
+  void setLastStep_(double curr_weight, int level, std::vector<int>& curr_path);
+  void calculateBound_(int level, double& curr_bound,
+                      std::vector<int>& curr_path, int vertice);
+  void resetVisitedVertices_(std::vector<int>&curr_path, int level);
 };
 
 #endif  // BRANCH_AND_BOUND_H_

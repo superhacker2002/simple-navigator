@@ -6,7 +6,7 @@
 #include <signal.h>
 #include <string_view>
 
-const static std::string_view IFACE_OPTIONS_MSG =
+const std::string_view IFACE_OPTIONS_MSG =
     "\n\u001b[32mChoose option:\e[0m\n\
     \u001b[33;1m1\e[0m - load the original graph from a file\n\
     \u001b[33;1m2\e[0m - load current graph to .dot file\n\
@@ -21,7 +21,7 @@ const static std::string_view IFACE_OPTIONS_MSG =
     \u001b[33;1m0\e[0m - exit (CTRL + C)\n\
 ";
 
-const static std::vector<std::string_view> MENU_MSGS = {
+const std::vector<std::string_view> MENU_MSGS = {
     "\n\u001b[34;1mExit from app.\e[0m\n\n",
     "\n\u001b[34;1mLoad graph from file.\e[0m\n\n",
     "\n\u001b[34;1mExport graph to dot.\e[0m\n\n",
@@ -35,10 +35,10 @@ const static std::vector<std::string_view> MENU_MSGS = {
     "\n\u001b[34;1mComparison of the speed of ant algorithm, branch and bound "
     "algorithm and ... for solving the traveling salesman problem.\e[0m\n\n"};
 
-const static std::string_view LEAVE_MSG =
+const std::string_view LEAVE_MSG =
     "If you want to go back type 'b'.\n\n";
 
-const static std::string_view START_MSG =
+const std::string_view START_MSG =
     "\n\u001b[32;1mConsole application for checking the operability of the "
     "implemented libraries s21_graph.h and s21_graph_algorithms.h\e[0m\n";
 

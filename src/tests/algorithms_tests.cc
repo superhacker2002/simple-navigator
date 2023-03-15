@@ -214,6 +214,55 @@ TEST_F(AllAlgorithmsTest, branch_and_bound_algorithm_test_2) {
   EXPECT_FLOAT_EQ(result.distance, 40.0);
 }
 
+TEST_F(AllAlgorithmsTest, path_between_all_vertices_test_1) {
+  graph.loadGraphFromFile("../datasets/no_w.txt");
+  const std::vector<double> answer = {
+    0.00, 4.00, 3.00, 8.00, 10.00, 17.00, 17.00, 19.00, 22.00, 18.00,
+    4.00, 0.00, 1.00, 4.00, 10.00, 13.00, 13.00, 15.00, 18.00, 18.00,
+    3.00, 1.00, 0.00, 5.00, 9.00, 14.00, 14.00, 16.00, 19.00, 17.00,
+    8.00, 4.00, 5.00, 0.00, 7.00, 9.00, 9.00, 11.00, 14.00, 15.00,
+    10.00, 10.00, 9.00, 7.00, 0.00, 8.00, 10.00, 9.00, 12.00, 8.00,
+    17.00, 13.00, 14.00, 9.00, 8.00, 0.00, 2.00, 2.00, 5.00, 11.00,
+    17.00, 13.00, 14.00, 9.00, 10.00, 2.00, 0.00, 4.00, 6.00, 13.00,
+    19.00, 15.00, 16.00, 11.00, 9.00, 2.00, 4.00, 0.00, 3.00, 9.00,
+    22.00, 18.00, 19.00, 14.00, 12.00, 5.00, 6.00, 3.00, 0.00, 9.00,
+    18.00, 18.00, 17.00, 15.00, 8.00, 11.00, 13.00, 9.00, 9.00, 0.00
+  };
+  s21::Matrix<double> result = s21::GraphAlgorithms::getShortestPathsBetweenAllVertices(graph);
+  auto answer_it = answer.begin();
+  for (int i = 0; i < result.GetRows(); i++) {
+    for (int j = 0; j < result.GetCols(); j++) {
+      EXPECT_DOUBLE_EQ(*answer_it, result.at(i, j));
+      ++answer_it;
+    }
+  }
+}
+
+TEST_F(AllAlgorithmsTest, path_between_all_vertices_test_2) {
+  graph.loadGraphFromFile("../datasets/o_w.txt");
+  const std::vector<double> answer = {
+  0.00, 29.00, 20.00, 20.00, 16.00, 31.00, 100.00, 12.00, 4.00, 31.00, 18.00 ,
+  29.00, 0.00, 15.00, 29.00, 28.00, 40.00, 72.00, 21.00, 29.00, 41.00, 12.00 ,
+  20.00, 15.00, 0.00, 15.00, 14.00, 25.00, 81.00, 9.00, 23.00, 27.00, 13.00 ,
+  20.00, 29.00, 15.00, 0.00, 4.00, 12.00, 92.00, 12.00, 24.00, 13.00, 25.00 ,
+  16.00, 28.00, 14.00, 4.00, 0.00, 16.00, 94.00, 9.00, 20.00, 16.00, 22.00 ,
+  31.00, 40.00, 25.00, 12.00, 16.00, 0.00, 95.00, 24.00, 35.00, 3.00, 37.00 ,
+  100.00, 72.00, 81.00, 92.00, 94.00, 95.00, 0.00, 90.00, 101.00, 98.00, 84.00 ,
+  12.00, 21.00, 9.00, 12.00, 9.00, 24.00, 90.00, 0.00, 15.00, 25.00, 13.00 ,
+  4.00, 29.00, 23.00, 24.00, 20.00, 35.00, 101.00, 15.00, 0.00, 35.00, 18.00, 
+  31.00, 41.00, 27.00, 13.00, 16.00, 3.00, 98.00, 25.00, 35.00, 0.00, 38.00 ,
+  18.00, 12.00, 13.00, 25.00, 22.00, 37.00, 84.00, 13.00, 18.00, 38.00, 0.00
+  };
+  s21::Matrix<double> result = s21::GraphAlgorithms::getShortestPathsBetweenAllVertices(graph);
+  auto answer_it = answer.begin();
+  for (int i = 0; i < result.GetRows(); i++) {
+    for (int j = 0; j < result.GetCols(); j++) {
+      EXPECT_DOUBLE_EQ(*answer_it, result.at(i, j));
+      ++answer_it;
+    }
+  }
+}
+
 int main(int argc, char** argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

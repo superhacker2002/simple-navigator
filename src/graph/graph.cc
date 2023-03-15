@@ -41,7 +41,7 @@ bool s21::Graph::isEmpty() {
 
 int s21::Graph::getVerticesCount() const { return m_data_.matrix->GetRows(); }
 
-double& s21::Graph::getWeigth(int i, int j) { return (*m_data_.matrix)(i, j); }
+double& s21::Graph::getWeight(int i, int j) { return (*m_data_.matrix)(i, j); }
 
 double s21::Graph::getWeight(int i, int j) const {
   return m_data_.matrix->at(i, j);

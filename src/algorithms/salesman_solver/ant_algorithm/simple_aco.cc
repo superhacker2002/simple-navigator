@@ -1,14 +1,11 @@
 #include "simple_aco.h"
 
-SimpleACO::SimpleACO(const s21::Graph& graph)
+SimpleACO::SimpleACO(const s21::Graph &graph)
     : cities_number_(graph.getVerticesCount()),
       ants_number_(graph.getVerticesCount()),
-      init_pheromone_(1.0 / cities_number_),
-      distances_(graph.graphToMatrix()),
-      pheromones_(cities_number_),
-      best_path_length_(kMaxDistance),
-      ants_(createAnts_()),
-      random_generator_(rand_dev_()) {
+      init_pheromone_(1.0 / cities_number_), distances_(graph.graphToMatrix()),
+      pheromones_(cities_number_), best_path_length_(kMaxDistance),
+      ants_(createAnts_()), random_generator_(rand_dev_()) {
   pheromones_.FillMatrix(init_pheromone_);
 }
 
@@ -36,11 +33,11 @@ std::vector<AntType> SimpleACO::createAnts_() {
 }
 
 void SimpleACO::restartAnts_() {
-  for (auto& ant : ants_) {
+  for (auto &ant : ants_) {
     if (ant.tour_length < best_path_length_) {
       best_path_length_ = ant.tour_length;
       best_path_ = ant.path;
-      best_path_.push_back(ant.path[0]);  // return to the first city
+      best_path_.push_back(ant.path[0]); // return to the first city
     }
   }
   ants_ = createAnts_();
@@ -83,7 +80,7 @@ int SimpleACO::selectNextCity_(int ant) {
 
 int SimpleACO::simulateAnts_() {
   int moving = 0;
-  for (auto& ant : ants_) {
+  for (auto &ant : ants_) {
     if (ant.path_index < cities_number_) {
       int next_city = selectNextCity_(&ant - &ants_[0]);
       ant.next_city = next_city;
@@ -126,7 +123,7 @@ void SimpleACO::evaporatePheromones_() {
 }
 
 void SimpleACO::addPheromones_() {
-  for (auto& ant : ants_) {
+  for (auto &ant : ants_) {
     for (int city = 0; city < cities_number_; city++) {
       int from, to;
       if (city < cities_number_ - 1) {

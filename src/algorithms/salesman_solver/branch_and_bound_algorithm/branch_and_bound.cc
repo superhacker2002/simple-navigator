@@ -1,9 +1,8 @@
 #include "branch_and_bound.h"
 
-BranchAndBound::BranchAndBound(const s21::Graph& graph)
-    : graph_(graph),
-    visited_(graph_.getVerticesCount(), false),
-    final_path_(graph.getVerticesCount() + 1) {}
+BranchAndBound::BranchAndBound(const s21::Graph &graph)
+    : graph_(graph), visited_(graph_.getVerticesCount(), false),
+      final_path_(graph.getVerticesCount() + 1) {}
 
 BranchAndBound::~BranchAndBound() {}
 
@@ -51,7 +50,7 @@ int BranchAndBound::secondMin_(int from) {
 }
 
 void BranchAndBound::TSPRec_(double curr_bound, double curr_weight, int level,
-                             std::vector<int>& curr_path) {
+                             std::vector<int> &curr_path) {
   if (level == graph_.getVerticesCount()) {
     setLastStep_(curr_weight, level, curr_path);
     return;
@@ -62,7 +61,7 @@ void BranchAndBound::TSPRec_(double curr_bound, double curr_weight, int level,
       int initial_bound = curr_bound;
       curr_weight += graph_.getWeight(curr_path[level - 1], v);
       calculateCurrentBound_(level, curr_bound, curr_path, v);
-      if (curr_bound + curr_weight < final_res_) {  // found better subset
+      if (curr_bound + curr_weight < final_res_) { // found better subset
         curr_path[level] = v;
         visited_[v] = true;
         TSPRec_(curr_bound, curr_weight, level + 1, curr_path);
@@ -74,7 +73,8 @@ void BranchAndBound::TSPRec_(double curr_bound, double curr_weight, int level,
   }
 }
 
-void BranchAndBound::resetVisitedVertices_(std::vector<int>&curr_path, int level) {
+void BranchAndBound::resetVisitedVertices_(std::vector<int> &curr_path,
+                                           int level) {
   for (int v = 0; v < graph_.getVerticesCount(); ++v) {
     visited_[v] = false;
   }
@@ -91,8 +91,9 @@ double BranchAndBound::calculateInitBound_() {
   return curr_bound / 2;
 }
 
-void BranchAndBound::calculateCurrentBound_(int level, double& curr_bound,
-                                    std::vector<int>& curr_path, int vertice) {
+void BranchAndBound::calculateCurrentBound_(int level, double &curr_bound,
+                                            std::vector<int> &curr_path,
+                                            int vertice) {
   if (level == 1) {
     curr_bound -= ((firstMin_(curr_path[level - 1]) + firstMin_(vertice)) / 2);
   } else {
@@ -101,7 +102,7 @@ void BranchAndBound::calculateCurrentBound_(int level, double& curr_bound,
 }
 
 void BranchAndBound::setLastStep_(double curr_weight, int level,
-                                  std::vector<int>& curr_path) {
+                                  std::vector<int> &curr_path) {
   if (graph_.getWeight(curr_path[level - 1], curr_path[0]) != 0) {
     double curr_res =
         curr_weight + graph_.getWeight(curr_path[level - 1], curr_path[0]);

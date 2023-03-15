@@ -146,9 +146,8 @@ s21::GraphAlgorithms::solveTravelingSalesmanProblem(const Graph &graph) {
 s21::TsmResult
 s21::GraphAlgorithms::solveTravelingSalesmanProblemBB(const Graph &graph) {
   std::unique_ptr<ISalesmanSolver> solver =
-    SalesmanSolverFactory::getSalesmanSolver(
-        SalesmanSolverFactory::SolverAlgorithm::BRANCH_AND_BOUND,
-        graph);
+      SalesmanSolverFactory::getSalesmanSolver(
+          SalesmanSolverFactory::SolverAlgorithm::BRANCH_AND_BOUND, graph);
   return solver->findBestPath();
 }
 

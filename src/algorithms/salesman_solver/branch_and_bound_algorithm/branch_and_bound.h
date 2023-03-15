@@ -26,9 +26,11 @@ class BranchAndBound : public ISalesmanSolver {
   void TSPRec_(double curr_bound, double curr_weight, int level,
                std::vector<int>& curr_path);
   void setLastStep_(double curr_weight, int level, std::vector<int>& curr_path);
-  void calculateBound_(int level, double& curr_bound,
+  void calculateCurrentBound_(int level, double& curr_bound,
                       std::vector<int>& curr_path, int vertice);
+  double calculateInitBound_();
   void resetVisitedVertices_(std::vector<int>&curr_path, int level);
+  void convertPath_();
 };
 
 #endif  // BRANCH_AND_BOUND_H_

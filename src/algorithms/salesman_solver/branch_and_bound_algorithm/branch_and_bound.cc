@@ -1,9 +1,30 @@
 #include "branch_and_bound.h"
 
 BranchAndBound::BranchAndBound(const s21::Graph& graph)
-    : graph_(graph), final_path_(graph.getVerticesCount() + 1) {}
+    : graph_(graph),
+    visited_(graph_.getVerticesCount(), false),
+    final_path_(graph.getVerticesCount() + 1) {}
 
 BranchAndBound::~BranchAndBound() {}
+
+s21::TsmResult BranchAndBound::findBestPath() {
+  final_res_ = kMaxDistance;
+  double curr_bound = calculateInitBound_();
+  std::vector<int> curr_path(graph_.getVerticesCount() + 1);
+
+  int start = 0;
+  visited_[start] = true;
+  curr_path[0] = start;
+  TSPRec_(curr_bound, 0, 1, curr_path);
+  convertPath_();
+  return s21::TsmResult{final_path_, final_res_};
+}
+
+void BranchAndBound::convertPath_() {
+  for (int v = 0; v < graph_.getVerticesCount() + 1; ++v) {
+    final_path_[v] += 1;
+  }
+}
 
 int BranchAndBound::firstMin_(int from) {
   double min = kMaxDistance;
@@ -40,7 +61,7 @@ void BranchAndBound::TSPRec_(double curr_bound, double curr_weight, int level,
     if (graph_.getWeight(curr_path[level - 1], v) != 0 && !visited_[v]) {
       int initial_bound = curr_bound;
       curr_weight += graph_.getWeight(curr_path[level - 1], v);
-      calculateBound_(level, curr_bound, curr_path, v);
+      calculateCurrentBound_(level, curr_bound, curr_path, v);
       if (curr_bound + curr_weight < final_res_) {  // found better subset
         curr_path[level] = v;
         visited_[v] = true;
@@ -62,7 +83,15 @@ void BranchAndBound::resetVisitedVertices_(std::vector<int>&curr_path, int level
   }
 }
 
-void BranchAndBound::calculateBound_(int level, double& curr_bound,
+double BranchAndBound::calculateInitBound_() {
+  double curr_bound = 0;
+  for (int v = 0; v < graph_.getVerticesCount(); ++v) {
+    curr_bound += (firstMin_(v) + secondMin_(v));
+  }
+  return curr_bound / 2;
+}
+
+void BranchAndBound::calculateCurrentBound_(int level, double& curr_bound,
                                     std::vector<int>& curr_path, int vertice) {
   if (level == 1) {
     curr_bound -= ((firstMin_(curr_path[level - 1]) + firstMin_(vertice)) / 2);
@@ -84,26 +113,4 @@ void BranchAndBound::setLastStep_(double curr_weight, int level,
       final_res_ = curr_res;
     }
   }
-}
-
-s21::TsmResult BranchAndBound::findBestPath() {
-  final_res_ = kMaxDistance;
-  int start = 0;
-  double curr_bound = 0;
-  std::vector<int> curr_path;
-  for (int v = 0; v < graph_.getVerticesCount(); ++v) {
-    visited_.push_back(0);
-    curr_bound += (firstMin_(v) + secondMin_(v));
-    curr_path.push_back(-1);
-  }
-  curr_path.push_back(-1);
-  curr_bound /= 2;
-  visited_[start] = true;
-  curr_path[0] = start;
-  TSPRec_(curr_bound, 0, 1, curr_path);
-
-  for (int v = 0; v < graph_.getVerticesCount() + 1; ++v) {
-    final_path_[v] += 1;
-  }
-  return s21::TsmResult{final_path_, final_res_};
 }

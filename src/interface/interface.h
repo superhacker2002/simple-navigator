@@ -17,6 +17,7 @@ const static std::string_view IFACE_OPTIONS_MSG =
     \u001b[33;1m7\e[0m - search for the minimal spanning tree in the graph\n\
     \u001b[33;1m8\e[0m - solve the salesman problem using ant algorithm\n\
     \u001b[33;1m9\e[0m - output current graph\n\
+    \u001b[33;1m10\e[0m - comparison of the speed of algorithms for solving the traveling salesman problem\n\
     \u001b[33;1m0\e[0m - exit (CTRL + C)\n\
 ";
 
@@ -30,19 +31,21 @@ const static std::vector<std::string_view> MENU_MSGS = {
     "\n\u001b[34;1mShortest path between all pairs of vertices.\e[0m\n\n",
     "\n\u001b[34;1mMinimal spanning tree search.\e[0m\n\n",
     "\n\u001b[34;1mSalesman problem solve.\e[0m\n\n",
-    "\n\u001b[34;1mOutput current graph.\e[0m\n\n"
-};
+    "\n\u001b[34;1mOutput current graph.\e[0m\n\n",
+    "\n\u001b[34;1mComparison of the speed of ant algorithm, branch and bound "
+    "algorithm and ... for solving the traveling salesman problem.\e[0m\n\n"};
 
-const static std::string_view LEAVE_MSG = "If you want to go back type 'b'.\n\n";
+const static std::string_view LEAVE_MSG =
+    "If you want to go back type 'b'.\n\n";
 
 const static std::string_view START_MSG =
     "\n\u001b[32;1mConsole application for checking the operability of the "
     "implemented libraries s21_graph.h and s21_graph_algorithms.h\e[0m\n";
 
 const static std::vector<std::string_view> WRONG_SIZE = {
-    "\n\u001b[31mThe numbering of vertices in the graph begins with 1.\e[0m\n\n",
-    "\n\u001b[31mThe graph does not have vertex with this number.\e[0m\n\n"
-};
+    "\n\u001b[31mThe numbering of vertices in the graph begins with "
+    "1.\e[0m\n\n",
+    "\n\u001b[31mThe graph does not have vertex with this number.\e[0m\n\n"};
 
 constexpr int NA = -1;
 
@@ -57,7 +60,8 @@ enum GraphFunctions {
   SHORTEST_PATH_BETWEEN_ALL_PAIRS,
   MINIMAL_SPANNING_TREE_SEARCH,
   SALESMAN_PROBLEM_SOLVE,
-  OUTPUT_GRAPH
+  OUTPUT_GRAPH,
+  SALESMAN_ALGROTHMS_DIFF
 };
 
 class Interface {
@@ -81,11 +85,14 @@ private:
   void minimalSpanningTreeSearch();
   void salesmanProblemSolve();
   void outputGraph();
+  void salesmanAlgorithmsComparison();
   bool checkVertex(int start_vertex);
   void checkPath(int first_vertex, int second_vertex);
-  int checkInput(std::string input, int& result);
+  int checkInput(std::string input, int &result);
   bool checkBackInput(std::string input);
-
+  void measureSalesmanSolverSpeed(
+      int iterations_number,
+      std::function<s21::TsmResult(const s21::Graph &graph)> salesman_solver);
   Interface();
   Interface(const Interface &other);
   Interface(Interface &&other);
@@ -93,17 +100,18 @@ private:
   Interface &operator=(Interface &&other);
 
   s21::Graph m_graph_;
-  std::vector<function_type> m_functions_ = {
-    &s21::Interface::exitFromInterface,
-    &s21::Interface::loadGraphFromFile,
-    &s21::Interface::exportGraphToDot,
-    &s21::Interface::breadthSearch,
-    &s21::Interface::depthSearch,
-    &s21::Interface::shortestPathBetweenTwo,
-    &s21::Interface::shortestPathBetweenAllPairs,
-    &s21::Interface::minimalSpanningTreeSearch,
-    &s21::Interface::salesmanProblemSolve,
-    &s21::Interface::outputGraph};
+  const std::vector<function_type> m_functions_ = {
+      &s21::Interface::exitFromInterface,
+      &s21::Interface::loadGraphFromFile,
+      &s21::Interface::exportGraphToDot,
+      &s21::Interface::breadthSearch,
+      &s21::Interface::depthSearch,
+      &s21::Interface::shortestPathBetweenTwo,
+      &s21::Interface::shortestPathBetweenAllPairs,
+      &s21::Interface::minimalSpanningTreeSearch,
+      &s21::Interface::salesmanProblemSolve,
+      &s21::Interface::outputGraph,
+      &s21::Interface::salesmanAlgorithmsComparison};
 }; // class Interface
 } // namespace s21
 

@@ -86,20 +86,14 @@ s21::TsmResult BranchAndBound::getShortestRoute() {
     }
 
     double curr_bound = 0;
-    // Compute initial bound
     for (int v = 0; v < graph_.getVerticesCount(); v++) {
         curr_bound += (firstMin_(v) + secondMin_(v));
     }
 
     curr_bound /= 2;
-
-    // We start at vertex 1 so the first vertex
-    // in curr_path[] is 0
     visited_[start] = true;
     curr_path[0] = start;
 
-    // Call to TSPRec for curr_weight equal to
-    // 0 and level 1
     TSPRec_(curr_bound, 0, 1, curr_path);
     for (int v = 0; v < graph_.getVerticesCount() + 1; ++v) {
         final_path_[v] += 1;

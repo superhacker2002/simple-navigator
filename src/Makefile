@@ -53,7 +53,7 @@ test_graph: $(GRAPH_LIB)
 	./graph_tests
 
 test_algorithms: $(ALGORITHMS_LIB)
-	@$(CC) $(SRC_ALGORITHMS_TEST) $(ALGORITHMS_LIB) -o algorithms_tests $(TEST_FLAGS) -g
+	@$(CC) $(SRC_ALGORITHMS_TEST) $(ALGORITHMS_LIB) -o algorithms_tests $(TEST_FLAGS)
 	./algorithms_tests
 
 clean:

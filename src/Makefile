@@ -14,8 +14,9 @@ SRC_GRAPH = graph/file_handler/file_handler.cc \
 			graph/graph.cc \
 
 SRC_ALGORITHMS = algorithms/graph_algorithms.cc \
-				algorithms/ant_algorithm/simple_aco.cc  \
-				algorithms/branch_and_bound_algorithm/branch_and_bound.cc
+				algorithms/salesman_solver/ant_algorithm/simple_aco.cc  \
+				algorithms/salesman_solver/branch_and_bound_algorithm/branch_and_bound.cc \
+				algorithms/salesman_solver/solver_factory.cc
 
 SRC_INTERFACE = main.cc interface/interface.cc
 
@@ -52,11 +53,11 @@ test_graph: $(GRAPH_LIB)
 	./graph_tests
 
 test_algorithms: $(ALGORITHMS_LIB)
-	@$(CC) $(SRC_ALGORITHMS_TEST) $(ALGORITHMS_LIB) -o algorithms_tests $(TEST_FLAGS)
+	@$(CC) $(SRC_ALGORITHMS_TEST) $(ALGORITHMS_LIB) -o algorithms_tests $(TEST_FLAGS) -g
 	./algorithms_tests
 
 clean:
-	rm -rf a.out *.dot a.out* $(GRAPH_OBJ) $(ALGORITHMS_OBJ) graph_tests algorithms_tests console_interface
+	rm -rf a.out *.dSYM *.dot a.out* $(GRAPH_OBJ) $(ALGORITHMS_OBJ) graph_tests algorithms_tests console_interface
 
 fclean: clean
 	rm -rf $(GRAPH_LIB) $(ALGORITHMS_LIB)

@@ -5,8 +5,7 @@
 
 #include "../graph/iterators/row_graph_iterator.h"
 
-#include "branch_and_bound_algorithm/branch_and_bound.h"
-#include "ant_algorithm/simple_aco.h"
+#include "salesman_solver/solver_factory.h"
 
 /**
  * Method for traversing graph data structure.
@@ -16,7 +15,7 @@
  * @returns vector containing the traversed vertices in the order
  * of their traversal
  */
-std::vector<int> s21::GraphAlgorithms::depthFirstSearch(const Graph& graph,
+std::vector<int> s21::GraphAlgorithms::depthFirstSearch(const Graph &graph,
                                                         int start_vertex) {
   s21::Stack<int> not_visited_verticles;
   return searchAlgorithm_<s21::Stack<int>>(graph, start_vertex,
@@ -30,7 +29,7 @@ std::vector<int> s21::GraphAlgorithms::depthFirstSearch(const Graph& graph,
  * @returns vector containing the traversed vertices in the order
  * of their traversal
  */
-std::vector<int> s21::GraphAlgorithms::breadthFirstSearch(const Graph& graph,
+std::vector<int> s21::GraphAlgorithms::breadthFirstSearch(const Graph &graph,
                                                           int start_vertex) {
   s21::Queue<int> not_visited_verticles;
   return searchAlgorithm_<s21::Queue<int>>(graph, start_vertex,
@@ -42,9 +41,9 @@ std::vector<int> s21::GraphAlgorithms::breadthFirstSearch(const Graph& graph,
  * and vertex2 in a weighted graph using Dijkstra's algorithm.
  * @returns numerical result equal to the smallest distance
  */
-double s21::GraphAlgorithms::getShortestPathBetweenVertices(const Graph& graph,
-                                                         int vertex1,
-                                                         int vertex2) {
+double s21::GraphAlgorithms::getShortestPathBetweenVertices(const Graph &graph,
+                                                            int vertex1,
+                                                            int vertex2) {
   vertex1 -= 1;
   int vertices_number = graph.getVerticesCount();
   std::vector<bool> visited_vertices(vertices_number);
@@ -73,7 +72,7 @@ double s21::GraphAlgorithms::getShortestPathBetweenVertices(const Graph& graph,
  * @returns matrix of shortest paths between all vertices of the graph.
  */
 s21::GraphData::MatrixType
-s21::GraphAlgorithms::getShortestPathsBetweenAllVertices(const Graph& graph) {
+s21::GraphAlgorithms::getShortestPathsBetweenAllVertices(const Graph &graph) {
   std::vector<Graph> graphs(graph.getVerticesCount() + 1,
                             s21::Graph(graph.getVerticesCount()));
   s21::Graph prepared_graph = prepareGraphForFloydWarshallAlgo_(graph);
@@ -81,7 +80,7 @@ s21::GraphAlgorithms::getShortestPathsBetweenAllVertices(const Graph& graph) {
   for (int k = 1; k <= prepared_graph.getVerticesCount(); ++k) {
     for (int i = 0; i < prepared_graph.getVerticesCount(); ++i) {
       for (int j = 0; j < prepared_graph.getVerticesCount(); ++j) {
-        Graph& prev_graph = graphs.at(k - 1);
+        Graph &prev_graph = graphs.at(k - 1);
         graphs.at(k).getWeigth(i, j) = std::min(
             prev_graph.getWeigth(i, j),
             prev_graph.getWeigth(i, k - 1) + prev_graph.getWeigth(k - 1, j));
@@ -92,12 +91,12 @@ s21::GraphAlgorithms::getShortestPathsBetweenAllVertices(const Graph& graph) {
 }
 
 /**
- * Method for search for the smallest spanning tree in a 
+ * Method for search for the smallest spanning tree in a
  * weighted graph using the Prim algorithm.
  * @returns the adjacency matrix for the minimum spanning tree
-*/
-s21::GraphData::MatrixType s21::GraphAlgorithms::getLeastSpanningTree(
-    const Graph& graph) {
+ */
+s21::GraphData::MatrixType
+s21::GraphAlgorithms::getLeastSpanningTree(const Graph &graph) {
   int vertices_number = graph.getVerticesCount();
   std::vector<bool> visited_vertices(vertices_number, false);
   visited_vertices[0] = true;
@@ -135,16 +134,22 @@ s21::GraphData::MatrixType s21::GraphAlgorithms::getLeastSpanningTree(
  * @returns struct that contains array with the desired route
  * (with the order of traversing the vertices) and the length of this route.
  */
-s21::TsmResult s21::GraphAlgorithms::solveTravelingSalesmanProblem(
-    const Graph& graph) {
-  SimpleACO colony(graph);
-  return colony.findBestPath();
+s21::TsmResult
+s21::GraphAlgorithms::solveTravelingSalesmanProblem(const Graph &graph) {
+  std::unique_ptr<ISalesmanSolver> solver =
+      SalesmanSolverFactory::getSalesmanSolver(
+          SalesmanSolverFactory::SolverAlgorithm::ANT_COLONY_OPTIMIZATION,
+          graph);
+  return solver->findBestPath();
 }
 
-s21::TsmResult s21::GraphAlgorithms::solveTravelingSalesmanProblemBB(
-    const Graph& graph) {
-  BranchAndBound algorithm(graph);
-  return algorithm.getShortestRoute();
+s21::TsmResult
+s21::GraphAlgorithms::solveTravelingSalesmanProblemBB(const Graph &graph) {
+  std::unique_ptr<ISalesmanSolver> solver =
+    SalesmanSolverFactory::getSalesmanSolver(
+        SalesmanSolverFactory::SolverAlgorithm::BRANCH_AND_BOUND,
+        graph);
+  return solver->findBestPath();
 }
 
 int s21::GraphAlgorithms::isPath_(double tag) {
@@ -155,8 +160,9 @@ int s21::GraphAlgorithms::isPath_(double tag) {
 }
 
 template <class Container>
-std::vector<int> s21::GraphAlgorithms::searchAlgorithm_(
-    const Graph& graph, int start_vertex, Container& not_visited_vertices) {
+std::vector<int>
+s21::GraphAlgorithms::searchAlgorithm_(const Graph &graph, int start_vertex,
+                                       Container &not_visited_vertices) {
   start_vertex -= 1;
   int vertices_number = graph.getVerticesCount();
   not_visited_vertices.push(start_vertex);
@@ -169,7 +175,7 @@ std::vector<int> s21::GraphAlgorithms::searchAlgorithm_(
     not_visited_vertices.pop();
     visited_vertices[curr_vertex] = true;
     path.push_back(curr_vertex + 1);
-    for (int& heir : getHeirsIndexes_(graph, curr_vertex)) {
+    for (int &heir : getHeirsIndexes_(graph, curr_vertex)) {
       if (!visited_vertices[heir]) {
         not_visited_vertices.push(heir);
         visited_vertices[heir] = true;
@@ -179,7 +185,7 @@ std::vector<int> s21::GraphAlgorithms::searchAlgorithm_(
   return path;
 }
 
-std::vector<int> s21::GraphAlgorithms::getHeirsIndexes_(const Graph& graph,
+std::vector<int> s21::GraphAlgorithms::getHeirsIndexes_(const Graph &graph,
                                                         int start_index) {
   std::vector<int> heirs_indexes;
   for (auto it = graph.cRowBegin(start_index); it != graph.cRowEnd(start_index);
@@ -191,8 +197,8 @@ std::vector<int> s21::GraphAlgorithms::getHeirsIndexes_(const Graph& graph,
   return heirs_indexes;
 }
 
-s21::Graph s21::GraphAlgorithms::prepareGraphForFloydWarshallAlgo_(
-    const Graph& graph) {
+s21::Graph
+s21::GraphAlgorithms::prepareGraphForFloydWarshallAlgo_(const Graph &graph) {
   s21::Graph prepared_graph(graph);
   for (int i = 0; i < prepared_graph.getVerticesCount(); i++) {
     for (int j = 0; j < prepared_graph.getVerticesCount(); j++) {

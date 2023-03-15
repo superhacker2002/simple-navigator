@@ -54,8 +54,6 @@ TEST_F(GraphTest, loading_from_file_double) {
   }
 }
 
-
-
 TEST_F(GraphTest, broken_loading) {
   EXPECT_ANY_THROW(graph.loadGraphFromFile("../datasets/bad_files/empty.txt"));
   EXPECT_ANY_THROW(graph.loadGraphFromFile("../datasets/bad_files/no_matrix.txt"));

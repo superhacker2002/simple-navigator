@@ -18,6 +18,7 @@ class BranchAndBound {
   s21::Graph graph_;
   std::vector<bool> visited_;
   double final_res_;
+  std::vector<int> final_path_;
 
   int firstMin_(int from);
   int secondMin_(int from);

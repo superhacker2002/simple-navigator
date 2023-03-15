@@ -96,8 +96,6 @@ TEST_F(PathAlgorithmsTest, get_shortest_path_between_two_5) {
       s21::GraphAlgorithms::getShortestPathBetweenVertices(graph, 7, 3));
 }
 
-
-
 struct AllAlgorithmsTest : public testing::Test {
  protected:
   s21::Graph graph;
@@ -193,14 +191,27 @@ TEST_F(AllAlgorithmsTest, simple_ant_algorithm_fail) {
 
 TEST_F(AllAlgorithmsTest, branch_and_bound_algorithm_test_1) {
   graph.loadGraphFromFile("../datasets/complete.txt");
-  // const std::vector<int> answer = {1, 2, 3, 4, 1};
-  // auto answer_it = answer.begin();
-  s21::TsmResult result = s21::GraphAlgorithms::solveTravelingSalesmanProblemBB(graph);
-  // for (auto& vertice : result.vertices) {
-  //   EXPECT_EQ(*answer_it, vertice);
-  //   answer_it++;
-  // }
+  const std::vector<int> answer = {1, 2, 3, 4, 1};
+  auto answer_it = answer.begin();
+  s21::TsmResult result;
+  result = s21::GraphAlgorithms::solveTravelingSalesmanProblemBB(graph);
+  for (auto& vertice : result.vertices) {
+    EXPECT_EQ(*answer_it, vertice);
+    answer_it++;
+  }
   EXPECT_FLOAT_EQ(result.distance, 97.0);
+}
+
+TEST_F(AllAlgorithmsTest, branch_and_bound_algorithm_test_2) {
+  graph.loadGraphFromFile("../datasets/complete_2.txt");
+  const std::vector<int> answer = {1, 2, 3, 4, 5, 1};
+  auto answer_it = answer.begin();
+  s21::TsmResult result = s21::GraphAlgorithms::solveTravelingSalesmanProblemBB(graph);
+  for (auto& vertice : result.vertices) {
+    EXPECT_EQ(*answer_it, vertice);
+    answer_it++;
+  }
+  EXPECT_FLOAT_EQ(result.distance, 40.0);
 }
 
 int main(int argc, char** argv) {

@@ -80,10 +80,10 @@ s21::GraphAlgorithms::getShortestPathsBetweenAllVertices(const Graph &graph) {
   for (int k = 1; k <= prepared_graph.getVerticesCount(); ++k) {
     for (int i = 0; i < prepared_graph.getVerticesCount(); ++i) {
       for (int j = 0; j < prepared_graph.getVerticesCount(); ++j) {
-        Graph &prev_graph = graphs.at(k - 1);
-        graphs.at(k).getWeigth(i, j) = std::min(
-            prev_graph.getWeigth(i, j),
-            prev_graph.getWeigth(i, k - 1) + prev_graph.getWeigth(k - 1, j));
+        const Graph &prev_graph = graphs.at(k - 1);
+        graphs.at(k).getWeight(i, j) = std::min(
+            prev_graph.getWeight(i, j),
+            prev_graph.getWeight(i, k - 1) + prev_graph.getWeight(k - 1, j));
       }
     }
   }
@@ -202,10 +202,10 @@ s21::GraphAlgorithms::prepareGraphForFloydWarshallAlgo_(const Graph &graph) {
   for (int i = 0; i < prepared_graph.getVerticesCount(); i++) {
     for (int j = 0; j < prepared_graph.getVerticesCount(); j++) {
       if (i == j) {
-        prepared_graph.getWeigth(i, j) = 0;
+        prepared_graph.getWeight(i, j) = 0;
       } else {
-        if (prepared_graph.getWeigth(i, j) == 0) {
-          prepared_graph.getWeigth(i, j) = INF;
+        if (prepared_graph.getWeight(i, j) == 0) {
+          prepared_graph.getWeight(i, j) = INF;
         }
       }
     }

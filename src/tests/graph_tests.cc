@@ -19,14 +19,14 @@ struct GraphTest : public testing::Test {
 TEST_F(GraphTest, export_to_dot1) {
   graph.loadGraphFromFile("../datasets/small_o_w_1.txt");
   graph.exportGraphToDot("small_o_w_1.dot");
-  EXPECT_EQ(0, system("diff small_o_w_1.dot tests/small_o_w_1_answer.dot"));
+  EXPECT_EQ(0, system("diff small_o_w_1.dot tests/data/small_o_w_1_answer.dot"));
   system("rm small_o_w_1.dot");
 }
 
 TEST_F(GraphTest, export_to_dot2) {
   graph.loadGraphFromFile("../datasets/o_w.txt");
   graph.exportGraphToDot("o_w.dot");
-  EXPECT_EQ(0, system("diff o_w.dot tests/o_w_answer.dot"));
+  EXPECT_EQ(0, system("diff o_w.dot tests/data/o_w_answer.dot"));
   system("rm o_w.dot");
 }
 

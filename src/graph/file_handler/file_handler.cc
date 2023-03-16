@@ -44,7 +44,6 @@ void s21::FileHandler::writeHeader_(std::ofstream& file) {
 
 void s21::FileHandler::writeFooter_(std::ofstream& file) { file << "}\n"; }
 
-// should be called in a try-catch block
 s21::GraphData s21::FileHandler::parseFile(const std::string& filepath) {
   m_file_ = std::ifstream(filepath);
   std::string buffer;
@@ -69,7 +68,7 @@ void s21::FileHandler::createMatrix_() {
   if (!m_file_.eof()) {
     size_t size = getGraphMatrixSize_();
     m_grph_data_.matrix =
-        std::make_unique<s21::GraphData::MatrixType>(size, size);
+        std::make_unique<s21::GraphData::MatrixType>(size);
   }
 }
 

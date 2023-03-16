@@ -5,6 +5,7 @@
 #include "../s21_graph_algorithms.h"
 #include <signal.h>
 #include <string_view>
+#include <array>
 
 const std::string_view IFACE_OPTIONS_MSG =
     "\n\u001b[32mChoose option:\e[0m\n\

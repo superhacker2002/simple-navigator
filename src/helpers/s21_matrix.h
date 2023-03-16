@@ -8,6 +8,11 @@
 #include <iostream>
 #include <vector>
 
+/*Вспомогательный класс
+используется для перевода
+вектора в матрицу и обратно
+в классе Spiner*/
+
 #define EPS 1e-7
 
 namespace s21 {
@@ -15,9 +20,9 @@ template <typename T>
 class Matrix {
  private:
   int rows_, columns_;
+  T** matrix_;
   std::vector<int> rows_seq_;
   std::vector<int> cols_seq_;
-  T** matrix_;
 
  public:
   //  Methods for filling matrix
@@ -47,25 +52,29 @@ class Matrix {
 
   Matrix(int rows, int columns)
     : rows_(rows),
-    columns_(columns),
-    rows_seq_(rows),
-    cols_seq_(columns) {
+      columns_(columns) {
     initRowsColumns();
-    if (rows <= 0 || columns <= 0) throw std::out_of_range("Out of range");
+    if (rows <= 0 || columns <= 0) throw std::out_of_range("constructor Out of range");
     this->matrix_ = new T*[rows];
     for (int i = 0; i < rows; i++) {
       this->matrix_[i] = new T[columns]();
     }
   }
 
-  Matrix(int size) : Matrix(size, size) {;}
+  Matrix(int size) : Matrix(size, size) {}
 
   Matrix(const Matrix& other) : Matrix(other.rows_, other.columns_) {
     this->SetEqualValues_(other);
+    this->rows_seq_ = other.rows_seq_;
+    this->cols_seq_ = other.cols_seq_;
   }
 
   Matrix(Matrix&& other)
-      : rows_(other.rows_), columns_(other.columns_), matrix_(other.matrix_) {
+      : rows_(other.rows_),
+        columns_(other.columns_),
+        matrix_(other.matrix_),
+        rows_seq_(other.rows_seq_),
+        cols_seq_(other.cols_seq_) {
     other.matrix_ = nullptr;
   }
 
@@ -134,13 +143,13 @@ class Matrix {
 
   T& operator()(const int& i, const int& j) {
     if (i >= this->rows_ || j >= this->columns_ || i < 0 || j < 0)
-      throw std::out_of_range("Out of range");
+      throw std::out_of_range("operator() Out of range");
     return this->matrix_[i][j];
   }
 
   T operator()(const int& i, const int& j) const {
     if (i >= this->rows_ || j >= this->columns_ || i < 0 || j < 0)
-      throw std::out_of_range("Out of range");
+      throw std::out_of_range("operator() Out of range");
     return this->matrix_[i][j];
   }
 
@@ -152,12 +161,12 @@ class Matrix {
 
   const T at(const int& i, const int& j) const {
     if (i >= this->rows_ || j >= this->columns_ || i < 0 || j < 0)
-      throw std::out_of_range("Out of range");
+      throw std::out_of_range("at Out of range");
     return this->matrix_[i][j];
   }
 
   void SetRows(int new_rows) {
-    if (new_rows <= 0) throw std::out_of_range("Out of range");
+    if (new_rows <= 0) throw std::out_of_range("set rows Out of range");
     if (new_rows != this->rows_) {
       int rows_iter = (this->rows_ < new_rows) ? this->rows_ : new_rows;
       Matrix tmp(new_rows, this->columns_);
@@ -172,7 +181,7 @@ class Matrix {
   }
 
   void SetColumns(int new_cols) {
-    if (new_cols <= 0) throw std::out_of_range("Out of range");
+    if (new_cols <= 0) throw std::out_of_range("set columns Out of range");
     if (new_cols != this->columns_) {
       int cols_iter = (this->columns_ < new_cols) ? this->columns_ : new_cols;
       Matrix tmp(this->rows_, new_cols);
@@ -191,12 +200,12 @@ class Matrix {
   }
 
   int GetRows() const {
-    if (IsNull_(*this)) throw std::out_of_range("Out of range");
+    if (IsNull_(*this)) throw std::out_of_range("Matrix is null.");
     return this->rows_;
   }
 
   int GetCols() const {
-    if (IsNull_(*this)) throw std::out_of_range("Out of range");
+    if (IsNull_(*this)) throw std::out_of_range("Matrix is null.");
     return this->columns_;
   }
 
@@ -207,6 +216,28 @@ class Matrix {
   int actualCol(int col) const {
       return cols_seq_[col];
   }
+
+  void RemoveRowColumn(const int row, const int col) {
+    if (row < 0 || col < 0) {
+      throw std::out_of_range("rm Out of range");
+    }
+    rows_seq_.erase(rows_seq_.begin() + row);
+    cols_seq_.erase(cols_seq_.begin() + col);
+    Matrix tmp(this->rows_ - 1, this->columns_ - 1);
+    for (int i = 0; i < this->rows_ - 1; i++) {
+      for (int j = 0; j < this->columns_ - 1; j++) {
+        if (i != row && j != col) {
+          tmp.matrix_[i][j] = this->matrix_[i][j];
+        }
+      }
+    }
+    this->RemoveMatrix_();
+    this->matrix_ = tmp.matrix_;
+    this->columns_ -= 1;
+    this->rows_ -= 1;
+    tmp.matrix_ = nullptr;
+  }
+
 
   bool EqMatrix(const Matrix& other) {
     bool eq_result = true;
@@ -249,29 +280,16 @@ class Matrix {
     *this = res_matrix;
   }
 
-  void RemoveRowColumn(const int row, const int col) {
-    if (row <= 0 || col <= 0) {
-      throw std::out_of_range("Out of range");
-    }
-    rows_seq_.erase(rows_seq_.begin() + row);
-    cols_seq_.erase(cols_seq_.begin() + col);
-    Matrix tmp(this->rows_ - 1, this->columns_ - 1);
-    for (int i = 0; i < this->rows_ - 1; i++) {
-      for (int j = 0; j < this->columns_ - 1; j++) {
-        if (i != row && j != col) {
-          tmp.matrix_[i][j] = this->matrix_[i][j];
-        }
-      }
-    }
-    this->RemoveMatrix_();
-    this->matrix_ = tmp.matrix_;
-    this->columns_ -= 1;
-    this->rows_ -= 1;
-    tmp.matrix_ = nullptr;
-  }
-
   // Internal methods
  private:
+
+  void initRowsColumns() {
+    for (size_t i = 0; i < rows_seq_.size(); i++) {
+      rows_seq_.push_back(i);
+      cols_seq_.push_back(i);
+    }
+  }
+
   bool IsSquared_() { return this->rows_ == this->columns_ ? true : false; }
 
   void SetEqualValues_(const Matrix& other) {
@@ -295,12 +313,6 @@ class Matrix {
 
   bool IsNull_(const Matrix& matrix) const {
     return matrix.matrix_ != nullptr ? false : true;
-  }
-
-  void initRowsColumns() {
-    for (size_t i = 0; i < rows_seq_.size(); i++) {
-        rows_seq_[i] = cols_seq_[i] = i;
-    }
   }
 
   void CopyConstructor_(const Matrix& other) {

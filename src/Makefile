@@ -56,6 +56,9 @@ test_algorithms: $(ALGORITHMS_LIB)
 	@$(CC) $(SRC_ALGORITHMS_TEST) $(ALGORITHMS_LIB) -o algorithms_tests $(TEST_FLAGS)
 	./algorithms_tests
 
+debug_test_algorithms: $(ALGORITHMS_LIB)
+	@$(CC) $(SRC_ALGORITHMS_TEST) $(ALGORITHMS_LIB) -o algorithms_tests $(TEST_FLAGS) -g
+
 clean:
 	rm -rf a.out *.dSYM *.dot a.out* $(GRAPH_OBJ) $(ALGORITHMS_OBJ) graph_tests algorithms_tests console_interface
 

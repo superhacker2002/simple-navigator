@@ -53,7 +53,7 @@ class Matrix {
   Matrix(int rows, int columns)
     : rows_(rows),
       columns_(columns) {
-    initRowsColumns();
+    initRowsColumns_();
     if (rows <= 0 || columns <= 0) throw std::out_of_range("constructor Out of range");
     this->matrix_ = new T*[rows];
     for (int i = 0; i < rows; i++) {
@@ -217,18 +217,21 @@ class Matrix {
       return cols_seq_[col];
   }
 
-  void RemoveRowColumn(const int row, const int col) {
-    if (row < 0 || col < 0) {
+  void RemoveRowColumn(const int delete_row, const int delete_col) {
+    if (delete_row < 0 || delete_col < 0) {
       throw std::out_of_range("rm Out of range");
     }
-    rows_seq_.erase(rows_seq_.begin() + row);
-    cols_seq_.erase(cols_seq_.begin() + col);
+    rows_seq_.erase(rows_seq_.begin() + delete_row);
+    cols_seq_.erase(cols_seq_.begin() + delete_col);
     Matrix tmp(this->rows_ - 1, this->columns_ - 1);
-    for (int i = 0; i < this->rows_ - 1; i++) {
-      for (int j = 0; j < this->columns_ - 1; j++) {
-        if (i != row && j != col) {
-          tmp.matrix_[i][j] = this->matrix_[i][j];
+    for (int row = 0, row_small = 0; row < rows_; row++) {
+      if (row != delete_row) {
+        for (int col = 0, col_small = 0; col < columns_; col++) {
+          if (col != delete_col) {
+              tmp.matrix_[row_small][col_small++] = matrix_[row][col];
+          }
         }
+        row_small++;
       }
     }
     this->RemoveMatrix_();
@@ -283,8 +286,8 @@ class Matrix {
   // Internal methods
  private:
 
-  void initRowsColumns() {
-    for (size_t i = 0; i < rows_seq_.size(); i++) {
+  void initRowsColumns_() {
+    for (int i = 0; i < rows_; i++) {
       rows_seq_.push_back(i);
       cols_seq_.push_back(i);
     }
@@ -294,9 +297,13 @@ class Matrix {
 
   void SetEqualValues_(const Matrix& other) {
     this->SetSize(other.rows_, other.columns_);
-    for (int i = 0; i < this->rows_; i++)
-      for (int j = 0; j < this->columns_; j++)
+    for (int i = 0; i < this->rows_; i++) {
+      for (int j = 0; j < this->columns_; j++) {
         this->matrix_[i][j] = other.matrix_[i][j];
+      }
+    }
+    rows_seq_ = other.rows_seq_;
+    cols_seq_ = other.cols_seq_;
   }
 
   bool IsRowsAndColsEq_(const Matrix& matrix1, const Matrix& matrix2) {

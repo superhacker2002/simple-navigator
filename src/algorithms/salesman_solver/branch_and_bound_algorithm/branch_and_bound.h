@@ -22,12 +22,9 @@ private:
   s21::GraphData::MatrixType source_matrix_;
   double best_length_;
   PathsList best_path_;
-  VerticesList final_solution_;
-  PathsList last_step_;
 
   void pathSearching_(const s21::GraphData::MatrixType &matrix,
                       PathsList &curr_path, double curr_lower_bound);
-  void logPath_(const PathsList &path);
   Edge findBestZeroPath_(const s21::GraphData::MatrixType &matrix);
 
   void compareWithOptimalSolution_(PathsList &curr_path);

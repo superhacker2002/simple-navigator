@@ -19,29 +19,29 @@ BranchAndBound::~BranchAndBound() {}
 s21::TsmResult BranchAndBound::findBestPath() {
   PathsList current_path;
   pathSearching_(source_matrix_, current_path, 0);
-  final_solution_.push_back(0);
+  VerticesList final_solution;
+  final_solution.push_back(0);
   while (!best_path_.empty()) {
     for (auto path = best_path_.begin(); path != best_path_.end();) {
-      if (path->first == final_solution_.back()) {
-        final_solution_.push_back(path->second);
+      if (path->first == final_solution.back()) {
+        final_solution.push_back(path->second);
         path = best_path_.erase(path);
       } else {
         ++path;
       }
     }
   }
-  for (auto &vertice : final_solution_) {
+  for (auto &vertice : final_solution) {
     vertice++;
   }
-  std::reverse(std::begin(final_solution_), std::end(final_solution_));
-  return s21::TsmResult{final_solution_, best_length_};
+  std::reverse(std::begin(final_solution), std::end(final_solution));
+  return s21::TsmResult{final_solution, best_length_};
 }
 
 void BranchAndBound::pathSearching_(const s21::GraphData::MatrixType &matrix,
                                     PathsList &curr_path,
                                     double curr_lower_bound) {
   if (matrix.GetRows() == 2) {
-    logPath_(curr_path);
     int i = matrix(0, 0) >= kMaxDistance ? 1 : 0;
     PathsList result(curr_path);
     result.emplace_back(matrix.actualRow(0), matrix.actualCol(i));
@@ -53,7 +53,6 @@ void BranchAndBound::pathSearching_(const s21::GraphData::MatrixType &matrix,
   s21::GraphData::MatrixType new_matrix = matrix;
   curr_lower_bound += matrixReduction_(new_matrix);
   if (curr_lower_bound > best_length_) {
-    logPath_(curr_path);
     return;
   }
 
@@ -99,10 +98,6 @@ void BranchAndBound::addInfinity_(s21::GraphData::MatrixType &matrix) {
       break;
     }
   }
-}
-
-void BranchAndBound::logPath_(const BranchAndBound::PathsList &path) {
-  last_step_ = path;
 }
 
 BranchAndBound::Edge

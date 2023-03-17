@@ -123,10 +123,10 @@ double BranchAndBound::getCoefficient_(const s21::GraphData::MatrixType& matrix,
     double rmin, cmin;
     rmin = cmin = kMaxDistance;
     for (int v = 0; v < matrix.GetRows(); ++v) {
-        if (v != from) // ??????
-            cmin = std::min(rmin, matrix(v, to));
+        if (v != from)
+            rmin = std::min(rmin, matrix(v, to));
         if (v != to)
-            rmin = std::min(cmin, matrix(from, v));
+            cmin = std::min(cmin, matrix(from, v));
     }
 
     return rmin + cmin;
@@ -189,4 +189,3 @@ double BranchAndBound::cost(const PathsList &paths) {
     }
     return result;
 }
-

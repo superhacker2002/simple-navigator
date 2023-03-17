@@ -142,14 +142,16 @@ class Matrix {
   bool operator!=(const Matrix& other) { return !(this->EqMatrix(other)); }
 
   T& operator()(const int& i, const int& j) {
-    if (i >= this->rows_ || j >= this->columns_ || i < 0 || j < 0)
-      throw std::out_of_range("operator() Out of range");
+    if (i >= this->rows_ || j >= this->columns_ || i < 0 || j < 0) {
+      throw std::out_of_range("Operator() : Out of range");
+    }
     return this->matrix_[i][j];
   }
 
   T operator()(const int& i, const int& j) const {
-    if (i >= this->rows_ || j >= this->columns_ || i < 0 || j < 0)
-      throw std::out_of_range("operator() Out of range");
+    if (i >= this->rows_ || j >= this->columns_ || i < 0 || j < 0) {
+      throw std::out_of_range("Operator() : Out of range");
+    }
     return this->matrix_[i][j];
   }
 

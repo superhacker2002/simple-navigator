@@ -37,7 +37,6 @@ private:
   void addInfinity_(s21::GraphData::MatrixType &matrix);
   double summarizeMinCosts_(std::vector<double> &min_row,
                             std::vector<double> &min_col, double lower_bound);
-  double getCoefficient_(int r, int c);
 };
 
 #endif // BRANCH_AND_BOUND_H_

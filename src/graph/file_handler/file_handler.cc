@@ -1,22 +1,25 @@
 #include "file_handler.h"
 
-s21::FileHandler::FileHandler() {
-}
+s21::FileHandler::FileHandler() {}
 
-s21::FileHandler::~FileHandler() {
-}
+s21::FileHandler::~FileHandler() {}
 
-void s21::FileHandler::writeToFile(const std::string& filepath,
-                                   s21::GraphData& data) {
+void s21::FileHandler::writeToFile(const std::string &filepath,
+                                   s21::GraphData &data) {
   std::ofstream file(filepath);
   if (file.is_open()) {
     writeHeader_(file);
     for (int i = 0; i < data.matrix->GetRows(); ++i) {
       for (int j = 0; j < data.matrix->GetCols(); ++j) {
         if (data.matrix->at(i, j) != 0) {
-          if (i > j || data.matrix->at(i, j) != data.matrix->at(j, i)) {  // if this is right top side of matrix OR
-            file << getVertexName_(i) << " -- " << getVertexName_(j)      // this is left bottom side of matrix and i, j != j, i
-               << getLabel_(data.matrix->at(i, j));
+          if (i > j ||
+              data.matrix->at(i, j) !=
+                  data.matrix->at(
+                      j, i)) {  // if this is right top side of matrix OR
+            file << getVertexName_(i) << " -- "
+                 << getVertexName_(j)  // this is left bottom side of matrix and
+                                       // i, j != j, i
+                 << getLabel_(data.matrix->at(i, j));
           }
         }
       }
@@ -30,7 +33,8 @@ void s21::FileHandler::writeToFile(const std::string& filepath,
 }
 
 const std::string s21::FileHandler::getVertexName_(const int it) {
-  return static_cast<char>('A' + (it > 25 ? it % 26 : it)) + std::to_string(it / 26);
+  return static_cast<char>('A' + (it > 25 ? it % 26 : it)) +
+         std::to_string(it / 26);
 }
 
 const std::string s21::FileHandler::getLabel_(const int value) {
@@ -38,13 +42,13 @@ const std::string s21::FileHandler::getLabel_(const int value) {
          std::string("\"];\n");
 }
 
-void s21::FileHandler::writeHeader_(std::ofstream& file) {
+void s21::FileHandler::writeHeader_(std::ofstream &file) {
   file << "graph s21_graph_name {\n";
 }
 
-void s21::FileHandler::writeFooter_(std::ofstream& file) { file << "}\n"; }
+void s21::FileHandler::writeFooter_(std::ofstream &file) { file << "}\n"; }
 
-s21::GraphData s21::FileHandler::parseFile(const std::string& filepath) {
+s21::GraphData s21::FileHandler::parseFile(const std::string &filepath) {
   m_file_ = std::ifstream(filepath);
   std::string buffer;
   if (m_file_.is_open()) {
@@ -55,11 +59,11 @@ s21::GraphData s21::FileHandler::parseFile(const std::string& filepath) {
       parseLine_(buffer, i);
     }
     if (i != m_grph_data_.matrix->GetCols()) {
-      throw std::invalid_argument("Parsing error : Incorrect adjacency matrix.");
+      throw std::invalid_argument(
+          "Parsing error : Incorrect adjacency matrix.");
     }
   } else {
-    throw std::invalid_argument(
-        std::strerror(errno));
+    throw std::invalid_argument(std::strerror(errno));
   }
   return m_grph_data_;
 }
@@ -67,12 +71,11 @@ s21::GraphData s21::FileHandler::parseFile(const std::string& filepath) {
 void s21::FileHandler::createMatrix_() {
   if (!m_file_.eof()) {
     size_t size = getGraphMatrixSize_();
-    m_grph_data_.matrix =
-        std::make_unique<s21::GraphData::MatrixType>(size);
+    m_grph_data_.matrix = std::make_unique<s21::GraphData::MatrixType>(size);
   }
 }
 
-void s21::FileHandler::parseLine_(const std::string& line, size_t i) {
+void s21::FileHandler::parseLine_(const std::string &line, size_t i) {
   int j = 0;
   for (auto it = line.begin(); j < m_grph_data_.matrix->GetRows(); ++j) {
     try {
@@ -99,7 +102,7 @@ size_t s21::FileHandler::getGraphMatrixSize_() {
   }
 }
 
-void s21::FileHandler::moveIter_(std::string::const_iterator& it) {
+void s21::FileHandler::moveIter_(std::string::const_iterator &it) {
   while (isNumber_(*it)) ++it;
   while (*it == ' ') ++it;
 }

@@ -1,17 +1,17 @@
 #ifndef CONSTANTS_H_
 #define CONSTANTS_H_
 
-#include "../../../helpers/includes.h"
-
 #include <limits>
 #include <vector>
 
+#include "../../../helpers/includes.h"
+
 constexpr double kMaxDistance = s21::INF;
-constexpr double kAlpha = 1.0; // weight of pheromones in path choice
-constexpr double kBetha = 5.0; // weight of distance in path choice
+constexpr double kAlpha = 1.0;  // weight of pheromones in path choice
+constexpr double kBetha = 5.0;  // weight of distance in path choice
 constexpr double kEvaporationRate = 0.5;
 constexpr double kConstQValue = 100.0;
-constexpr int kMaxTours = 20; // max number of tours each ant can do
+constexpr int kMaxTours = 20;  // max number of tours each ant can do
 constexpr double kInitPheromone = 1.0 / 4.0;
 constexpr int kUndefined = -1;
 constexpr int kUnvisited = 0;
@@ -24,4 +24,4 @@ struct AntType {
   double tour_length;
 };
 
-#endif // CONSTANTS_H_
+#endif  // CONSTANTS_H_

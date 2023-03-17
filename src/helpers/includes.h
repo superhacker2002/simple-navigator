@@ -1,10 +1,10 @@
 #ifndef INCLUDES_H_
 #define INCLUDES_H_
 
-#include "s21_matrix.h"
-
 #include <memory>
 #include <vector>
+
+#include "s21_matrix.h"
 
 // note: incase if we wount need anything more
 // then matrix - change struct to using

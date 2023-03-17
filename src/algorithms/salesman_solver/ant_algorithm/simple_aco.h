@@ -1,21 +1,21 @@
 #ifndef SIMPLE_ACO_H_
 #define SIMPLE_ACO_H_
 
-#include "../../../s21_graph.h"
-#include "../../../helpers/s21_matrix.h"
-#include "../solver_interface.h"
-#include "constants.h"
-
 #include <limits>
 #include <random>
 #include <vector>
 
+#include "../../../helpers/s21_matrix.h"
+#include "../../../s21_graph.h"
+#include "../solver_interface.h"
+#include "constants.h"
+
 class SimpleACO : public ISalesmanSolver {
-public:
+ public:
   SimpleACO(const s21::Graph &graph);
   s21::TsmResult findBestPath() override;
 
-private:
+ private:
   int cities_number_;
   int ants_number_;
   double init_pheromone_;
@@ -41,4 +41,4 @@ private:
   void addPheromones_();
 };
 
-#endif // SIMPLE_ACO_H_
+#endif  // SIMPLE_ACO_H_

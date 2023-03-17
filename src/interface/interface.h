@@ -1,11 +1,13 @@
 #ifndef INTERFACE_H_
 #define INTERFACE_H_
 
+#include <signal.h>
+
+#include <array>
+#include <string_view>
+
 #include "../s21_graph.h"
 #include "../s21_graph_algorithms.h"
-#include <signal.h>
-#include <string_view>
-#include <array>
 
 const std::string_view IFACE_OPTIONS_MSG =
     "\n\u001b[32mChoose option:\e[0m\n\
@@ -33,11 +35,10 @@ const std::vector<std::string_view> MENU_MSGS = {
     "\n\u001b[34;1mMinimal spanning tree search.\e[0m\n\n",
     "\n\u001b[34;1mSalesman problem solve.\e[0m\n\n",
     "\n\u001b[34;1mOutput current graph.\e[0m\n\n",
-    "\n\u001b[34;1mComparison of the speed algorithms " 
+    "\n\u001b[34;1mComparison of the speed algorithms "
     "for solving the traveling salesman problem.\e[0m\n\n"};
 
-const std::string_view LEAVE_MSG =
-    "If you want to go back type 'b'.\n\n";
+const std::string_view LEAVE_MSG = "If you want to go back type 'b'.\n\n";
 
 const std::string_view START_MSG =
     "\n\u001b[32;1mConsole application for checking the operability of the "
@@ -68,12 +69,12 @@ enum GraphFunctions {
 class Interface {
   using function_type = std::function<void(Interface &)>;
 
-public:
+ public:
   static Interface &getIfaceInstance();
   ~Interface() {}
   void start();
 
-private:
+ private:
   static void sighandler(int sig);
   void exitFromInterface();
   void showIfaceOptionsMsg();
@@ -113,7 +114,7 @@ private:
       &s21::Interface::salesmanProblemSolve,
       &s21::Interface::outputGraph,
       &s21::Interface::salesmanAlgorithmsComparison};
-}; // class Interface
-} // namespace s21
+};  // class Interface
+}  // namespace s21
 
-#endif // INTERFACE_H_
+#endif  // INTERFACE_H_

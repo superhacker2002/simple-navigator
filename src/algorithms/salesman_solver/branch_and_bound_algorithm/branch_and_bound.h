@@ -4,12 +4,12 @@
 #include <limits>
 #include <vector>
 
-#include "../../../s21_graph.h"
 #include "../../../helpers/includes.h"
+#include "../../../s21_graph.h"
 #include "../solver_interface.h"
 
 class BranchAndBound : public ISalesmanSolver {
-public:
+ public:
   using Edge = std::pair<int, int>;
   using VerticesList = std::vector<int>;
   using PathsList = std::vector<Edge>;
@@ -18,10 +18,10 @@ public:
   s21::TsmResult findBestPath() override;
 
   ~BranchAndBound();
-  BranchAndBound(const BranchAndBound&) = delete;
-  BranchAndBound &operator=(const BranchAndBound&) = delete;
+  BranchAndBound(const BranchAndBound &) = delete;
+  BranchAndBound &operator=(const BranchAndBound &) = delete;
 
-private:
+ private:
   static constexpr double kMaxDistance = s21::INF;
   s21::GraphData::MatrixType source_matrix_;
   double best_length_;
@@ -43,4 +43,4 @@ private:
                             std::vector<double> &min_col, double lower_bound);
 };
 
-#endif // BRANCH_AND_BOUND_H_
+#endif  // BRANCH_AND_BOUND_H_

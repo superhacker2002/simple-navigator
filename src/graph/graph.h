@@ -18,14 +18,14 @@ class Graph {
   using constColIterator = s21::ConstColGraphIterator<double>;
 
   Graph();
-  Graph(const Graph& other);
+  Graph(const Graph &other);
   Graph(int n);
-  Graph& operator=(const Graph& other);
+  Graph &operator=(const Graph &other);
   ~Graph();
 
-  void loadGraphFromFile(const std::string& filename);
-  void exportGraphToDot(const std::string& filename);
-  double& getWeight(int i, int j);
+  void loadGraphFromFile(const std::string &filename);
+  void exportGraphToDot(const std::string &filename);
+  double &getWeight(int i, int j);
   double getWeight(int i, int j) const;
   int getVerticesCount() const;
   iterator begin();
@@ -43,7 +43,7 @@ class Graph {
   constColIterator cColEnd(int col) const;
 
   s21::GraphData::MatrixType graphToMatrix() const;
-  void matrixToGraph(const s21::GraphData::MatrixType& other);
+  void matrixToGraph(const s21::GraphData::MatrixType &other);
   bool isEmpty();
 
  private:

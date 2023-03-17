@@ -4,9 +4,9 @@
 #include "../../graph/graph.h"
 
 class ISalesmanSolver {
-public:
+ public:
   virtual ~ISalesmanSolver() = default;
   virtual s21::TsmResult findBestPath() = 0;
 };
 
-#endif // SOLVER_INTERFACE_H_
+#endif  // SOLVER_INTERFACE_H_

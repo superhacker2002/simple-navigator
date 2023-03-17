@@ -50,11 +50,10 @@ class Matrix {
 
   Matrix() : Matrix(3, 3) { ; }
 
-  Matrix(int rows, int columns)
-    : rows_(rows),
-      columns_(columns) {
+  Matrix(int rows, int columns) : rows_(rows), columns_(columns) {
     initRowsColumns_();
-    if (rows <= 0 || columns <= 0) throw std::out_of_range("constructor Out of range");
+    if (rows <= 0 || columns <= 0)
+      throw std::out_of_range("constructor Out of range");
     this->matrix_ = new T*[rows];
     for (int i = 0; i < rows; i++) {
       this->matrix_[i] = new T[columns]();
@@ -157,9 +156,7 @@ class Matrix {
 
   // Main methods
 
-  bool isEmpty() {
-    return columns_ == 0 && rows_ == 0;
-  }
+  bool isEmpty() { return columns_ == 0 && rows_ == 0; }
 
   const T at(const int& i, const int& j) const {
     if (i >= this->rows_ || j >= this->columns_ || i < 0 || j < 0)
@@ -211,13 +208,9 @@ class Matrix {
     return this->columns_;
   }
 
-  int actualRow(int row) const {
-      return rows_seq_[row];
-  }
+  int actualRow(int row) const { return rows_seq_[row]; }
 
-  int actualCol(int col) const {
-      return cols_seq_[col];
-  }
+  int actualCol(int col) const { return cols_seq_[col]; }
 
   void RemoveRowColumn(const int delete_row, const int delete_col) {
     if (delete_row < 0 || delete_col < 0) {
@@ -230,7 +223,7 @@ class Matrix {
       if (row != delete_row) {
         for (int col = 0, col_small = 0; col < columns_; col++) {
           if (col != delete_col) {
-              tmp.matrix_[row_small][col_small++] = matrix_[row][col];
+            tmp.matrix_[row_small][col_small++] = matrix_[row][col];
           }
         }
         row_small++;
@@ -242,7 +235,6 @@ class Matrix {
     this->rows_ -= 1;
     tmp.matrix_ = nullptr;
   }
-
 
   bool EqMatrix(const Matrix& other) {
     bool eq_result = true;
@@ -287,7 +279,6 @@ class Matrix {
 
   // Internal methods
  private:
-
   void initRowsColumns_() {
     for (int i = 0; i < rows_; i++) {
       rows_seq_.push_back(i);

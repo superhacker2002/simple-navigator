@@ -3,9 +3,12 @@
 SimpleACO::SimpleACO(const s21::Graph &graph)
     : cities_number_(graph.getVerticesCount()),
       ants_number_(graph.getVerticesCount()),
-      init_pheromone_(1.0 / cities_number_), distances_(graph.graphToMatrix()),
-      pheromones_(cities_number_), best_path_length_(kMaxDistance),
-      ants_(createAnts_()), random_generator_(rand_dev_()) {
+      init_pheromone_(1.0 / cities_number_),
+      distances_(graph.graphToMatrix()),
+      pheromones_(cities_number_),
+      best_path_length_(kMaxDistance),
+      ants_(createAnts_()),
+      random_generator_(rand_dev_()) {
   pheromones_.FillMatrix(init_pheromone_);
 }
 
@@ -37,7 +40,7 @@ void SimpleACO::restartAnts_() {
     if (ant.tour_length < best_path_length_) {
       best_path_length_ = ant.tour_length;
       best_path_ = ant.path;
-      best_path_.push_back(ant.path[0]); // return to the first city
+      best_path_.push_back(ant.path[0]);  // return to the first city
     }
   }
   ants_ = createAnts_();

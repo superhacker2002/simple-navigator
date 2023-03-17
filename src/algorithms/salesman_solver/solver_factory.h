@@ -1,8 +1,9 @@
 #ifndef SOLVER_FACTORY_H_
 #define SOLVER_FACTORY_H_
 
-#include "solver_interface.h"
 #include <memory>
+
+#include "solver_interface.h"
 
 namespace SalesmanSolverFactory {
 enum struct SolverAlgorithm {
@@ -12,6 +13,6 @@ enum struct SolverAlgorithm {
 };
 std::unique_ptr<ISalesmanSolver> getSalesmanSolver(SolverAlgorithm type,
                                                    const s21::Graph &graph);
-}; // namespace SalesmanSolverFactory
+};  // namespace SalesmanSolverFactory
 
-#endif // SOLVER_FACTORY_H_
+#endif  // SOLVER_FACTORY_H_

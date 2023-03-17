@@ -66,12 +66,13 @@ void BranchAndBound::pathSearching_(const s21::GraphData::MatrixType &matrix,
                         new_matrix.actualCol(zero_edge.second));
   addInfinity_(curr_matrix);
   pathSearching_(curr_matrix, new_path,
-                 curr_lower_bound); // searching subset containing zero_edge
+                 curr_lower_bound);  // searching subset containing zero_edge
 
   curr_matrix = new_matrix;
   curr_matrix(zero_edge.first, zero_edge.second) = s21::INF;
-  pathSearching_(curr_matrix, curr_path,
-                 curr_lower_bound); // searching subset not containing zero_edge
+  pathSearching_(
+      curr_matrix, curr_path,
+      curr_lower_bound);  // searching subset not containing zero_edge
 }
 
 void BranchAndBound::addInfinity_(s21::GraphData::MatrixType &matrix) {
@@ -100,8 +101,8 @@ void BranchAndBound::addInfinity_(s21::GraphData::MatrixType &matrix) {
   }
 }
 
-BranchAndBound::Edge
-BranchAndBound::findBestZeroPath_(const s21::GraphData::MatrixType &matrix) {
+BranchAndBound::Edge BranchAndBound::findBestZeroPath_(
+    const s21::GraphData::MatrixType &matrix) {
   std::vector<BranchAndBound::Edge> zeroes;
   std::vector<double> coefficients;
   double max_coefficient = 0;
@@ -125,10 +126,8 @@ double BranchAndBound::getCoefficient_(const s21::GraphData::MatrixType &matrix,
   double rmin, cmin;
   rmin = cmin = s21::INF;
   for (int v = 0; v < matrix.GetRows(); ++v) {
-    if (v != from)
-      rmin = std::min(rmin, matrix(v, to));
-    if (v != to)
-      cmin = std::min(cmin, matrix(from, v));
+    if (v != from) rmin = std::min(rmin, matrix(v, to));
+    if (v != to) cmin = std::min(cmin, matrix(from, v));
   }
 
   return rmin + cmin;
@@ -148,8 +147,7 @@ double BranchAndBound::matrixReduction_(s21::GraphData::MatrixType &matrix) {
       if (matrix(i, j) != 0) {
         matrix(i, j) -= min_row[i];
       }
-      if ((matrix(i, j) < min_column[j]))
-        min_column[j] = matrix(i, j);
+      if ((matrix(i, j) < min_column[j])) min_column[j] = matrix(i, j);
     }
   }
   for (int j = 0; j < vertices_number; ++j) {

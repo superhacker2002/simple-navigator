@@ -67,18 +67,17 @@ fclean: clean
 	rm -rf $(GRAPH_LIB) $(ALGORITHMS_LIB)
 
 style_check:
-	cp materials/linters/.clang-format .
-	clang-format -i tests/*.cc \
-					src/algorithms_class/*.h \
-					src/algorithms_class/*.cc \
-					src/algorithms_class/ant_algorithm/*.h \
-					src/algorithms_class/ant_algorithm/*.cc \
-					src/helpers/containers/*.h \
-					src/helpers/*.h \
-					src/main_class/file_handler/*.cc \
-					src/main_class/file_handler/*.h \
-					src/main_class/iterators/*.h \
-					src/main_class/*.cc \
-					src/main_class/*.h
+	cp ../materials/linters/.clang-format .
+	clang-format -i $(SRC_GRAPH) $(SRC_ALGORITHMS) \
+					$(SRC_INTERFACE) $(SRC_GRAPH_TEST) \
+					$(SRC_ALGORITHMS_TEST) s21_graph.h \
+					s21_graph_algorithms.h interface/*.h \
+					helpers/*.h helpers/containers/*.h \
+					graph/*.h graph/iterators/*.h \
+					graph/file_handler/*.h \
+					algorithms/*.h algorithms/salesman_solver/*.h \
+					algorithms/salesman_solver/ant_algorithm/*.h \
+					algorithms/salesman_solver/branch_and_bound_algorithm/*.h \
+					algorithms/salesman_solver/brute_force_algorithm/*.h
 	rm -rf .clang-format
 

@@ -189,6 +189,12 @@ void s21::Interface::salesmanProblemSolve() {
 
 void s21::Interface::salesmanAlgorithmsComparison() {
   std::cout << MENU_MSGS[SALESMAN_ALGROTHMS_DIFF] << LEAVE_MSG;
+  try {
+    s21::GraphAlgorithms::solveTravelingSalesmanProblem(m_graph_);
+  } catch (const std::exception &err) {
+    std::cout << "\u001b[31m" << err.what() << "\e[0m\n";
+    return;
+  } 
   while (1) {
     std::cout
         << "\u001b[32mType in number of repetitions of the solution.\e[0m\n";
@@ -216,7 +222,7 @@ void s21::Interface::measureSalesmanSolverSpeed(
     std::function<s21::TsmResult(const s21::Graph &graph)> salesman_solver) {
   auto begin = std::chrono::steady_clock::now();
   for (int i = 0; i < iterations_number; i++) {
-    salesman_solver(m_graph_);
+      salesman_solver(m_graph_);
   }
   auto end = std::chrono::steady_clock::now();
 

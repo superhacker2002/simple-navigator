@@ -33,8 +33,8 @@ const std::vector<std::string_view> MENU_MSGS = {
     "\n\u001b[34;1mMinimal spanning tree search.\e[0m\n\n",
     "\n\u001b[34;1mSalesman problem solve.\e[0m\n\n",
     "\n\u001b[34;1mOutput current graph.\e[0m\n\n",
-    "\n\u001b[34;1mComparison of the speed of ant algorithm, branch and bound "
-    "algorithm and ... for solving the traveling salesman problem.\e[0m\n\n"};
+    "\n\u001b[34;1mComparison of the speed algorithms " 
+    "for solving the traveling salesman problem.\e[0m\n\n"};
 
 const std::string_view LEAVE_MSG =
     "If you want to go back type 'b'.\n\n";

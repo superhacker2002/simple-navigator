@@ -1,8 +1,7 @@
 #ifndef SIMPLE_ACO_H_
 #define SIMPLE_ACO_H_
 
-#include "../../../graph/graph.h"
-#include "../../../helpers/includes.h"
+#include "../../../s21_graph.h"
 #include "../../../helpers/s21_matrix.h"
 #include "../solver_interface.h"
 #include "constants.h"
@@ -21,11 +20,11 @@ private:
   int ants_number_;
   double init_pheromone_;
 
-  s21::Matrix<double> distances_;
-  s21::Matrix<double> pheromones_;
+  s21::GraphData::MatrixType distances_;
+  s21::GraphData::MatrixType pheromones_;
 
   double best_path_length_;
-  std::vector<int> best_path_;
+  s21::VerticesList best_path_;
 
   std::vector<AntType> ants_;
 

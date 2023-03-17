@@ -214,6 +214,31 @@ TEST_F(AllAlgorithmsTest, branch_and_bound_algorithm_test_2) {
   EXPECT_FLOAT_EQ(result.distance, 40.0);
 }
 
+TEST_F(AllAlgorithmsTest, brute_force_algorithm_test_1) {
+  graph.loadGraphFromFile("../datasets/complete.txt");
+  const std::vector<int> answer = {1, 2, 3, 4, 1};
+  auto answer_it = answer.begin();
+  s21::TsmResult result;
+  result = s21::GraphAlgorithms::solveTravelingSalesmanProblemBF(graph);
+  for (auto& vertice : result.vertices) {
+    EXPECT_EQ(*answer_it, vertice);
+    answer_it++;
+  }
+  EXPECT_FLOAT_EQ(result.distance, 97.0);
+}
+
+TEST_F(AllAlgorithmsTest, brute_force_algorithm_test_2) {
+  graph.loadGraphFromFile("../datasets/complete_2.txt");
+  const std::vector<int> answer = {1, 2, 3, 4, 5, 1};
+  auto answer_it = answer.begin();
+  s21::TsmResult result = s21::GraphAlgorithms::solveTravelingSalesmanProblemBF(graph);
+  for (auto& vertice : result.vertices) {
+    EXPECT_EQ(*answer_it, vertice);
+    answer_it++;
+  }
+  EXPECT_FLOAT_EQ(result.distance, 40.0);
+}
+
 TEST_F(AllAlgorithmsTest, path_between_all_vertices_test_1) {
   graph.loadGraphFromFile("../datasets/no_w.txt");
   const std::vector<double> answer = {

@@ -5,7 +5,7 @@ BranchAndBound::BranchAndBound(const s21::Graph &graph)
   for (int i = 0; i < source_matrix_.GetRows(); i++) {
     for (int j = 0; j < source_matrix_.GetCols(); ++j) {
       if (j == i) {
-        source_matrix_(i, j) = kMaxDistance;
+        source_matrix_(i, j) = s21::INF;
       } else if (source_matrix_(i, j) == 0) {
         throw std::invalid_argument(
             "Impossible to solve salesman problem for this graph.");
@@ -42,7 +42,7 @@ void BranchAndBound::pathSearching_(const s21::GraphData::MatrixType &matrix,
                                     PathsList &curr_path,
                                     double curr_lower_bound) {
   if (matrix.GetRows() == 2) {
-    int i = matrix(0, 0) >= kMaxDistance ? 1 : 0;
+    int i = matrix(0, 0) >= s21::INF ? 1 : 0;
     PathsList result(curr_path);
     result.emplace_back(matrix.actualRow(0), matrix.actualCol(i));
     result.emplace_back(matrix.actualRow(1), matrix.actualCol(1 - i));
@@ -69,7 +69,7 @@ void BranchAndBound::pathSearching_(const s21::GraphData::MatrixType &matrix,
                  curr_lower_bound); // searching subset containing zero_edge
 
   curr_matrix = new_matrix;
-  curr_matrix(zero_edge.first, zero_edge.second) = kMaxDistance;
+  curr_matrix(zero_edge.first, zero_edge.second) = s21::INF;
   pathSearching_(curr_matrix, curr_path,
                  curr_lower_bound); // searching subset not containing zero_edge
 }
@@ -79,7 +79,7 @@ void BranchAndBound::addInfinity_(s21::GraphData::MatrixType &matrix) {
   std::vector<bool> cols_inifity_elements(matrix.GetRows(), false);
   for (int i = 0; i < matrix.GetRows(); i++) {
     for (int j = 0; j < matrix.GetRows(); j++) {
-      if (matrix(i, j) == kMaxDistance) {
+      if (matrix(i, j) == s21::INF) {
         rows_infinity_elements[i] = true;
         cols_inifity_elements[j] = true;
       }
@@ -94,7 +94,7 @@ void BranchAndBound::addInfinity_(s21::GraphData::MatrixType &matrix) {
   }
   for (size_t j = 0; j < cols_inifity_elements.size(); j++) {
     if (!cols_inifity_elements[j]) {
-      matrix(no_inf, j) = kMaxDistance;
+      matrix(no_inf, j) = s21::INF;
       break;
     }
   }
@@ -123,7 +123,7 @@ BranchAndBound::findBestZeroPath_(const s21::GraphData::MatrixType &matrix) {
 double BranchAndBound::getCoefficient_(const s21::GraphData::MatrixType &matrix,
                                        int from, int to) {
   double rmin, cmin;
-  rmin = cmin = kMaxDistance;
+  rmin = cmin = s21::INF;
   for (int v = 0; v < matrix.GetRows(); ++v) {
     if (v != from)
       rmin = std::min(rmin, matrix(v, to));
@@ -137,8 +137,8 @@ double BranchAndBound::getCoefficient_(const s21::GraphData::MatrixType &matrix,
 double BranchAndBound::matrixReduction_(s21::GraphData::MatrixType &matrix) {
   double lower_bound = 0;
   int vertices_number = matrix.GetRows();
-  std::vector<double> min_row(vertices_number, kMaxDistance);
-  std::vector<double> min_column(vertices_number, kMaxDistance);
+  std::vector<double> min_row(vertices_number, s21::INF);
+  std::vector<double> min_column(vertices_number, s21::INF);
   for (int i = 0; i < vertices_number; ++i) {
     for (int j = 0; j < vertices_number; ++j)
       if (matrix(i, j) < min_row[i]) {
@@ -176,14 +176,14 @@ double BranchAndBound::summarizeMinCosts_(std::vector<double> &min_row,
 
 void BranchAndBound::evaluateSolution_(const PathsList &paths) {
   double current_cost;
-  if (best_length_ < (current_cost = cost(paths))) {
+  if (best_length_ < (current_cost = cost_(paths))) {
     return;
   }
   best_length_ = current_cost;
   best_path_ = paths;
 }
 
-double BranchAndBound::cost(const PathsList &paths) {
+double BranchAndBound::cost_(const PathsList &paths) {
   double result = 0;
   for (auto &paths : paths) {
     result += source_matrix_(paths.first, paths.second);

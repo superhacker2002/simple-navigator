@@ -15,7 +15,7 @@
  * @returns vector containing the traversed vertices in the order
  * of their traversal
  */
-std::vector<int> s21::GraphAlgorithms::depthFirstSearch(const Graph &graph,
+s21::VerticesList s21::GraphAlgorithms::depthFirstSearch(const Graph &graph,
                                                         int start_vertex) {
   s21::Stack<int> not_visited_verticles;
   return searchAlgorithm_<s21::Stack<int>>(graph, start_vertex,
@@ -29,7 +29,7 @@ std::vector<int> s21::GraphAlgorithms::depthFirstSearch(const Graph &graph,
  * @returns vector containing the traversed vertices in the order
  * of their traversal
  */
-std::vector<int> s21::GraphAlgorithms::breadthFirstSearch(const Graph &graph,
+s21::VerticesList s21::GraphAlgorithms::breadthFirstSearch(const Graph &graph,
                                                           int start_vertex) {
   s21::Queue<int> not_visited_verticles;
   return searchAlgorithm_<s21::Queue<int>>(graph, start_vertex,
@@ -151,6 +151,14 @@ s21::GraphAlgorithms::solveTravelingSalesmanProblemBB(const Graph &graph) {
   return solver->findBestPath();
 }
 
+s21::TsmResult
+s21::GraphAlgorithms::solveTravelingSalesmanProblemBF(const Graph &graph) {
+  std::unique_ptr<ISalesmanSolver> solver =
+      SalesmanSolverFactory::getSalesmanSolver(
+          SalesmanSolverFactory::SolverAlgorithm::BRUTE_FORCE, graph);
+  return solver->findBestPath();
+}
+
 int s21::GraphAlgorithms::isPath_(double tag) {
   if (tag == INF) {
     throw std::invalid_argument("Error : No path between these two vertices.");
@@ -159,7 +167,7 @@ int s21::GraphAlgorithms::isPath_(double tag) {
 }
 
 template <class Container>
-std::vector<int>
+s21::VerticesList
 s21::GraphAlgorithms::searchAlgorithm_(const Graph &graph, int start_vertex,
                                        Container &not_visited_vertices) {
   start_vertex -= 1;
@@ -167,7 +175,7 @@ s21::GraphAlgorithms::searchAlgorithm_(const Graph &graph, int start_vertex,
   not_visited_vertices.push(start_vertex);
   std::vector<bool> visited_vertices(vertices_number);
   visited_vertices[start_vertex] = true;
-  std::vector<int> path;
+  s21::VerticesList path;
 
   while (!not_visited_vertices.empty()) {
     int curr_vertex = not_visited_vertices.peek();
@@ -184,9 +192,9 @@ s21::GraphAlgorithms::searchAlgorithm_(const Graph &graph, int start_vertex,
   return path;
 }
 
-std::vector<int> s21::GraphAlgorithms::getHeirsIndexes_(const Graph &graph,
+s21::VerticesList s21::GraphAlgorithms::getHeirsIndexes_(const Graph &graph,
                                                         int start_index) {
-  std::vector<int> heirs_indexes;
+  s21::VerticesList heirs_indexes;
   for (auto it = graph.cRowBegin(start_index); it != graph.cRowEnd(start_index);
        ++it) {
     if (*it != 0) {

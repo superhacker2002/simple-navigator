@@ -212,6 +212,9 @@ void s21::Interface::salesmanAlgorithmsComparison() {
       std::cout << "\u001b[35mTime of execution for branch and bound algorithm:\e[0m\n";
       measureSalesmanSolverSpeed(
           iterations_num, &s21::GraphAlgorithms::solveTravelingSalesmanProblemBB);
+      std::cout << "\u001b[35mTime of execution for brute force algorithm:\e[0m\n";
+      measureSalesmanSolverSpeed(
+          iterations_num, &s21::GraphAlgorithms::solveTravelingSalesmanProblemBF);
       break;
     }
   }

@@ -7,7 +7,8 @@
 namespace SalesmanSolverFactory {
 enum struct SolverAlgorithm {
   ANT_COLONY_OPTIMIZATION = 0,
-  BRANCH_AND_BOUND = 1
+  BRANCH_AND_BOUND = 1,
+  BRUTE_FORCE = 2
 };
 std::unique_ptr<ISalesmanSolver> getSalesmanSolver(SolverAlgorithm type,
                                                    const s21::Graph &graph);

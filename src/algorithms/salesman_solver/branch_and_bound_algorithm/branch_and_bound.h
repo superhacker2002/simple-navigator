@@ -4,7 +4,7 @@
 #include <limits>
 #include <vector>
 
-#include "../../../graph/graph.h"
+#include "../../../s21_graph.h"
 #include "../../../helpers/includes.h"
 #include "../solver_interface.h"
 
@@ -13,12 +13,16 @@ public:
   using Edge = std::pair<int, int>;
   using VerticesList = std::vector<int>;
   using PathsList = std::vector<Edge>;
+
   BranchAndBound(const s21::Graph &graph);
   s21::TsmResult findBestPath() override;
+
   ~BranchAndBound();
+  BranchAndBound(const BranchAndBound&) = delete;
+  BranchAndBound &operator=(const BranchAndBound&) = delete;
 
 private:
-  const double kMaxDistance = std::numeric_limits<double>::infinity();
+  static constexpr double kMaxDistance = s21::INF;
   s21::GraphData::MatrixType source_matrix_;
   double best_length_;
   PathsList best_path_;
@@ -33,7 +37,7 @@ private:
   double getCoefficient_(const s21::GraphData::MatrixType &matrix, int from,
                          int to);
   void evaluateSolution_(const PathsList &paths);
-  double cost(const PathsList &paths);
+  double cost_(const PathsList &paths);
   void addInfinity_(s21::GraphData::MatrixType &matrix);
   double summarizeMinCosts_(std::vector<double> &min_row,
                             std::vector<double> &min_col, double lower_bound);

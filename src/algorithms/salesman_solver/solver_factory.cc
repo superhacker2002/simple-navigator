@@ -2,6 +2,7 @@
 
 #include "ant_algorithm/simple_aco.h"
 #include "branch_and_bound_algorithm/branch_and_bound.h"
+#include "brute_force_algorithm/brute_force.h"
 
 namespace SalesmanSolverFactory {
 std::unique_ptr<ISalesmanSolver> getSalesmanSolver(SolverAlgorithm type,
@@ -14,6 +15,10 @@ std::unique_ptr<ISalesmanSolver> getSalesmanSolver(SolverAlgorithm type,
   }
   case SolverAlgorithm::BRANCH_AND_BOUND: {
     solver = std::make_unique<BranchAndBound>(graph);
+    break;
+  }
+  case SolverAlgorithm::BRUTE_FORCE: {
+    solver = std::make_unique<BruteForce>(graph);
     break;
   }
   default:

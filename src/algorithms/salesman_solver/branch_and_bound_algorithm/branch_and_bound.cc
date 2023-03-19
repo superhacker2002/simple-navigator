@@ -163,10 +163,10 @@ double BranchAndBound::matrixReduction_(s21::GraphData::MatrixType &matrix) {
 double BranchAndBound::summarizeMinCosts_(std::vector<double> &min_row,
                                           std::vector<double> &min_col,
                                           double lower_bound) {
-  for (const double& i : min_row) {
+  for (const double &i : min_row) {
     lower_bound += i;
   }
-  for (const double& i : min_col) {
+  for (const double &i : min_col) {
     lower_bound += i;
   }
   return lower_bound;

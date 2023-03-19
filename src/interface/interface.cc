@@ -221,8 +221,8 @@ void s21::Interface::salesmanAlgorithmsComparison() {
 }
 
 void s21::Interface::measureSalesmanSolverSpeed(
-  int iterations_number,
-  std::function<s21::TsmResult(const s21::Graph &graph)> salesman_solver) {
+    int iterations_number,
+    std::function<s21::TsmResult(const s21::Graph &graph)> salesman_solver) {
   auto begin = std::chrono::steady_clock::now();
   for (int i = 0; i < iterations_number; i++) {
     salesman_solver(m_graph_);

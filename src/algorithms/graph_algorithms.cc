@@ -51,7 +51,7 @@ double s21::GraphAlgorithms::getShortestPathBetweenVertices(const Graph &graph,
   tags[vertex1] = 0;
 
   while (!not_visited_vertices.empty()) {
-    for (const int& heir : getHeirsIndexes_(graph, vertex1)) {
+    for (const int &heir : getHeirsIndexes_(graph, vertex1)) {
       if (!visited_vertices[vertex1]) {
         not_visited_vertices.push(heir);
         double weight = graph.getWeight(vertex1, heir);
@@ -160,7 +160,8 @@ s21::TsmResult s21::GraphAlgorithms::solveTravelingSalesmanProblemBF(
 
 int s21::GraphAlgorithms::isPath_(double tag) {
   if (tag == INF) {
-    throw std::invalid_argument("Error : There is no path between these two vertices.");
+    throw std::invalid_argument(
+        "Error : There is no path between these two vertices.");
   }
   return tag;
 }

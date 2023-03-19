@@ -1,6 +1,6 @@
 #include "simple_aco.h"
 
-SimpleACO::SimpleACO(const s21::Graph &graph)
+SimpleACO::SimpleACO(const s21::Graph& graph)
     : cities_number_(graph.getVerticesCount()),
       ants_number_(graph.getVerticesCount()),
       init_pheromone_(1.0 / cities_number_),

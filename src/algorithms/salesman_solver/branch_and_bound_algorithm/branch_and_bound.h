@@ -1,9 +1,9 @@
 #ifndef BRANCH_AND_BOUND_H_
 #define BRANCH_AND_BOUND_H_
 
+#include <algorithm>
 #include <limits>
 #include <vector>
-#include <algorithm>
 
 #include "../../../helpers/includes.h"
 #include "../../../s21_graph.h"

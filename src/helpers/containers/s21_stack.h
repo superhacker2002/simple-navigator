@@ -26,7 +26,7 @@ class Stack {
   Stack(const Stack &other) : container_(other.container_) {}
   Stack(std::initializer_list<value_type> const &items) : container_(items) {}
   Stack(Stack &&other) { std::move(other.container_); }
-  virtual ~Stack() {}  // Деструктор
+  virtual ~Stack() {}
   Stack &operator=(const Stack &other) {
     container_ = other.container_;
     return *this;

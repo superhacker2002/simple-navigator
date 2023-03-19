@@ -8,11 +8,6 @@
 #include <iostream>
 #include <vector>
 
-/*Вспомогательный класс
-используется для перевода
-вектора в матрицу и обратно
-в классе Spiner*/
-
 #define EPS 1e-7
 
 namespace s21 {

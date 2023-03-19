@@ -6,8 +6,6 @@
 
 #include "s21_matrix.h"
 
-// note: incase if we wount need anything more
-// then matrix - change struct to using
 namespace s21 {
 struct GraphData {
   using MatrixType = Matrix<double>;
@@ -19,7 +17,6 @@ struct GraphData {
     matrix = std::make_unique<MatrixType>(*other.matrix);
   }
   std::unique_ptr<MatrixType> matrix;
-  // smth else if needed
 };
 
 struct TsmResult {
@@ -29,6 +26,5 @@ struct TsmResult {
 
 using VerticesList = std::vector<int>;
 constexpr double INF = std::numeric_limits<double>::infinity();
-
 }  // namespace s21
 #endif  // INCLUDES_H_

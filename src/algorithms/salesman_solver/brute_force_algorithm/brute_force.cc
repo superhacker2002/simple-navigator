@@ -14,7 +14,7 @@ BruteForce::BruteForce(const s21::Graph &graph)
 
 s21::TsmResult BruteForce::findBestPath() {
   makeStep_(final_solution_, 1);
-  for (auto &vertice : final_solution_) {
+  for (int &vertice : final_solution_) {
     vertice++;
   }
   int first_vertice = final_solution_.front();

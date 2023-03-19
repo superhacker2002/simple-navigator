@@ -3,6 +3,7 @@
 
 #include <limits>
 #include <vector>
+#include <algorithm>
 
 #include "../../../helpers/includes.h"
 #include "../../../s21_graph.h"

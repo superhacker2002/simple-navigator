@@ -6,9 +6,6 @@
 
 #include "../../helpers/includes.h"
 
-// note : не забыть обработать чистку
-// приватных полей между использованием
-
 namespace s21 {
 class FileHandler {
  public:

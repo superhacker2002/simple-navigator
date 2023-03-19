@@ -61,10 +61,10 @@ debug_test_algorithms: $(ALGORITHMS_LIB)
 	@$(CC) $(SRC_ALGORITHMS_TEST) $(ALGORITHMS_LIB) -o algorithms_tests $(TEST_FLAGS) -g
 
 clean:
-	rm -rf a.out *.dSYM *.dot a.out* $(GRAPH_OBJ) $(ALGORITHMS_OBJ) graph_tests algorithms_tests console_interface
+	rm -rf a.out *.dSYM a.out* $(GRAPH_OBJ) $(ALGORITHMS_OBJ) graph_tests algorithms_tests console_interface
 
 fclean: clean
-	rm -rf $(GRAPH_LIB) $(ALGORITHMS_LIB)
+	rm -rf $(GRAPH_LIB) $(ALGORITHMS_LIB) *.dot
 
 style_check:
 	cp ../materials/linters/.clang-format .

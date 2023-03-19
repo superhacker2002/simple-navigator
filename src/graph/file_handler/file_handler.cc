@@ -6,19 +6,16 @@ s21::FileHandler::~FileHandler() {}
 
 void s21::FileHandler::writeToFile(const std::string &filepath,
                                    s21::GraphData &data) {
-  std::ofstream file(filepath);
+  std::ofstream file(endsWith_(filepath, ".dot") ? filepath : filepath + ".dot");
   if (file.is_open()) {
     writeHeader_(file);
     for (int i = 0; i < data.matrix->GetRows(); ++i) {
       for (int j = 0; j < data.matrix->GetCols(); ++j) {
         if (data.matrix->at(i, j) != 0) {
           if (i > j ||
-              data.matrix->at(i, j) !=
-                  data.matrix->at(
-                      j, i)) {  // if this is right top side of matrix OR
+              data.matrix->at(i, j) != data.matrix->at(j, i)) {
             file << getVertexName_(i) << " -- "
-                 << getVertexName_(j)  // this is left bottom side of matrix and
-                                       // i, j != j, i
+                 << getVertexName_(j)
                  << getLabel_(data.matrix->at(i, j));
           }
         }
@@ -30,6 +27,13 @@ void s21::FileHandler::writeToFile(const std::string &filepath,
         std::strerror(errno) +
         std::string("Writing error : Can't open file for writing."));
   }
+}
+
+bool s21::FileHandler::endsWith_(const std::string &str, const std::string &suffix) {
+    if (str.length() < suffix.length()) {
+        return false;
+    }
+    return str.compare(str.length() - suffix.length(), suffix.length(), suffix) == 0;
 }
 
 const std::string s21::FileHandler::getVertexName_(const int it) {

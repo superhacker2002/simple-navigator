@@ -65,7 +65,7 @@ void s21::Interface::loadGraphFromFile() {
 void s21::Interface::exportGraphToDot() {
   std::string file_path;
   std::cout << MENU_MSGS[EXPORT_GRAPH_TO_DOT] << LEAVE_MSG;
-  std::cout << "\u001b[32Type in file name.\e[0m\n";
+  std::cout << "\u001b[32mType in file name.\e[0m\n";
   std::cin >> file_path;
   if (!checkBackInput(file_path)) {
     try {
@@ -141,7 +141,7 @@ void s21::Interface::shortestPathBetweenTwo() {
         std::cout << "\u001b[32mType in index of second vertex.\e[0m\n";
         std::string second_vertex_str;
         std::cin >> second_vertex_str;
-        if (checkBackInput(first_vertex_str)) {
+        if (checkBackInput(second_vertex_str)) {
           break;
         }
         int second_vertex = NA;

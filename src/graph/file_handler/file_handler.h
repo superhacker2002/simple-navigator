@@ -23,6 +23,7 @@ class FileHandler {
   std::ifstream m_file_;
 
   size_t getGraphMatrixSize_();
+  bool endsWith_(const std::string &str, const std::string &suffix);
   void createMatrix_();
   void parseLine_(const std::string &line, size_t j);
   void moveIter_(std::string::const_iterator &it);

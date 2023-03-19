@@ -39,7 +39,12 @@ void BruteForce::makeStep_(s21::VerticesList path, int vertices_number) {
 double BruteForce::cost_(const s21::VerticesList &solution) {
   double result = 0;
   for (size_t i = 1; i < solution.size(); ++i) {
-    result += source_matrix_(solution[i - 1], solution[i]);
+    double weight = source_matrix_(solution[i - 1], solution[i]);
+    if (weight == 0) {
+      throw std::invalid_argument("Impossible to solve salesman problem for this graph.");
+    }
+    result += weight;
+    
   }
   result += source_matrix_(solution.back(), solution.front());
   return result;

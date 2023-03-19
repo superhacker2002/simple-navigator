@@ -40,7 +40,7 @@ void SimpleACO::restartAnts_() {
     if (ant.tour_length < best_path_length_) {
       best_path_length_ = ant.tour_length;
       best_path_ = ant.path;
-      best_path_.push_back(ant.path[0]);  // return to the first city
+      best_path_.push_back(ant.path[0]);
     }
   }
   ants_ = createAnts_();

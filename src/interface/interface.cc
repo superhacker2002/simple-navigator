@@ -189,6 +189,12 @@ void s21::Interface::salesmanProblemSolve() {
 
 void s21::Interface::salesmanAlgorithmsComparison() {
   std::cout << MENU_MSGS[SALESMAN_ALGROTHMS_DIFF] << LEAVE_MSG;
+  try {
+    s21::GraphAlgorithms::solveTravelingSalesmanProblem(m_graph_);
+  } catch (const std::exception &err) {
+    std::cout << "\u001b[31m" << err.what() << "\e[0m\n";
+    return;
+  }
   while (1) {
     std::cout
         << "\u001b[32mType in number of repetitions of the solution.\e[0m\n";
@@ -200,12 +206,20 @@ void s21::Interface::salesmanAlgorithmsComparison() {
     int iterations_num = NA;
     int is_number = checkInput(iterations_str, iterations_num);
     if (is_number != NA) {
-      std::cout << "\u001b[35mTime of execution for ant colony optimization algorithm:\e[0m\n";
+      std::cout << "\u001b[35mTime of execution for ant colony optimization "
+                   "algorithm:\e[0m\n";
       measureSalesmanSolverSpeed(
           iterations_num, &s21::GraphAlgorithms::solveTravelingSalesmanProblem);
-      std::cout << "\u001b[35mTime of execution for branch and bound algorithm:\e[0m\n";
+      std::cout << "\u001b[35mTime of execution for branch and bound "
+                   "algorithm:\e[0m\n";
       measureSalesmanSolverSpeed(
-          iterations_num, &s21::GraphAlgorithms::solveTravelingSalesmanProblemBB);
+          iterations_num,
+          &s21::GraphAlgorithms::solveTravelingSalesmanProblemBB);
+      std::cout
+          << "\u001b[35mTime of execution for brute force algorithm:\e[0m\n";
+      measureSalesmanSolverSpeed(
+          iterations_num,
+          &s21::GraphAlgorithms::solveTravelingSalesmanProblemBF);
       break;
     }
   }

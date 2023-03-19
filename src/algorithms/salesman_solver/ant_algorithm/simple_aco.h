@@ -1,19 +1,18 @@
 #ifndef SIMPLE_ACO_H_
 #define SIMPLE_ACO_H_
 
-#include "../../../helpers/s21_matrix.h"
-#include "../../../helpers/includes.h"
-#include "../../../graph/graph.h"
-#include "constants.h"
-#include "../solver_interface.h"
-
 #include <limits>
 #include <random>
 #include <vector>
 
+#include "../../../helpers/s21_matrix.h"
+#include "../../../s21_graph.h"
+#include "../solver_interface.h"
+#include "constants.h"
+
 class SimpleACO : public ISalesmanSolver {
  public:
-  SimpleACO(const s21::Graph& graph);
+  SimpleACO(const s21::Graph &graph);
   s21::TsmResult findBestPath() override;
 
  private:
@@ -21,11 +20,11 @@ class SimpleACO : public ISalesmanSolver {
   int ants_number_;
   double init_pheromone_;
 
-  s21::Matrix<double> distances_;
-  s21::Matrix<double> pheromones_;
+  s21::GraphData::MatrixType distances_;
+  s21::GraphData::MatrixType pheromones_;
 
   double best_path_length_;
-  std::vector<int> best_path_;
+  s21::VerticesList best_path_;
 
   std::vector<AntType> ants_;
 

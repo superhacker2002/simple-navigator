@@ -4,9 +4,11 @@
 #include <limits>
 #include <vector>
 
-constexpr double kMaxDistance = std::numeric_limits<double>::infinity();
+#include "../../../helpers/includes.h"
+
+constexpr double kMaxDistance = s21::INF;
 constexpr double kAlpha = 1.0;  // weight of pheromones in path choice
-constexpr double kBetha = 1.0;  // weight of distance in path choice
+constexpr double kBetha = 5.0;  // weight of distance in path choice
 constexpr double kEvaporationRate = 0.5;
 constexpr double kConstQValue = 100.0;
 constexpr int kMaxTours = 20;  // max number of tours each ant can do
@@ -17,8 +19,8 @@ constexpr int kVisited = 1;
 
 struct AntType {
   int cur_city, next_city, path_index;
-  std::vector<int> tabu;
-  std::vector<int> path;
+  s21::VerticesList tabu;
+  s21::VerticesList path;
   double tour_length;
 };
 

@@ -11,30 +11,30 @@ class RowGraphIterator : public GraphIterator<T> {
  public:
   RowGraphIterator() : GraphIterator<T>() {}
 
-  RowGraphIterator(const RowGraphIterator& it) : GraphIterator<T>(it) {}
+  RowGraphIterator(const RowGraphIterator &it) : GraphIterator<T>(it) {}
 
   ~RowGraphIterator() {}
 
-  RowGraphIterator<T>& operator++() {
+  RowGraphIterator<T> &operator++() {
     this->curr_col_++;
     return *this;
   }
 
-  RowGraphIterator<T>& operator--() {
+  RowGraphIterator<T> &operator--() {
     if (this->curr_col_ > 0) {
       this->curr_col_--;
     }
     return *this;
   }
 
-  RowGraphIterator<T>& operator-(int num) {
+  RowGraphIterator<T> &operator-(int num) {
     for (int i = 0; i < num; i++) {
       --(*this);
     }
     return *this;
   }
 
-  RowGraphIterator<T>& operator+(int num) {
+  RowGraphIterator<T> &operator+(int num) {
     for (int i = 0; i < num; i++) {
       ++(*this);
     }
@@ -42,7 +42,7 @@ class RowGraphIterator : public GraphIterator<T> {
   }
 
  protected:
-  RowGraphIterator(s21::Matrix<T>* matrix, int i, int j)
+  RowGraphIterator(s21::Matrix<T> *matrix, int i, int j)
       : GraphIterator<T>(matrix, i, j) {}
 };
 
@@ -53,7 +53,7 @@ class ConstRowGraphIterator : public RowGraphIterator<T> {
  public:
   ConstRowGraphIterator() : RowGraphIterator<T>() {}
 
-  ConstRowGraphIterator(const ConstRowGraphIterator& other)
+  ConstRowGraphIterator(const ConstRowGraphIterator &other)
       : RowGraphIterator<T>(other) {}
 
   ~ConstRowGraphIterator() {}
@@ -61,7 +61,7 @@ class ConstRowGraphIterator : public RowGraphIterator<T> {
   T operator*() { return (*this->matrix_)(this->curr_row_, this->curr_col_); }
 
  private:
-  ConstRowGraphIterator(s21::Matrix<T>* matrix, int i, int j)
+  ConstRowGraphIterator(s21::Matrix<T> *matrix, int i, int j)
       : RowGraphIterator<T>(matrix, i, j) {}
 };
 

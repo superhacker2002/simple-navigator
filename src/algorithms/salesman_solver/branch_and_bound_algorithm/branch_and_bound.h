@@ -4,33 +4,43 @@
 #include <limits>
 #include <vector>
 
-#include "../../../graph/graph.h"
 #include "../../../helpers/includes.h"
+#include "../../../s21_graph.h"
 #include "../solver_interface.h"
 
 class BranchAndBound : public ISalesmanSolver {
  public:
-  BranchAndBound(const s21::Graph& graph);
+  using Edge = std::pair<int, int>;
+  using VerticesList = std::vector<int>;
+  using PathsList = std::vector<Edge>;
+
+  BranchAndBound(const s21::Graph &graph);
   s21::TsmResult findBestPath() override;
+
   ~BranchAndBound();
+  BranchAndBound(const BranchAndBound &) = delete;
+  BranchAndBound &operator=(const BranchAndBound &) = delete;
 
  private:
-  const double kMaxDistance = std::numeric_limits<double>::infinity();
-  s21::Graph graph_;
-  std::vector<bool> visited_;
-  double final_res_;
-  std::vector<int> final_path_;
+  static constexpr double kMaxDistance = s21::INF;
+  s21::GraphData::MatrixType source_matrix_;
+  double best_length_;
+  PathsList best_path_;
 
-  int firstMin_(int from);
-  int secondMin_(int from);
-  void TSPRec_(double curr_bound, double curr_weight, int level,
-               std::vector<int>& curr_path);
-  void setLastStep_(double curr_weight, int level, std::vector<int>& curr_path);
-  void calculateCurrentBound_(int level, double& curr_bound,
-                      std::vector<int>& curr_path, int vertice);
-  double calculateInitBound_();
-  void resetVisitedVertices_(std::vector<int>&curr_path, int level);
-  void convertPath_();
+  void pathSearching_(const s21::GraphData::MatrixType &matrix,
+                      PathsList &curr_path, double curr_lower_bound);
+  Edge findBestZeroPath_(const s21::GraphData::MatrixType &matrix);
+
+  void compareWithOptimalSolution_(PathsList &curr_path);
+  void addInfinity_();
+  double matrixReduction_(s21::GraphData::MatrixType &matrix);
+  double getCoefficient_(const s21::GraphData::MatrixType &matrix, int from,
+                         int to);
+  void evaluateSolution_(const PathsList &paths);
+  double cost_(const PathsList &paths);
+  void addInfinity_(s21::GraphData::MatrixType &matrix);
+  double summarizeMinCosts_(std::vector<double> &min_row,
+                            std::vector<double> &min_col, double lower_bound);
 };
 
 #endif  // BRANCH_AND_BOUND_H_

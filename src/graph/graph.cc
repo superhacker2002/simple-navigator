@@ -1,4 +1,5 @@
 #include "graph.h"
+
 #include <cassert>
 
 s21::Graph::Graph() {}
@@ -7,17 +8,17 @@ s21::Graph::Graph(int n) {
   m_data_.matrix = std::make_unique<s21::GraphData::MatrixType>(n, n);
 }
 
-s21::Graph::Graph(const Graph& other) { m_data_ = other.m_data_; }
+s21::Graph::Graph(const Graph &other) { m_data_ = other.m_data_; }
 
-void s21::Graph::loadGraphFromFile(const std::string& filepath) {
-    m_data_ = m_file_hndlr_.parseFile(filepath);
+void s21::Graph::loadGraphFromFile(const std::string &filepath) {
+  m_data_ = m_file_hndlr_.parseFile(filepath);
 }
 
-void s21::Graph::exportGraphToDot(const std::string& filepath) {
-    m_file_hndlr_.writeToFile(filepath, m_data_);
+void s21::Graph::exportGraphToDot(const std::string &filepath) {
+  m_file_hndlr_.writeToFile(filepath, m_data_);
 }
 
-s21::Graph& s21::Graph::operator=(const Graph& other) {
+s21::Graph &s21::Graph::operator=(const Graph &other) {
   m_data_ = other.m_data_;
   return *this;
 }
@@ -26,7 +27,7 @@ s21::GraphData::MatrixType s21::Graph::graphToMatrix() const {
   return s21::GraphData::MatrixType(*m_data_.matrix);
 }
 
-void s21::Graph::matrixToGraph(const s21::GraphData::MatrixType& other) {
+void s21::Graph::matrixToGraph(const s21::GraphData::MatrixType &other) {
   if (m_data_.matrix == nullptr) {
     m_data_.matrix = std::make_unique<s21::GraphData::MatrixType>(1);
   }
@@ -41,7 +42,7 @@ bool s21::Graph::isEmpty() {
 
 int s21::Graph::getVerticesCount() const { return m_data_.matrix->GetRows(); }
 
-double& s21::Graph::getWeight(int i, int j) { return (*m_data_.matrix)(i, j); }
+double &s21::Graph::getWeight(int i, int j) { return (*m_data_.matrix)(i, j); }
 
 double s21::Graph::getWeight(int i, int j) const {
   return m_data_.matrix->at(i, j);

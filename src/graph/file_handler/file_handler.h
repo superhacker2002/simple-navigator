@@ -15,8 +15,8 @@ class FileHandler {
   FileHandler();
   ~FileHandler();
 
-  GraphData parseFile(const std::string& filepath);
-  void writeToFile(const std::string& filepath, s21::GraphData& data);
+  GraphData parseFile(const std::string &filepath);
+  void writeToFile(const std::string &filepath, s21::GraphData &data);
 
  private:
   GraphData m_grph_data_;
@@ -24,11 +24,11 @@ class FileHandler {
 
   size_t getGraphMatrixSize_();
   void createMatrix_();
-  void parseLine_(const std::string& line, size_t j);
-  void moveIter_(std::string::const_iterator& it);
+  void parseLine_(const std::string &line, size_t j);
+  void moveIter_(std::string::const_iterator &it);
   bool isNumber_(const char sym);
-  void writeHeader_(std::ofstream& file);
-  void writeFooter_(std::ofstream& file);
+  void writeHeader_(std::ofstream &file);
+  void writeFooter_(std::ofstream &file);
   const std::string getVertexName_(const int it);
   const std::string getLabel_(const int value);
 };

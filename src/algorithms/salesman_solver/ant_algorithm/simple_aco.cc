@@ -1,6 +1,6 @@
 #include "simple_aco.h"
 
-SimpleACO::SimpleACO(const s21::Graph& graph)
+SimpleACO::SimpleACO(const s21::Graph &graph)
     : cities_number_(graph.getVerticesCount()),
       ants_number_(graph.getVerticesCount()),
       init_pheromone_(1.0 / cities_number_),
@@ -144,7 +144,7 @@ void SimpleACO::addPheromones_() {
 
 s21::TsmResult SimpleACO::findBestPath() {
   int curr_time = 0;
-  int max_time = kMaxTours * cities_number_;
+  int max_time = cities_number_ * cities_number_;
   while (curr_time++ < max_time) {
     if (simulateAnts_() == 0) {
       updateTrails_();

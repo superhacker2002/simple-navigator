@@ -31,7 +31,7 @@ s21::TsmResult BranchAndBound::findBestPath() {
       }
     }
   }
-  for (auto &vertice : final_solution) {
+  for (int &vertice : final_solution) {
     vertice++;
   }
   std::reverse(std::begin(final_solution), std::end(final_solution));
@@ -163,10 +163,10 @@ double BranchAndBound::matrixReduction_(s21::GraphData::MatrixType &matrix) {
 double BranchAndBound::summarizeMinCosts_(std::vector<double> &min_row,
                                           std::vector<double> &min_col,
                                           double lower_bound) {
-  for (auto i : min_row) {
+  for (const double& i : min_row) {
     lower_bound += i;
   }
-  for (auto i : min_col) {
+  for (const double& i : min_col) {
     lower_bound += i;
   }
   return lower_bound;
@@ -183,7 +183,7 @@ void BranchAndBound::evaluateSolution_(const PathsList &paths) {
 
 double BranchAndBound::cost_(const PathsList &paths) {
   double result = 0;
-  for (auto &paths : paths) {
+  for (const BranchAndBound::Edge &paths : paths) {
     result += source_matrix_(paths.first, paths.second);
   }
   return result;

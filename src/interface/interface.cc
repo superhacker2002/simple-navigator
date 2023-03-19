@@ -2,8 +2,6 @@
 
 #include <chrono>
 
-static bool m_shutdown_ = false;
-
 void s21::Interface::exitFromInterface() { exit(EXIT_SUCCESS); }
 
 s21::Interface::Interface() { signal(SIGINT, s21::Interface::sighandler); }
@@ -20,9 +18,6 @@ void s21::Interface::sighandler(int /*sig*/) { exit(EXIT_SUCCESS); }
 void s21::Interface::start() {
   std::cout << START_MSG;
   while (true) {
-    if (m_shutdown_) {
-      break;
-    }
     showIfaceOptionsMsg();
     std::string function_str;
     std::cin >> function_str;
@@ -226,8 +221,8 @@ void s21::Interface::salesmanAlgorithmsComparison() {
 }
 
 void s21::Interface::measureSalesmanSolverSpeed(
-    int iterations_number,
-    std::function<s21::TsmResult(const s21::Graph &graph)> salesman_solver) {
+  int iterations_number,
+  std::function<s21::TsmResult(const s21::Graph &graph)> salesman_solver) {
   auto begin = std::chrono::steady_clock::now();
   for (int i = 0; i < iterations_number; i++) {
     salesman_solver(m_graph_);
@@ -254,7 +249,7 @@ bool s21::Interface::checkVertex(int start_vertex) {
 
 void s21::Interface::checkPath(int first_vertex, int second_vertex) {
   try {
-    auto res = s21::GraphAlgorithms::getShortestPathBetweenVertices(
+    double res = s21::GraphAlgorithms::getShortestPathBetweenVertices(
         m_graph_, first_vertex, second_vertex);
     std::cout << "\n\u001b[35mShortest path between " << first_vertex << " and "
               << second_vertex << " vertices: \e[0m\n";

@@ -19,7 +19,6 @@ struct GraphData {
     matrix = std::make_unique<MatrixType>(*other.matrix);
   }
   std::unique_ptr<MatrixType> matrix;
-  // smth else if needed
 };
 
 struct TsmResult {

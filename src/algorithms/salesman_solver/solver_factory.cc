@@ -22,7 +22,7 @@ std::unique_ptr<ISalesmanSolver> getSalesmanSolver(SolverAlgorithm type,
       break;
     }
     default:
-      throw std::invalid_argument("No such salesman solver.");
+      throw std::invalid_argument("There is no such salesman solver.");
   }
   return solver;
 }

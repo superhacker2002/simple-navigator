@@ -65,7 +65,7 @@ int SimpleACO::selectNextCity_(int ant) {
         "Impossible to solve salesman problem for this graph.");
   }
   std::uniform_real_distribution<double> dis(0.0, max_probability);
-  while (1) {
+  while (true) {
     to++;
     if (to >= cities_number_) {
       to = 0;

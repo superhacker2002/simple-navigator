@@ -19,6 +19,7 @@ s21::VerticesList s21::GraphAlgorithms::depthFirstSearch(const Graph &graph,
   return searchAlgorithm_<s21::Stack<int>>(graph, start_vertex,
                                            not_visited_verticles);
 }
+
 /**
  * Method for traversing graph data structure.
  * The algorithm starts at the tree’s root or graph and searches/visits
@@ -159,7 +160,7 @@ s21::TsmResult s21::GraphAlgorithms::solveTravelingSalesmanProblemBF(
 
 int s21::GraphAlgorithms::isPath_(double tag) {
   if (tag == INF) {
-    throw std::invalid_argument("Error : No path between these two vertices.");
+    throw std::invalid_argument("Error : There is no path between these two vertices.");
   }
   return tag;
 }

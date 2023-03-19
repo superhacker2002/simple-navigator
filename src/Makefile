@@ -32,7 +32,7 @@ ALGORITHMS_OBJ = $(patsubst %.cc, %.o, $(SRC_ALGORITHMS))
 
 .PHONY: all s21_graph.a s21_graph_algorithms.a interface test clean fclean style_check
 
-all: $(GRAPH_LIB) clean
+all: $(GRAPH_LIB) $(ALGORITHMS_LIB) clean
 
 %.o: %.cc
 	@$(CC) -c $< -o $@ $(FLAGS)

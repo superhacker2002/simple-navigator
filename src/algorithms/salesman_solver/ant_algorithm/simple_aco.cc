@@ -36,7 +36,7 @@ std::vector<AntType> SimpleACO::createAnts_() {
 }
 
 void SimpleACO::restartAnts_() {
-  for (auto& ant : ants_) {
+  for (const AntType& ant : ants_) {
     if (ant.tour_length < best_path_length_) {
       best_path_length_ = ant.tour_length;
       best_path_ = ant.path;
@@ -83,7 +83,7 @@ int SimpleACO::selectNextCity_(int ant) {
 
 int SimpleACO::simulateAnts_() {
   int moving = 0;
-  for (auto& ant : ants_) {
+  for (AntType& ant : ants_) {
     if (ant.path_index < cities_number_) {
       int next_city = selectNextCity_(&ant - &ants_[0]);
       ant.next_city = next_city;
@@ -126,7 +126,7 @@ void SimpleACO::evaporatePheromones_() {
 }
 
 void SimpleACO::addPheromones_() {
-  for (auto& ant : ants_) {
+  for (const AntType& ant : ants_) {
     for (int city = 0; city < cities_number_; city++) {
       int from, to;
       if (city < cities_number_ - 1) {

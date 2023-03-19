@@ -239,7 +239,7 @@ TEST_F(AllAlgorithmsTest, path_between_all_vertices_test_1) {
 }
 
 TEST_F(AllAlgorithmsTest, path_between_all_vertices_test_2) {
-  graph.loadGraphFromFile("../datasets/o_w.txt");
+  graph.loadGraphFromFile("../datasets/no_w.txt");
   const std::vector<double> answer = {
   0.00, 29.00, 20.00, 20.00, 16.00, 31.00, 100.00, 12.00, 4.00, 31.00, 18.00 ,
   29.00, 0.00, 15.00, 29.00, 28.00, 40.00, 72.00, 21.00, 29.00, 41.00, 12.00 ,

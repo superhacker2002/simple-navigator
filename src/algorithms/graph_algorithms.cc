@@ -52,7 +52,7 @@ double s21::GraphAlgorithms::getShortestPathBetweenVertices(const Graph &graph,
   tags[vertex1] = 0;
 
   while (!not_visited_vertices.empty()) {
-    for (auto heir : getHeirsIndexes_(graph, vertex1)) {
+    for (const int& heir : getHeirsIndexes_(graph, vertex1)) {
       if (!visited_vertices[vertex1]) {
         not_visited_vertices.push(heir);
         double weight = graph.getWeight(vertex1, heir);

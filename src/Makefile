@@ -68,7 +68,7 @@ fclean: clean
 
 style_check:
 	cp ../materials/linters/.clang-format .
-	clang-format -i $(SRC_GRAPH) $(SRC_ALGORITHMS) \
+	clang-format -n $(SRC_GRAPH) $(SRC_ALGORITHMS) \
 					$(SRC_INTERFACE) $(SRC_GRAPH_TEST) \
 					$(SRC_ALGORITHMS_TEST) s21_graph.h \
 					s21_graph_algorithms.h interface/*.h \

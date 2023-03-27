@@ -3,10 +3,6 @@
 
 Implementation of several basic algorithms on graphs. 
 
-## Introduction
-
-In this project you will implement several basic algorithms on graphs. Graphs are one of the basic data structures in programming that are used everywhere. Graphs can be used, for example, to interpret road maps, electrical circuits, geographic maps, for communication between people in social networks, and many other things.  
-
 ## Information
 
 ### Representation of the graph
